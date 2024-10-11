@@ -35,7 +35,12 @@
         .character {
             cursor: pointer;
             text-align: center;
-            transition: filter 0.3s; /* Transição suave para o efeito de brilho */
+            transition: transform 0.3s, filter 0.3s; /* Transição suave para o efeito de brilho e aumento */
+        }
+
+        .character:hover {
+            transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
+            filter: brightness(1.5); /* Aumenta o brilho ao passar o mouse */
         }
 
         .character.active {
@@ -68,6 +73,8 @@
             opacity: 1; /* Nuvem começa visível */
             background-color: white; /* Fundo branco */
             transition: opacity 1s; /* Efeito suave de desaparecimento */
+            width: 200px; /* Largura da nuvem */
+            height: 100px; /* Altura da nuvem */
         }
 
         #luziaButton, #stopButton {
@@ -257,21 +264,20 @@
 
         function showTempestade() {
             document.getElementById('tempestadeCloud').style.display = 'block';
-            displayMessage(tempestadeMessages);
             animateDissipatingCloud();
+            displayMessage(tempestadeMessages);
         }
 
         function displayMessage(messages) {
             let index = 0;
             const interval = setInterval(() => {
-                if (index < messages.length) {
-                    document.getElementById('messages').style.opacity = '0'; // Suaviza a transição
-                    setTimeout(() => {
-                        document.getElementById('messages').innerHTML = messages[index];
-                        document.getElementById('messages').style.opacity = '1'; // Faz a mensagem aparecer suavemente
-                    }, 500); // Atraso para a nova mensagem aparecer
-                    index++;
-                } else {
+                document.getElementById('messages').style.opacity = '0'; // Suaviza a transição
+                setTimeout(() => {
+                    document.getElementById('messages').innerHTML = messages[index];
+                    document.getElementById('messages').style.opacity = '1'; // Faz a mensagem aparecer suavemente
+                }, 500); // Atraso para a nova mensagem aparecer
+                index++;
+                if (index >= messages.length) {
                     index = 0; // Reinicia o índice para looping
                 }
             }, 3000);
@@ -319,8 +325,8 @@
                     cloud.style.opacity = opacity;
                     requestAnimationFrame(dissipateAnimation);
                 } else {
-                    // Após desaparecer, reinicia a nuvem
-                    cloud.style.opacity = '1'; // Reseta a opacidade da nuvem
+                    opacity = 1; // Reseta a opacidade da nuvem
+                    cloud.style.opacity = opacity; // Reinicia a nuvem
                 }
             };
             dissipateAnimation();
