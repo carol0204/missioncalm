@@ -3,179 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floresta da Calma</title>
+    <title>Caminho para a Calma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Patrick+Hand&family=Raleway:wght@300;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #E0F7FA;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            margin-top: 13px;
+            background-image: url('./imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
+            background-size: cover;
+            color: #fff;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
-        #gameArea {
+
+        h1 {
+            font-size: 5em;
+            text-shadow: 2px 2px 8px #000;
+            font-family: 'Patrick Hand', cursive;
+            margin: 20px 0;
+        }
+
+        .character {
+            display: inline-block;
+            width: 190px;
+            height: 190px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .character:hover {
+            transform: scale(1.15);
+            filter: brightness(1.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .game-area {
             display: none;
-            border: 2px solid #00796B;
+            margin-top: 13px;
+            border: 2px solid #fff;
             padding: 20px;
-            margin: 20px auto;
-            width: 80%;
-            background-color: #FFFFFF;
+            background-color: rgba(0, 102, 204, 0.7);
             border-radius: 10px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
         }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #66b3ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #1d588b;
+            transform: translateY(-2px);
+        }
+
+        .message-box {
+            margin-top: 18px;
+            padding: 15px;
+            background-color: #1d588b;
+            color: #fff;
+            border-radius: 5px;
+            display: inline-block;
+            max-width: 90%;
+            text-align: left;
+            font-size: 1.1em;
+            line-height: 1.5em;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        /* Texto de boas-vindas */
+        .welcome-text {
+            font-size: 1.4em;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            max-width: 80%;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            display: block; /* Certifique-se de que está visível */
+        }
+
+        /* Círculo de respiração */
         .breathing-circle {
-            width: 100px;
-            height: 100px;
-            background-color: #4DB6AC;
+            width: 150px;
+            height: 150px;
+            border: 5px solid #8FDDE7;
             border-radius: 50%;
-            animation: breathe 4s infinite;
+            margin: 20px auto;
+            animation: breathe 8s infinite ease-in-out;
+            background-color: rgba(143, 221, 231, 0.4);
         }
+
         @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
         }
+
+        /* Animação da nuvem */
         .cloud {
-            background: url('imagem_cloud.png') no-repeat center center;
-            width: 200px;
-            height: 100px;
-            margin: 0 auto;
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 60px 60px 40px 40px;
+            margin: 20px auto;
+            animation: dissipate 5s infinite ease-in-out;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            left: 10px;
+        }
+
+        .cloud::after {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            right: 10px;
+        }
+
+        @keyframes dissipate {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+                background-color: rgba(255, 99, 71, 0.4); /* Cor intensa de raiva */
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+                background-color: rgba(255, 255, 255, 0);
+            }
+        }
+
+        .fade-message {
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .fade-message.show {
+            opacity: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .character {
+                width: 100px;
+                height: 100px;
+            }
+
+            button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+
+            .message-box {
+                font-size: 1em;
+                line-height: 1.3em;
+            }
+
+            .welcome-text {
+                font-size: 1.2em;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Floresta da Calma</h1>
-    <button onclick="startGame('calmi')">Jogar com Calmi</button>
-    <button onclick="startGame('luzia')">Jogar com Luzia</button>
-    <button onclick="startGame('tempestade')">Jogar com Tempestade</button>
 
-    <div id="gameArea">
-        <h2 id="gameTitle"></h2>
-        <p id="characterDescription"></p>
-        <div id="gameContent"></div>
-        <audio id="music" loop></audio>
-        <button onclick="closeGame()">Sair</button>
+    <h1>Caminho para a Calma</h1>
+    
+    <div id="characters">
+        <img class="character" src="imagens/calmi.png" alt="Calmi" onclick="startGame('calmi')">
+        <img class="character" src="imagens/luzia.png" alt="Luzia" onclick="startGame('luzia')">
+        <img class="character" src="imagens/tempestade.png" alt="Tempestade" onclick="startGame('tempestade')">
     </div>
+
+    <!-- Div do texto de boas-vindas -->
+    <div id="welcomeMessage" class="welcome-text">
+        Bem-vindo ao Caminho para a Calma! Aqui você encontrará personagens especiais que irão ajudá-lo a enfrentar diferentes desafios emocionais de maneira leve e divertida. 
+        Clique em um dos personagens acima para começar. Cada personagem tem uma missão única para ajudá-lo a lidar com questões como ansiedade, raiva e autoestima. 
+        Estamos aqui para guiá-lo nesse caminho de autoconhecimento e tranquilidade.
+    </div>
+
+    <div class="game-area" id="gameArea">
+        <h2 id="gameTitle"></h2>
+        <p id="characterDescription" class="character-info"></p>
+        <div id="gameContent"></div>
+        <button onclick="stopMusic()">Parar Música</button>
+        <button onclick="closeGame()">Fechar Jogo</button>
+    </div>
+
+    <audio id="music" src="" preload="auto"></audio>
 
     <script>
         const messages = {
             calm: [
-                "Respire fundo e sinta a calma entrando.",
-                "Deixe seus pensamentos irem embora.",
-                "A cada respiração, você se sente mais calmo.",
-                "Você é capaz de lidar com qualquer situação.",
-                "Você pode criar um espaço de paz em sua mente.",
-                "A serenidade é seu direito de nascença.",
-                "Vamos respirar juntos e encontrar a calma."
-            ],
-            selfEsteem: [
-                "Você é único e especial.",
-                "Acredite em si mesmo!",
-                "Sua luz brilha intensamente.",
-                "Você merece amor e respeito.",
-                "Você é forte e capaz.",
-                "Confie em suas habilidades.",
-                "Cada dia é uma nova oportunidade."
+                "Respire fundo e relaxe.",
+                "Acalme sua mente e o seu coração.",
+                "Você tem o poder de controlar suas emoções.",
+                "Tudo vai ficar bem.",
+                "Cada respiração traz mais calma para o seu corpo.",
+                "Você está seguro e tranquilo.",
+                "Permita-se descansar e recuperar suas energias.",
+                "A paz interior está ao seu alcance.",
+                "Tudo o que você precisa está dentro de você.",
+                "A calma é o seu estado natural.",
+                "O que você está sentindo agora vai passar.",
+                "Observe sua respiração e sinta a tranquilidade que ela traz.",
+                "Você é como uma árvore firme, com raízes profundas e tranquilidade em seu ser.",
+                "Tire um momento para olhar ao redor e notar cinco coisas que você vê.",
+                "Continue respirando devagar. A ansiedade vai passar."
             ],
             anger: [
-                "A raiva é uma emoção normal.",
-                "É importante expressar o que você sente.",
-                "Você pode transformar a raiva em algo positivo.",
-                "Sinta a raiva, mas não deixe que ela controle você.",
-                "Respire fundo e conte até dez.",
-                "Você tem o poder de escolher suas reações.",
-                "A calma vem depois da tempestade.",
-                "Reconhecer sua raiva é o primeiro passo.",
+                "Respire fundo e conte até cinco.",
+                "A raiva é apenas uma emoção, e você pode controlá-la.",
+                "Visualize a nuvem de raiva se dissipando.",
+                "Permita-se sentir, mas não deixe que a raiva o controle.",
+                "Cada respiração é uma oportunidade de relaxar.",
+                "Transforme a raiva em energia positiva.",
+                "Dê um passo para trás e observe seus sentimentos.",
+                "Você tem o poder de escolher sua reação.",
                 "A raiva não define quem você é.",
-                "Você é mais do que suas emoções.",
-                "Transforme sua raiva em energia criativa.",
-                "Vamos juntos encontrar formas saudáveis de expressar a raiva.",
-                "A comunicação aberta pode ajudar a resolver conflitos.",
-                "Você pode liberar sua raiva de maneira construtiva.",
-                "Cada emoção é uma oportunidade de aprendizado.",
-                "A raiva é uma mensagem que precisa ser ouvida.",
-                "Não tenha medo de pedir ajuda.",
-                "Você é forte o suficiente para superar isso.",
-                "Lembre-se: a raiva é temporária, mas suas ações têm consequências.",
-                "Você pode escolher como reagir."
+                "Permita-se deixar ir o que não lhe serve mais.",
+                "Concentre-se no que você pode controlar.",
+                "A raiva é passageira; a paz é duradoura.",
+                "Imagina a nuvem se afastando até desaparecer completamente.",
+                "Cada respiração traz alívio e liberdade.",
+                "Você é mais forte do que a raiva."
+            ],
+            selfEsteem: [
+                "Você é suficiente do jeito que é.",
+                "Acredite em si mesmo e nas suas capacidades.",
+                "Você é digno de amor e respeito.",
+                "Confie na sua jornada.",
+                "Seja gentil consigo mesmo, como seria com um amigo.",
+                "Celebre suas pequenas vitórias.",
+                "Você é um ser humano incrível.",
+                "Permita-se brilhar.",
+                "Suas falhas não definem quem você é.",
+                "A autoestima é um músculo; treine-o diariamente.",
+                "Você é capaz de realizar grandes coisas.",
+                "Seu valor é inestimável.",
+                "Foque no que você ama em si mesmo.",
+                "Você é uma obra em progresso; está tudo bem em evoluir.",
+                "A vida é uma jornada; aproveite o caminho."
             ]
         };
 
+        let currentMessageIndex = 0;
+        let messageTimeout;
+        let isGameActive = false;
+        let currentMusic = "";
+
         function startGame(character) {
+            document.getElementById("welcomeMessage").style.display = "none";
             document.getElementById("gameArea").style.display = "block";
-            const title = document.getElementById("gameTitle");
-            const description = document.getElementById("characterDescription");
-            const content = document.getElementById("gameContent");
-            const music = document.getElementById("music");
-            
-            if (character === 'calmi') {
-                title.textContent = "Aventuras de Calmi";
-                description.textContent = "Calmi é o guardião da serenidade. Ele te ajudará a controlar a ansiedade e a encontrar o seu centro.";
-                content.innerHTML = `<div class="breathing-circle"></div><p id="breathingMessage"></p>`;
-                music.src = "musica_calmi.mp3"; // Caminho para a música do Calmi
-                playMusic();
-                breathingExercise();
-            } else if (character === 'luzia') {
-                title.textContent = "Aventuras de Luzia";
-                description.textContent = "Luzia ilumina seu caminho e ajuda a fortalecer sua autoestima. Siga com confiança!";
-                content.innerHTML = `<div class="cloud"></div><p id="selfEsteemMessage"></p>`;
-                music.src = "musica_luzia.mp3"; // Caminho para a música da Luzia
-                playMusic();
-                selfEsteemMessages();
-            } else if (character === 'tempestade') {
-                title.textContent = "Aventuras de Tempestade";
-                description.textContent = "Tempestade é a energia da transformação. Ele ajuda a transformar a raiva em motivação!";
-                content.innerHTML = `<div class="cloud"></div><p id="angerMessage"></p>`;
-                music.src = "musica_tempestade.mp3"; // Caminho para a música da Tempestade
-                playMusic();
-                angerMessages();
+            document.getElementById("gameTitle").innerText = character.charAt(0).toUpperCase() + character.slice(1);
+            document.getElementById("characterDescription").innerText = getCharacterDescription(character);
+            document.getElementById("gameContent").innerHTML = "";
+
+            if (character === "calmi") {
+                currentMusic = "musicas/calmi.mp3";
+                displayMessages(messages.calm);
+                createBreathingCircle();
+            } else if (character === "tempestade") {
+                currentMusic = "musicas/tempestade.mp3";
+                displayMessages(messages.anger);
+                createDissipatingCloud();
+            } else if (character === "luzia") {
+                currentMusic = "musicas/luzia.mp3";
+                displayMessages(messages.selfEsteem);
+            }
+
+            document.getElementById("music").src = currentMusic;
+            document.getElementById("music").play();
+            isGameActive = true;
+        }
+
+        function getCharacterDescription(character) {
+            switch (character) {
+                case "calmi":
+                    return "Calmi é seu guia para a tranquilidade. Ele vai ajudá-lo a encontrar o equilíbrio interior e a paz.";
+                case "tempestade":
+                    return "Tempestade é um amigo que entende a raiva. Juntos, vocês podem encontrar formas de acalmar as emoções.";
+                case "luzia":
+                    return "Luzia acredita na sua força interior. Ela vai ajudá-lo a reconhecer seu valor e a brilhar.";
+                default:
+                    return "";
             }
         }
 
-        function playMusic() {
-            const music = document.getElementById("music");
-            music.play();
+        function displayMessages(messages) {
+            const gameContent = document.getElementById("gameContent");
+            gameContent.innerHTML = ''; // Limpa mensagens anteriores
+            currentMessageIndex = 0;
+            showNextMessage(messages);
+        }
+
+        function showNextMessage(messages) {
+            if (currentMessageIndex < messages.length) {
+                const messageBox = document.createElement("div");
+                messageBox.classList.add("message-box", "fade-message");
+                messageBox.innerText = messages[currentMessageIndex];
+                document.getElementById("gameContent").appendChild(messageBox);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        messageBox.classList.add("show");
+                        setTimeout(() => {
+                            messageBox.classList.remove("show");
+                            setTimeout(() => {
+                                messageBox.remove(); // Remove a mensagem após a animação
+                                currentMessageIndex++;
+                                showNextMessage(messages); // Chama a próxima mensagem
+                            }, 2000); // Tempo que a mensagem desaparece
+                        }, 3000); // Tempo que a mensagem aparece
+                    });
+                });
+            } else {
+                isGameActive = false; // Finaliza o jogo
+            }
+        }
+
+        function createBreathingCircle() {
+            const breathingCircle = document.createElement("div");
+            breathingCircle.className = "breathing-circle";
+            document.getElementById("gameContent").appendChild(breathingCircle);
+        }
+
+        function createDissipatingCloud() {
+            const cloud = document.createElement("div");
+            cloud.className = "cloud";
+            document.getElementById("gameContent").appendChild(cloud);
         }
 
         function stopMusic() {
             const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0; // Volta ao início
+            music.currentTime = 0; // Reinicia a música
         }
 
         function closeGame() {
             document.getElementById("gameArea").style.display = "none";
-            stopMusic();
-            document.getElementById("gameTitle").textContent = "";
-            document.getElementById("characterDescription").textContent = "";
-            document.getElementById("gameContent").innerHTML = "";
-        }
-
-        function breathingExercise() {
-            const breathingMessage = document.getElementById("breathingMessage");
-            const messagesArray = messages.calm;
-            let index = 0;
-            setInterval(() => {
-                breathingMessage.textContent = messagesArray[index];
-                index = (index + 1) % messagesArray.length;
-            }, 4000);
-        }
-
-        function selfEsteemMessages() {
-            const selfEsteemMessage = document.getElementById("selfEsteemMessage");
-            const messagesArray = messages.selfEsteem;
-            let index = 0;
-            setInterval(() => {
-                selfEsteemMessage.textContent = messagesArray[index];
-                index = (index + 1) % messagesArray.length;
-            }, 4000);
-        }
-
-        function angerMessages() {
-            const angerMessage = document.getElementById("angerMessage");
-            const messagesArray = messages.anger;
-            let index = 0;
-            setInterval(() => {
-                angerMessage.textContent = messagesArray[index];
-                index = (index + 1) % messagesArray.length;
-            }, 4000);
+            document.getElementById("welcomeMessage").style.display = "block";
+            stopMusic(); // Para a música quando o jogo é fechado
         }
     </script>
 </body>
