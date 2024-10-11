@@ -218,8 +218,9 @@
     <div class="game-area" id="gameArea">
         <h2 id="gameTitle"></h2>
         <p id="characterDescription" class="character-info"></p>
-        <div class="breathing-circle"></div>
-        <div id="gameContent"></div>
+        <div id="dynamicContent"></div>
+        <div class="breathing-circle" id="breathingCircle" style="display: none;"></div>
+        <div class="cloud" id="cloud" style="display: none;"></div>
         <button onclick="stopMusic()">Parar Música</button>
         <button onclick="closeGame()">Fechar Jogo</button>
     </div>
@@ -250,64 +251,118 @@
                 "A beleza vem de dentro e brilha para fora.",
                 "Você tem um brilho que é só seu.",
                 "Aceite-se como você é.",
-                "A autoestima é o seu superpoder.",
-                "Cada dia é uma nova oportunidade de brilhar.",
-                "Acredite em você e no seu potencial.",
-                "Sua história é linda e vale a pena ser contada.",
-                "Ame-se incondicionalmente.",
-                "A sua felicidade deve ser a sua prioridade.",
-                "Você merece todas as coisas boas da vida.",
-                "Confie no seu próprio valor.",
-                "Você é uma obra-prima em constante evolução.",
-                "Cada erro é uma oportunidade de aprendizado.",
-                "Você é amada exatamente como é."
+                "A autoestima é o primeiro passo para o amor próprio.",
+                "Você é forte e capaz de conquistar seus sonhos.",
+                "O amor-próprio é essencial.",
+                "Você merece todo o bem que o mundo tem a oferecer.",
+                "Celebre suas conquistas, por menores que sejam.",
+                "Acredite em si mesma e nas suas capacidades."
             ],
             tempestade: [
-                "Reconheça sua raiva, mas não deixe que ela o controle.",
-                "É normal sentir raiva; o importante é como você lida com isso.",
-                "Respire fundo e conte até dez.",
-                "Permita-se sentir, mas escolha como agir.",
-                "A raiva é uma emoção válida, mas não precisa ser destrutiva.",
-                "Converse sobre seus sentimentos de maneira calma.",
-                "Você tem o poder de transformar sua raiva em energia positiva.",
-                "Pense nas consequências de suas ações antes de agir.",
-                "A comunicação é a chave para resolver conflitos.",
-                "Seu bem-estar emocional é mais importante do que estar certo.",
-                "Encontre uma forma saudável de liberar sua raiva.",
-                "Lembre-se: a calma é sua aliada.",
-                "Desenhe ou escreva sobre seus sentimentos.",
-                "A raiva pode ser um sinal de que algo precisa ser mudado.",
-                "Você é mais forte do que pensa."
+                "É normal sentir raiva, mas encontre uma saída saudável.",
+                "A raiva é uma emoção, não um comportamento.",
+                "Respire e permita que a raiva flua sem controle.",
+                "Transforme a raiva em energia positiva.",
+                "Busque o que está por trás da sua raiva.",
+                "Identifique o que a provoca e trabalhe para mudar.",
+                "A calma pode ser alcançada, mesmo nas tempestades.",
+                "Concentre-se no que você pode controlar.",
+                "Libere a raiva de forma construtiva.",
+                "Cada respiração é uma oportunidade de se acalmar."
             ]
         };
 
+        let currentCharacter = '';
+        let music = document.getElementById('music');
+        let dynamicContent = document.getElementById('dynamicContent');
+        let breathingCircle = document.getElementById('breathingCircle');
+        let cloud = document.getElementById('cloud');
+        let welcomeMessage = document.getElementById('welcomeMessage');
+
         function startGame(character) {
-            const title = character.charAt(0).toUpperCase() + character.slice(1);
-            document.getElementById("gameTitle").innerText = title;
-            document.getElementById("characterDescription").innerText = `Esta é a missão de ${title}:`;
-            document.getElementById("gameContent").innerText = getRandomMessage(character);
-            document.getElementById("music").src = `musicas/${character}.mp3`; // Adicione o caminho correto para suas músicas
-            document.getElementById("music").play();
-            document.getElementById("welcomeMessage").style.display = "none";
-            document.getElementById("gameArea").style.display = "block";
+            currentCharacter = character;
+            document.getElementById('gameArea').style.display = 'block';
+            welcomeMessage.style.display = 'none';
+            document.getElementById('gameTitle').innerText = `Aventuras com ${character.charAt(0).toUpperCase() + character.slice(1)}`;
+            document.getElementById('characterDescription').innerText = `Junte-se a ${character.charAt(0).toUpperCase() + character.slice(1)} em uma jornada especial para lidar com suas emoções.`;
+            dynamicContent.innerHTML = ''; // Limpar mensagens anteriores
+            showMessages();
+            playMusic(character);
+            if (character === 'calmi') {
+                startBreathing();
+            } else if (character === 'tempestade') {
+                showCloud();
+            }
         }
 
-        function getRandomMessage(character) {
-            const messageArray = messages[character];
-            return messageArray[Math.floor(Math.random() * messageArray.length)];
+        function showMessages() {
+            const messageArray = messages[currentCharacter];
+            let messageIndex = 0;
+
+            const displayNextMessage = () => {
+                if (messageIndex < messageArray.length) {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message-box', 'fade-message');
+                    messageElement.innerText = messageArray[messageIndex];
+                    dynamicContent.appendChild(messageElement);
+                    setTimeout(() => {
+                        messageElement.classList.add('show');
+                    }, 100); // Esperar 100ms antes de adicionar a classe para exibir a mensagem
+
+                    setTimeout(() => {
+                        messageElement.classList.remove('show');
+                    }, 5000); // Exibir a mensagem por 5 segundos
+
+                    setTimeout(() => {
+                        messageElement.remove(); // Remover a mensagem após a transição
+                    }, 7000); // Esperar 7 segundos antes de remover a mensagem
+                    messageIndex++;
+                    setTimeout(displayNextMessage, 8000); // Chamar a próxima mensagem a cada 8 segundos
+                }
+            };
+
+            displayNextMessage();
+        }
+
+        function playMusic(character) {
+            switch (character) {
+                case 'calmi':
+                    music.src = 'musicas/musica.calmi.mp3'; // Corrija o caminho se necessário
+                    break;
+                case 'luzia':
+                    music.src = 'musicas/musica.luzia.mp3'; // Corrija o caminho se necessário
+                    break;
+                case 'tempestade':
+                    music.src = 'musicas/musica.tempestade.mp3'; // Corrija o caminho se necessário
+                    break;
+            }
+            music.loop = true; // A música tocará em loop
+            music.play();
         }
 
         function stopMusic() {
-            const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0; // Reseta a música para o início
+            music.currentTime = 0; // Reiniciar a música
         }
 
         function closeGame() {
+            document.getElementById('gameArea').style.display = 'none';
+            welcomeMessage.style.display = 'block';
             stopMusic();
-            document.getElementById("gameArea").style.display = "none";
-            document.getElementById("welcomeMessage").style.display = "block";
+            breathingCircle.style.display = 'none';
+            cloud.style.display = 'none'; // Certifique-se de que a nuvem não esteja visível ao fechar
         }
+
+        function startBreathing() {
+            breathingCircle.style.display = 'block';
+            breathingCircle.classList.add('show');
+        }
+
+        function showCloud() {
+            cloud.style.display = 'block';
+            cloud.classList.add('show');
+        }
+
     </script>
 </body>
 </html>
