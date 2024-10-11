@@ -8,13 +8,11 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            margin-top: 13px;
+            margin: 0;
             background-image: url('./imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
             background-size: cover;
             color: #fff;
             text-align: center;
-            margin: 0;
-            padding: 0;
         }
 
         h1 {
@@ -61,7 +59,6 @@
             border: none;
             border-radius: 8px;
             transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
@@ -83,7 +80,6 @@
             font-family: 'Patrick Hand', cursive;
         }
 
-        /* Texto de boas-vindas */
         .welcome-text {
             font-size: 1.4em;
             margin: 20px auto;
@@ -96,7 +92,6 @@
             display: block; /* Certifique-se de que está visível */
         }
 
-        /* Círculo de respiração */
         .breathing-circle {
             width: 150px;
             height: 150px;
@@ -105,6 +100,7 @@
             margin: 20px auto;
             animation: breathe 8s infinite ease-in-out;
             background-color: rgba(143, 221, 231, 0.4);
+            display: none; /* Começa escondido */
         }
 
         @keyframes breathe {
@@ -113,53 +109,6 @@
             }
             50% {
                 transform: scale(1.3);
-            }
-        }
-
-        /* Animação da nuvem */
-        .cloud {
-            position: relative;
-            display: inline-block;
-            width: 120px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 60px 60px 40px 40px;
-            margin: 20px auto;
-            animation: dissipate 5s infinite ease-in-out;
-        }
-
-        .cloud::before,
-        .cloud::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .cloud::before {
-            width: 80px;
-            height: 80px;
-            top: -40px;
-            left: 10px;
-        }
-
-        .cloud::after {
-            width: 60px;
-            height: 60px;
-            top: -30px;
-            right: 10px;
-        }
-
-        @keyframes dissipate {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                background-color: rgba(255, 99, 71, 0.4); /* Cor intensa de raiva */
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-                background-color: rgba(255, 255, 255, 0);
             }
         }
 
@@ -209,11 +158,8 @@
         <img class="character" src="imagens/tempestade.png" alt="Tempestade" onclick="startGame('tempestade')">
     </div>
 
-    <!-- Div do texto de boas-vindas -->
     <div id="welcomeMessage" class="welcome-text">
-        Bem-vindo ao Caminho para a Calma! Aqui você encontrará personagens especiais que irão ajudá-lo a enfrentar diferentes desafios emocionais de maneira leve e divertida. 
-        Clique em um dos personagens acima para começar. Cada personagem tem uma missão única para ajudá-lo a lidar com questões como ansiedade, raiva e autoestima. 
-        Estamos aqui para guiá-lo nesse caminho de autoconhecimento e tranquilidade.
+        Bem-vindo ao Caminho para a Calma! Clique em um dos personagens acima para começar.
     </div>
 
     <div class="game-area" id="gameArea">
@@ -233,46 +179,21 @@
                 "Ame-se do jeito que você é!",
                 "Você tem o poder de fazer a diferença!",
                 "Você é digno de tudo que deseja!",
-                "Acredite em si mesmo todos os dias!",
-                "Você é capaz de superar qualquer desafio!",
-                "Seu valor não depende da opinião dos outros.",
-                "Você tem o direito de ser feliz e realizado.",
-                "Você é uma pessoa única e especial.",
-                "Não deixe ninguém apagar o seu brilho!",
-                "Você merece ser amado e respeitado.",
-                "Sua força interior é imensa!",
-                "Você está se tornando uma versão melhor de si mesmo.",
-                "Você é mais forte do que imagina.",
-                "Cada passo que você dá é importante.",
-                "Você pode alcançar tudo o que deseja.",
-                "Você está no caminho certo para o sucesso.",
-                "Confie no seu potencial!",
-                "Você é mais do que suficiente.",
-                "Continue acreditando em si mesmo!"
+                "Acredite em si mesmo todos os dias!"
             ],
             calm: [
                 "Respire fundo e relaxe.",
                 "Acalme sua mente e o seu coração.",
                 "Você tem o poder de controlar suas emoções.",
                 "Tudo vai ficar bem.",
-                "Cada respiração traz mais calma para você.",
-                "Sinta a tranquilidade entrando em você.",
-                "Permita-se sentir paz neste momento.",
-                "A vida é feita de altos e baixos, e tudo é passageiro.",
-                "Concentre-se no aqui e agora.",
-                "Você é mais forte do que pensa."
+                "Cada respiração traz mais calma para você."
             ],
             anger: [
                 "É normal sentir raiva, mas é importante saber como lidar com ela.",
                 "Respire profundamente e deixe a raiva ir.",
                 "Você tem o controle sobre suas emoções.",
                 "Tente identificar o que está causando essa raiva.",
-                "Lembre-se de que você pode escolher como reagir.",
-                "A raiva é uma emoção, mas não precisa definir você.",
-                "Encontre formas saudáveis de liberar a sua raiva.",
-                "Deixe a raiva sair como uma nuvem se dissipando no céu.",
-                "Permita-se sentir a raiva, mas não a deixe controlar você.",
-                "A cada respiração, sinta sua raiva se dissipar."
+                "Lembre-se de que você pode escolher como reagir."
             ]
         };
 
@@ -287,12 +208,15 @@
             const welcomeMessage = document.getElementById("welcomeMessage");
             const music = document.getElementById("music");
             const messagesContainer = document.createElement("div");
+            const breathingCircle = document.createElement("div");
 
             // Esconder mensagem de boas-vindas
             welcomeMessage.style.display = "none";
             gameArea.style.display = "block";
             messagesContainer.className = "message-box";
+            breathingCircle.className = "breathing-circle";
             gameContent.appendChild(messagesContainer);
+            gameContent.appendChild(breathingCircle);
 
             // Controlar música e título
             if (character === 'calmi') {
@@ -312,6 +236,7 @@
                 showMessages(messages.anger, messagesContainer);
             }
             music.play();
+            breathingCircle.style.display = "block"; // Exibe o círculo de respiração
         }
 
         function showMessages(messageArray, container) {
@@ -343,15 +268,16 @@
             const gameArea = document.getElementById("gameArea");
             const welcomeMessage = document.getElementById("welcomeMessage");
             const music = document.getElementById("music");
+            const messagesContainer = document.getElementById("gameContent").querySelector('.message-box');
+            const breathingCircle = document.querySelector('.breathing-circle');
             gameArea.style.display = "none";
             welcomeMessage.style.display = "block";
             stopMusic(); // Para a música quando o jogo é fechado
-            const messagesContainer = document.getElementById("gameContent").querySelector('.message-box');
             messagesContainer.innerHTML = ''; // Limpa as mensagens ao fechar
             currentMessageIndex = 0; // Reinicia o índice das mensagens
             clearInterval(messageInterval); // Limpa o intervalo
+            breathingCircle.style.display = "none"; // Esconde o círculo de respiração
         }
     </script>
 </body>
 </html>
-
