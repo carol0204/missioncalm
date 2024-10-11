@@ -78,8 +78,10 @@
     </div>
 
     <script>
+        let currentAudio = null;
+
         const calmiMessages = [
-            "Respire profundamente... inale... exale...",
+           "Respire profundamente... inale... exale...",
             "Você está seguro e em paz.",
             "Sinta a calma invadindo seu corpo.",
             "A cada respiração, relaxe mais.",
@@ -150,8 +152,12 @@
         let tempestadeIndex = 0;
 
         function playMusic(musicPath) {
-            const audio = new Audio(musicPath);
-            audio.play();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(musicPath);
+            currentAudio.play();
         }
 
         function showCharacter(character) {
@@ -186,6 +192,7 @@
 
         function showTempestade() {
             document.getElementById('tempestadeCloud').style.display = 'block';
+            document.getElementById('tempestadeCloud').style.opacity = '1';
             displayMessage(tempestadeMessages);
             animateDissipatingCloud();
         }
@@ -212,15 +219,15 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 150, 255, 0.5)';
+                ctx.fillStyle = 'rgba(173, 216, 230, 0.5)'; // Azul claro transparente
                 ctx.fill();
                 ctx.closePath();
 
                 if (growing) {
-                    radius += 2;
+                    radius += 0.5; // Ajusta a velocidade para ficar mais lento
                     if (radius >= 80) growing = false;
                 } else {
-                    radius -= 2;
+                    radius -= 0.5;
                     if (radius <= 50) growing = true;
                 }
 
