@@ -6,215 +6,245 @@
     <title>Floresta da Calma</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png') no-repeat center center fixed;
+            background-image: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
             background-size: cover;
-            color: #fff;
-            text-align: center;
-        }
-
-        header {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-        }
-
-        nav button {
-            background-color: #00796b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        main {
-            margin-top: 20px;
-        }
-
-        #characterContainer {
-            text-align: center;
-        }
-
-        .character-image {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .breathing-circle {
-            width: 200px;
-            height: 200px;
-            border: 10px solid #fff;
-            border-radius: 50%;
-            margin: 20px auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            color: #fff;
-            animation: breathe 6s infinite;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
         }
-
-        @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .storm-cloud {
-            width: 300px;
-            height: 150px;
-            background-color: #333;
-            border-radius: 50%;
-            margin: 20px auto;
-            animation: dissipate 5s infinite;
-        }
-
-        @keyframes dissipate {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .fade-message {
-            opacity: 0;
-            transition: opacity 2s;
-            font-size: 24px;
+        #characterContainer {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
             margin: 20px 0;
         }
-
-        .fade-message.show {
-            opacity: 1;
+        .character {
+            cursor: pointer;
+            text-align: center;
+        }
+        #messages {
+            margin-top: 20px;
+            font-size: 18px;
+            animation: fade-in 2s;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #calmiCircle {
+            display: none;
+            margin-top: 20px;
+        }
+        #tempestadeCloud {
+            display: none;
+            position: relative;
+            margin-top: 20px;
+        }
+        #luziaButton {
+            display: none;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Bem-vindo à Floresta da Calma</h1>
-        <p>Escolha um personagem para começar</p>
-        <nav>
-            <button onclick="showCharacter('calmi')">Calmi</button>
-            <button onclick="showCharacter('luzia')">Luzia</button>
-            <button onclick="showCharacter('tempestade')">Tempestade</button>
-        </nav>
-    </header>
-
-    <main id="gameArea">
-        <div id="characterContainer">
-            <img id="characterImage" src="imagens/calmi.png" alt="Personagem" class="character-image">
-            <div id="interactionArea">
-                <!-- Área de interação dinâmica -->
-            </div>
+    <h1>Bem-vindo à Floresta da Calma</h1>
+    <div id="characterContainer">
+        <div class="character" onclick="showCharacter('calmi')">
+            <img src="imagens/calmi.png" alt="Calmi" width="100">
+            <p>Calmi</p>
         </div>
-    </main>
+        <div class="character" onclick="showCharacter('luzia')">
+            <img src="imagens/luzia.png" alt="Luzia" width="100">
+            <p>Luzia</p>
+        </div>
+        <div class="character" onclick="showCharacter('tempestade')">
+            <img src="imagens/tempestade.png" alt="Tempestade" width="100">
+            <p>Tempestade</p>
+        </div>
+    </div>
+    <div id="calmiCircle">
+        <canvas id="circleCanvas" width="200" height="200"></canvas>
+    </div>
+    <div id="tempestadeCloud">
+        <img src="imagens/nuvem.png" alt="Nuvem" width="200">
+    </div>
+    <div id="messages"></div>
+    <div id="luziaButton">
+        <button onclick="changeLuziaMessage()">Mudar Mensagem de Luzia</button>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calmiMessages = [
-                "Respire profundamente... inspire pelo nariz...",
-                "Agora expire lentamente pela boca...",
-                "Você está seguro, tudo vai ficar bem.",
-                "Continue respirando devagar, sinta seu corpo relaxar."
-            ];
+        const calmiMessages = [
+            "Lembre-se de que essa sensação de ansiedade vai passar. Você já superou isso antes."
+            "Foque no presente. O que você pode sentir, ver e ouvir ao seu redor agora?"
+            "Solte a tensão nos ombros e relaxe o maxilar. Seu corpo pode relaxar, mesmo que sua mente esteja agitada."
+            "Concentre-se em uma coisa que você pode controlar neste momento, como sua respiração."
+            "Permita-se sentir a ansiedade sem tentar fugir dela. Ela é uma emoção passageira."
+            "Você está seguro. A ansiedade não pode te machucar."
+            "Conte até 10 devagar enquanto respira fundo, isso ajudará a trazer sua mente de volta ao equilíbrio."
+            "Seus pensamentos são apenas pensamentos, não são a realidade. Eles vão e vêm como nuvens no céu."
+            "Observe aonde seu corpo sente a ansiedade. Respire nesses lugares e imagine-os relaxando."
+            "Diga a si mesmo: 'Estou fazendo o meu melhor. Isso é o suficiente agora.'"
+            "Visualize um lugar calmo e seguro em sua mente. Volte para lá sempre que precisar."
+            "Lembre-se: você já passou por momentos difíceis antes e saiu mais forte."
+            "Seus sentimentos não são permanentes. A ansiedade pode parecer forte agora, mas vai diminuir."
+            "A cada respiração, imagine que você está liberando a ansiedade e trazendo paz."
+            "Coloque sua mão sobre o coração. Sinta seu corpo vivo e presente."
+            "Tente se ancorar em algo ao seu redor: observe uma cor, textura ou som que você gosta."
+            "Se dê permissão para fazer pausas. Você não precisa resolver tudo agora."
+            "Você não está sozinho. Muitas pessoas lidam com ansiedade, e isso não diminui quem você é."
+            "Repita para si mesmo: 'Estou no controle. A ansiedade não define o que eu sou.'"
+        ];
+        const luziaMessages = [
+            "Você é único e insubstituível, exatamente como é."
+            "Seus pontos fortes são o que te fazem brilhar. Reconheça-os."
+            "Você merece amor, respeito e cuidado, assim como qualquer pessoa."
+            "Acredite no seu valor. Você é digno de todas as coisas boas que deseja."
+            "Você é mais forte do que pensa e mais capaz do que imagina."
+            "Cada pequeno passo que você dá te aproxima de ser a melhor versão de si mesmo."
+            "Seu valor não é definido pelas opiniões alheias, mas pela sua própria visão de si."
+            "Você tem dentro de si tudo o que precisa para superar qualquer obstáculo."
+            "Lembre-se: você é mais do que suas falhas. Você é um conjunto de conquistas e aprendizados."
+            "Permita-se crescer e evoluir no seu tempo, sem pressa."
+            "Você não precisa ser perfeito para ser incrível."
+            "Ame-se por quem você é agora, não apenas pelo que você quer se tornar."
+            "Você tem o direito de ocupar espaço, de ser ouvido e de ser visto."
+            "Sua coragem de continuar, mesmo em dias difíceis, já é uma vitória."
+            "Cuide de si mesmo com o mesmo carinho que oferece aos outros."
+            "Você tem o poder de transformar o seu dia e o seu humor com pequenos atos de amor próprio."
+            "Sua autenticidade é a sua maior força. Não se esconda."
+            "Você é digno de sonhos grandes e de conquistas extraordinárias."
+            "Seu caminho é único, e cada parte dele tem valor."
+            "Olhe para trás e veja o quanto você já cresceu. Seu progresso é motivo de orgulho."
+        ];
+        const tempestadeMessages = [
+             "Respire fundo, a raiva não precisa controlar suas ações."
+             "Permita-se uma pausa para respirar e refletir antes de reagir."
+             "Sua raiva é válida, mas você é mais forte que ela. Você tem o controle."
+             "Tire um momento para se afastar da situação e encontrar perspectiva."
+             "Sinta a raiva se dissipar conforme você respira fundo e solta a tensão."
+             "Sua calma é uma resposta poderosa. Use-a a seu favor."
+             "Lembre-se: a raiva é passageira. Dê tempo para sua mente se acalmar."
+             "Concentre-se no que você pode controlar, e deixe o resto ir."
+             "Contar até 10 devagar pode ajudar a clarear sua mente."
+             "Sua paz é mais importante do que ganhar uma discussão."
+             "A raiva pode ser intensa, mas a paz interior é sempre mais forte."
+             "Pergunte a si mesmo: como você gostaria de se sentir em vez de estar com raiva?"
+             "Seus sentimentos são válidos, mas reações calmas trazem soluções melhores."
+             "Você pode transformar sua raiva em energia para algo positivo."
+             "Solte os punhos, relaxe os ombros e respire profundamente. O controle está em suas mãos."
+             "Falar ou agir com raiva geralmente nos faz querer voltar atrás. Evite arrependimentos."
+             "Sua raiva não define quem você é. Você pode escolher a calma."
+             "Imagine sua raiva como uma nuvem que vai passar e se dissipar."
+             "A paz que você procura está sempre disponível dentro de você, mesmo em momentos de raiva."
+        ];
 
-            const luziaMessages = [
-               "Você é forte.",
-                "Você é especial.",
-                "Você é importante.",
-                "Sua opinião conta.",
-                "Você merece ser feliz.",
-                "Você é única.",
-                "Você é capaz.",
-                "Você é uma pessoa maravilhosa.",
-                "Você é criativa.",
-                "Você é uma boa amiga.",
-                "Você é talentosa.",
-                "Você é corajosa.",
-                "Você brilha.",
-                "Você faz a diferença.",
-                "Você é inteligente.",
-                "Você é amada.",
-                "Você é suficiente.",
-                "Você é gentil.",
-                "Você pode superar qualquer coisa.",
-                "Você merece respeito."
-            ];
+        let calmiIndex = 0;
+        let luziaIndex = 0;
+        let tempestadeIndex = 0;
 
-            const tempestadeMessages = [
-               "Toda tempestade passa.",
-                "Sua raiva não te controla.",
-                "Respire fundo e acalme o furacão dentro de você.",
-                "Você pode escolher como responder.",
-                "A raiva é só uma emoção, ela não define você.",
-                "Deixe a tempestade sair devagar.",
-                "Controle sua raiva, você é mais forte.",
-                "Você pode transformar raiva em força positiva.",
-                "Pense antes de agir, você tem o poder de decidir.",
-                "Acalme-se, e as coisas farão mais sentido."
-            ];
+        function playMusic(musicPath) {
+            const audio = new Audio(musicPath);
+            audio.play();
+        }
 
-            let calmiIndex = 0;
-            let luziaIndex = 0;
-            let tempestadeIndex = 0;
+        function showCharacter(character) {
+            document.getElementById('messages').innerHTML = '';
+            document.getElementById('calmiCircle').style.display = 'none';
+            document.getElementById('tempestadeCloud').style.display = 'none';
+            document.getElementById('luziaButton').style.display = 'none';
 
-            function showCharacter(character) {
-                const interactionArea = document.getElementById('interactionArea');
-                const characterImage = document.getElementById('characterImage');
-                interactionArea.innerHTML = ''; // Limpar a área de interação
-                if (character === 'calmi') {
-                    characterImage.src = 'imagens/calmi.png';
-                    playMusic('musicas/musica_calmi.mp3');
-                    startBreathingCircle();
-                    showMessage(calmiMessages, calmiIndex, 'calmi');
-                } else if (character === 'luzia') {
-                    characterImage.src = 'imagens/luzia.png';
-                    playMusic('musicas/musica_luzia.mp3');
-                    showMessage(luziaMessages, luziaIndex, 'luzia');
-                } else if (character === 'tempestade') {
-                    characterImage.src = 'imagens/tempestade.png';
-                    playMusic('musicas/musica_tempestade.mp3');
-                    startStormCloud();
-                    showMessage(tempestadeMessages, tempestadeIndex, 'tempestade');
+            if (character === 'calmi') {
+                playMusic('musicas/musica_calmi.mp3');
+                showCalmi();
+            } else if (character === 'luzia') {
+                playMusic('musicas/musica_luzia.mp3');
+                showLuzia();
+            } else if (character === 'tempestade') {
+                playMusic('musicas/musica_tempestade.mp3');
+                showTempestade();
+            }
+        }
+
+        function showCalmi() {
+            document.getElementById('calmiCircle').style.display = 'block';
+            animateBreathingCircle();
+            displayMessage(calmiMessages);
+        }
+
+        function showLuzia() {
+            luziaIndex = Math.floor(Math.random() * luziaMessages.length);
+            document.getElementById('messages').innerHTML = luziaMessages[luziaIndex];
+            document.getElementById('luziaButton').style.display = 'block';
+        }
+
+        function showTempestade() {
+            document.getElementById('tempestadeCloud').style.display = 'block';
+            displayMessage(tempestadeMessages);
+            animateDissipatingCloud();
+        }
+
+        function displayMessage(messages) {
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < messages.length) {
+                    document.getElementById('messages').innerHTML = messages[index];
+                    index++;
+                } else {
+                    clearInterval(interval);
                 }
-            }
+            }, 3000);
+        }
 
-            function playMusic(musicPath) {
-                const audio = new Audio(musicPath);
-                audio.play();
-            }
+        function animateBreathingCircle() {
+            const canvas = document.getElementById('circleCanvas');
+            const ctx = canvas.getContext('2d');
+            let radius = 50;
+            let growing = true;
 
-            function startBreathingCircle() {
-                const interactionArea = document.getElementById('interactionArea');
-                const circle = document.createElement('div');
-                circle.classList.add('breathing-circle');
-                circle.textContent = "Respire";
-                interactionArea.appendChild(circle);
-            }
+            const breathingAnimation = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 150, 255, 0.5)';
+                ctx.fill();
+                ctx.closePath();
 
-            function startStormCloud() {
-                const interactionArea = document.getElementById('interactionArea');
-                const cloud = document.createElement('div');
-                cloud.classList.add('storm-cloud');
-                cloud.textContent = "Dissipe a raiva";
-                interactionArea.appendChild(cloud);
-            }
+                if (growing) {
+                    radius += 2;
+                    if (radius >= 80) growing = false;
+                } else {
+                    radius -= 2;
+                    if (radius <= 50) growing = true;
+                }
 
-            function showMessage(messages, index, character) {
-                const interactionArea = document.getElementById('interactionArea');
-                const messageElement = document.createElement('p');
-                messageElement.classList.add('fade-message');
-                messageElement.textContent = messages[index];
-                interactionArea.appendChild(messageElement);
-                messageElement.classList.add('show');
-                setTimeout(() => {
-                    messageElement.classList.remove('show');
-                    index = (index + 1) % messages.length;
-                    interactionArea.removeChild(messageElement);
-                    showMessage(messages, index, character);
-                }, 5000);
-            }
-        });
+                requestAnimationFrame(breathingAnimation);
+            };
+            breathingAnimation();
+        }
+
+        function animateDissipatingCloud() {
+            const cloud = document.getElementById('tempestadeCloud');
+            let opacity = 1;
+
+            const dissipateAnimation = () => {
+                if (opacity > 0) {
+                    opacity -= 0.01;
+                    cloud.style.opacity = opacity;
+                    requestAnimationFrame(dissipateAnimation);
+                }
+            };
+            dissipateAnimation();
+        }
+
+        function changeLuziaMessage() {
+            luziaIndex = (luziaIndex + 1) % luziaMessages.length;
+            document.getElementById('messages').innerHTML = luziaMessages[luziaIndex];
+        }
     </script>
 </body>
 </html>
