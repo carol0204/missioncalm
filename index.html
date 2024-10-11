@@ -6,178 +6,214 @@
     <title>Floresta da Calma</title>
     <style>
         body {
-            background-image: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
-            background-size: cover;
             font-family: Arial, sans-serif;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        h1 {
-            color: #2e8b57;
-        }
-        #personagens {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-        }
-        #personagens img {
-            width: 150px;
-            cursor: pointer;
-        }
-        #conteudo {
-            margin-top: 20px;
+            background: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
             text-align: center;
         }
-        #circulo-respiracao {
-            width: 150px;
-            height: 150px;
+
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
+
+        nav button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        #characterContainer {
+            text-align: center;
+        }
+
+        .character-image {
+            width: 250px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #fff;
             border-radius: 50%;
-            background-color: rgba(135, 206, 250, 0.7);
-            animation: respiracao 6s infinite;
             margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            animation: breathe 6s infinite;
         }
-        @keyframes respiracao {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); }
-        }
-        #frases-autoestima {
-            display: none;
-        }
-        .nuvem-distorcida {
-            width: 150px;
-            height: 100px;
-            background: rgba(128, 128, 128, 0.7);
-            border-radius: 50%;
-            animation: distorcao 3s infinite;
-        }
-        @keyframes distorcao {
+
+        @keyframes breathe {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
+
+        .storm-cloud {
+            width: 300px;
+            height: 150px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: dissipate 5s infinite;
+        }
+
+        @keyframes dissipate {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .fade-message {
+            opacity: 0;
+            transition: opacity 2s;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .fade-message.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <h1>Escolha um Personagem</h1>
-    <div id="personagens">
-        <img id="calmi" src="imagens/calmi.png" alt="Calmi">
-        <img id="luzia" src="imagens/luzia.png" alt="Luzia">
-        <img id="tempestade" src="imagens/tempestade.png" alt="Tempestade">
-    </div>
+    <header>
+        <h1>Bem-vindo à Floresta da Calma</h1>
+        <p>Escolha um personagem para começar</p>
+        <nav>
+            <button onclick="showCharacter('calmi')">Calmi</button>
+            <button onclick="showCharacter('luzia')">Luzia</button>
+            <button onclick="showCharacter('tempestade')">Tempestade</button>
+        </nav>
+    </header>
 
-    <div id="conteudo">
-        <!-- Conteúdo dinâmico vai aqui -->
-    </div>
-
-    <audio id="musica-calmi" src="musicas/musica_calmi.mp3"></audio>
-    <audio id="musica-luzia" src="musicas/musica_luzia.mp3"></audio>
-    <audio id="musica-tempestade" src="musicas/musica_tempestade.mp3"></audio>
+    <main id="gameArea">
+        <div id="characterContainer">
+            <img id="characterImage" src="imagens/calmi.png" alt="Personagem" class="character-image">
+            <div id="interactionArea">
+                <!-- Área de interação dinâmica -->
+            </div>
+        </div>
+    </main>
 
     <script>
-        const conteudo = document.getElementById('conteudo');
+        document.addEventListener('DOMContentLoaded', function() {
+            const calmiMessages = [
+                "Respire profundamente... inspire pelo nariz...",
+                "Agora expire lentamente pela boca...",
+                "Você está seguro, tudo vai ficar bem.",
+                "Continue respirando devagar, sinta seu corpo relaxar."
+            ];
 
-        const calmi = document.getElementById('calmi');
-        const luzia = document.getElementById('luzia');
-        const tempestade = document.getElementById('tempestade');
+            const luziaMessages = [
+               "Você é forte.",
+                "Você é especial.",
+                "Você é importante.",
+                "Sua opinião conta.",
+                "Você merece ser feliz.",
+                "Você é única.",
+                "Você é capaz.",
+                "Você é uma pessoa maravilhosa.",
+                "Você é criativa.",
+                "Você é uma boa amiga.",
+                "Você é talentosa.",
+                "Você é corajosa.",
+                "Você brilha.",
+                "Você faz a diferença.",
+                "Você é inteligente.",
+                "Você é amada.",
+                "Você é suficiente.",
+                "Você é gentil.",
+                "Você pode superar qualquer coisa.",
+                "Você merece respeito."
+            ];
 
-        const musicaCalmi = document.getElementById('musica-calmi');
-        const musicaLuzia = document.getElementById('musica-luzia');
-        const musicaTempestade = document.getElementById('musica-tempestade');
+            const tempestadeMessages = [
+               "Toda tempestade passa.",
+                "Sua raiva não te controla.",
+                "Respire fundo e acalme o furacão dentro de você.",
+                "Você pode escolher como responder.",
+                "A raiva é só uma emoção, ela não define você.",
+                "Deixe a tempestade sair devagar.",
+                "Controle sua raiva, você é mais forte.",
+                "Você pode transformar raiva em força positiva.",
+                "Pense antes de agir, você tem o poder de decidir.",
+                "Acalme-se, e as coisas farão mais sentido."
+            ];
 
-        const frasesCalmi = [
-            "Respire fundo, tudo ficará bem.",
-            "Sinta o ar entrar e sair suavemente.",
-            "A cada respiração, você sente mais calma.",
-            "Inspire paz, expire tensão.",
-            "Sua respiração controla suas emoções.",
-            "Deixe suas preocupações irem embora com o ar.",
-            "O silêncio interior traz tranquilidade.",
-            "Respire devagar, conte até quatro.",
-            "Cada respiração acalma sua mente.",
-            "A cada expiração, seu corpo relaxa mais."
-        ];
+            let calmiIndex = 0;
+            let luziaIndex = 0;
+            let tempestadeIndex = 0;
 
-        const frasesLuzia = [
-            "Você é forte.",
-            "Você é especial.",
-            "Você é importante.",
-            "Sua opinião conta.",
-            "Você merece ser feliz.",
-            "Você é única.",
-            "Você é capaz.",
-            "Você é uma pessoa maravilhosa.",
-            "Você é criativa.",
-            "Você é uma boa amiga.",
-            "Você é talentosa.",
-            "Você é corajosa.",
-            "Você brilha.",
-            "Você faz a diferença.",
-            "Você é inteligente.",
-            "Você é amada.",
-            "Você é suficiente.",
-            "Você é gentil.",
-            "Você pode superar qualquer coisa.",
-            "Você merece respeito."
-        ];
+            function showCharacter(character) {
+                const interactionArea = document.getElementById('interactionArea');
+                const characterImage = document.getElementById('characterImage');
+                interactionArea.innerHTML = ''; // Limpar a área de interação
+                if (character === 'calmi') {
+                    characterImage.src = 'imagens/calmi.png';
+                    playMusic('musicas/musica_calmi.mp3');
+                    startBreathingCircle();
+                    showMessage(calmiMessages, calmiIndex, 'calmi');
+                } else if (character === 'luzia') {
+                    characterImage.src = 'imagens/luzia.png';
+                    playMusic('musicas/musica_luzia.mp3');
+                    showMessage(luziaMessages, luziaIndex, 'luzia');
+                } else if (character === 'tempestade') {
+                    characterImage.src = 'imagens/tempestade.png';
+                    playMusic('musicas/musica_tempestade.mp3');
+                    startStormCloud();
+                    showMessage(tempestadeMessages, tempestadeIndex, 'tempestade');
+                }
+            }
 
-        const frasesTempestade = [
-            "Toda tempestade passa.",
-            "Sua raiva não te controla.",
-            "Respire fundo e acalme o furacão dentro de você.",
-            "Você pode escolher como responder.",
-            "A raiva é só uma emoção, ela não define você.",
-            "Deixe a tempestade sair devagar.",
-            "Controle sua raiva, você é mais forte.",
-            "Você pode transformar raiva em força positiva.",
-            "Pense antes de agir, você tem o poder de decidir.",
-            "Acalme-se, e as coisas farão mais sentido."
-        ];
+            function playMusic(musicPath) {
+                const audio = new Audio(musicPath);
+                audio.play();
+            }
 
-        function pararMusicas() {
-            musicaCalmi.pause();
-            musicaLuzia.pause();
-            musicaTempestade.pause();
-            musicaCalmi.currentTime = 0;
-            musicaLuzia.currentTime = 0;
-            musicaTempestade.currentTime = 0;
-        }
+            function startBreathingCircle() {
+                const interactionArea = document.getElementById('interactionArea');
+                const circle = document.createElement('div');
+                circle.classList.add('breathing-circle');
+                circle.textContent = "Respire";
+                interactionArea.appendChild(circle);
+            }
 
-        calmi.addEventListener('click', function() {
-            pararMusicas();
-            let frasesHtml = frasesCalmi.map(frase => `<p>${frase}</p>`).join('');
-            conteudo.innerHTML = `
-                <h2>Calmi</h2>
-                <div id="circulo-respiracao"></div>
-                ${frasesHtml}
-            `;
-            musicaCalmi.play();
-        });
+            function startStormCloud() {
+                const interactionArea = document.getElementById('interactionArea');
+                const cloud = document.createElement('div');
+                cloud.classList.add('storm-cloud');
+                cloud.textContent = "Dissipe a raiva";
+                interactionArea.appendChild(cloud);
+            }
 
-        luzia.addEventListener('click', function() {
-            pararMusicas();
-            let frasesHtml = frasesLuzia.map(frase => `<p>${frase}</p>`).join('');
-            conteudo.innerHTML = `
-                <h2>Luzia</h2>
-                <div id="frases-autoestima">${frasesHtml}</div>
-            `;
-            musicaLuzia.play();
-        });
-
-        tempestade.addEventListener('click', function() {
-            pararMusicas();
-            let frasesHtml = frasesTempestade.map(frase => `<p>${frase}</p>`).join('');
-            conteudo.innerHTML = `
-                <h2>Tempestade</h2>
-                <div class="nuvem-distorcida"></div>
-                ${frasesHtml}
-            `;
-            musicaTempestade.play();
+            function showMessage(messages, index, character) {
+                const interactionArea = document.getElementById('interactionArea');
+                const messageElement = document.createElement('p');
+                messageElement.classList.add('fade-message');
+                messageElement.textContent = messages[index];
+                interactionArea.appendChild(messageElement);
+                messageElement.classList.add('show');
+                setTimeout(() => {
+                    messageElement.classList.remove('show');
+                    index = (index + 1) % messages.length;
+                    interactionArea.removeChild(messageElement);
+                    showMessage(messages, index, character);
+                }, 5000);
+            }
         });
     </script>
 </body>
