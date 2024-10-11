@@ -38,8 +38,8 @@
             transition: filter 0.3s; /* Transição suave para o efeito de brilho */
         }
 
-        .character:hover {
-            filter: brightness(1.2); /* Aumenta o brilho ao passar o mouse */
+        .character.active {
+            filter: brightness(1.5); /* Aumenta o brilho quando clicado */
         }
 
         #messages {
@@ -66,6 +66,8 @@
             position: relative;
             margin-top: 20px;
             opacity: 1; /* Nuvem começa visível */
+            background-color: white; /* Fundo branco */
+            transition: opacity 1s; /* Efeito suave de desaparecimento */
         }
 
         #luziaButton, #stopButton {
@@ -223,21 +225,21 @@
             // Adiciona brilho ao personagem clicado
             const characters = document.querySelectorAll('.character');
             characters.forEach((char) => {
-                char.style.filter = 'none'; // Remove brilho de todos os personagens
+                char.classList.remove('active'); // Remove brilho de todos os personagens
             });
 
             if (character === 'calmi') {
                 playMusic('musicas/musica_calmi.mp3');
                 showCalmi();
-                document.querySelector('.character:nth-child(1)').style.filter = 'brightness(1.2)'; // Adiciona brilho ao personagem Calmi
+                document.querySelector('.character:nth-child(1)').classList.add('active'); // Adiciona brilho ao personagem Calmi
             } else if (character === 'luzia') {
                 playMusic('musicas/musica_luzia.mp3');
                 showLuzia();
-                document.querySelector('.character:nth-child(2)').style.filter = 'brightness(1.2)'; // Adiciona brilho ao personagem Luzia
+                document.querySelector('.character:nth-child(2)').classList.add('active'); // Adiciona brilho ao personagem Luzia
             } else if (character === 'tempestade') {
                 playMusic('musicas/musica_tempestade.mp3');
                 showTempestade();
-                document.querySelector('.character:nth-child(3)').style.filter = 'brightness(1.2)'; // Adiciona brilho ao personagem Tempestade
+                document.querySelector('.character:nth-child(3)').classList.add('active'); // Adiciona brilho ao personagem Tempestade
             }
         }
 
@@ -308,6 +310,7 @@
 
         function animateDissipatingCloud() {
             const cloud = document.getElementById('tempestadeCloud');
+            cloud.style.opacity = '1'; // Reseta a opacidade da nuvem
             let opacity = 1;
 
             const dissipateAnimation = () => {
@@ -315,6 +318,9 @@
                     opacity -= 0.01; // Dissipação lenta da nuvem
                     cloud.style.opacity = opacity;
                     requestAnimationFrame(dissipateAnimation);
+                } else {
+                    // Após desaparecer, reinicia a nuvem
+                    cloud.style.opacity = '1'; // Reseta a opacidade da nuvem
                 }
             };
             dissipateAnimation();
