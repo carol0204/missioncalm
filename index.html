@@ -3,270 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caminho para a Calma</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Patrick+Hand&family=Raleway:wght@300;500&display=swap" rel="stylesheet">
+    <title>Floresta da Calma</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            margin-top: 13px;
-            background-image: url('./imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
-            background-size: cover;
-            color: #fff;
+            font-family: Arial, sans-serif;
+            background-color: #E0F7FA;
+            color: #333;
             text-align: center;
-            margin: 0;
-            padding: 0;
         }
-
-        h1 {
-            font-size: 5em;
-            text-shadow: 2px 2px 8px #000;
-            font-family: 'Patrick Hand', cursive;
-            margin: 20px 0;
-        }
-
-        .character {
-            display: inline-block;
-            width: 190px;
-            height: 190px;
-            margin: 10px;
-            cursor: pointer;
-            transition: transform 0.3s, filter 0.3s;
-        }
-
-        .character:hover {
-            transform: scale(1.15);
-            filter: brightness(1.3);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
-
-        .game-area {
+        #gameArea {
             display: none;
-            margin-top: 13px;
-            border: 2px solid #fff;
+            border: 2px solid #00796B;
             padding: 20px;
-            background-color: rgba(0, 102, 204, 0.7);
-            border-radius: 10px;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            margin-top: 10px;
-            cursor: pointer;
-            background-color: #66b3ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        button:hover {
-            background-color: #1d588b;
-            transform: translateY(-2px);
-        }
-
-        .message-box {
-            margin-top: 18px;
-            padding: 15px;
-            background-color: #1d588b;
-            color: #fff;
-            border-radius: 5px;
-            display: inline-block;
-            max-width: 90%;
-            text-align: left;
-            font-size: 1.1em;
-            line-height: 1.5em;
-            font-family: 'Patrick Hand', cursive;
-        }
-
-        .welcome-text {
-            font-size: 1.4em;
             margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.3);
+            width: 80%;
+            background-color: #FFFFFF;
             border-radius: 10px;
-            max-width: 80%;
-            color: #fff;
-            font-family: 'Raleway', sans-serif;
-            display: block; /* Certifique-se de que está visível */
         }
-
         .breathing-circle {
-            width: 150px;
-            height: 150px;
-            border: 5px solid #8FDDE7;
+            width: 100px;
+            height: 100px;
+            background-color: #4DB6AC;
             border-radius: 50%;
-            margin: 20px auto;
-            animation: breathe 8s infinite ease-in-out;
-            background-color: rgba(143, 221, 231, 0.4);
+            animation: breathe 4s infinite;
         }
-
         @keyframes breathe {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
-
         .cloud {
-            position: relative;
-            display: inline-block;
-            width: 120px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 60px 60px 40px 40px;
-            margin: 20px auto;
-            animation: dissipate 5s infinite ease-in-out;
-        }
-
-        .cloud::before,
-        .cloud::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .cloud::before {
-            width: 80px;
-            height: 80px;
-            top: -40px;
-            left: 10px;
-        }
-
-        .cloud::after {
-            width: 60px;
-            height: 60px;
-            top: -30px;
-            right: 10px;
-        }
-
-        @keyframes dissipate {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                background-color: rgba(255, 99, 71, 0.4);
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-                background-color: rgba(255, 255, 255, 0);
-            }
-        }
-
-        .fade-message {
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
-
-        .fade-message.show {
-            opacity: 1;
-        }
-
-        @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .character {
-                width: 100px;
-                height: 100px;
-            }
-
-            button {
-                font-size: 1em;
-                padding: 8px 16px;
-            }
-
-            .message-box {
-                font-size: 1em;
-                line-height: 1.3em;
-            }
-
-            .welcome-text {
-                font-size: 1.2em;
-                padding: 15px;
-            }
+            background: url('imagem_cloud.png') no-repeat center center;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
+    <h1>Floresta da Calma</h1>
+    <button onclick="startGame('calmi')">Jogar com Calmi</button>
+    <button onclick="startGame('luzia')">Jogar com Luzia</button>
+    <button onclick="startGame('tempestade')">Jogar com Tempestade</button>
 
-    <h1>Caminho para a Calma</h1>
-    
-    <div id="characters">
-        <img class="character" src="imagens/calmi.png" alt="Calmi" onclick="startGame('calmi')">
-        <img class="character" src="imagens/luzia.png" alt="Luzia" onclick="startGame('luzia')">
-        <img class="character" src="imagens/tempestade.png" alt="Tempestade" onclick="startGame('tempestade')">
-    </div>
-
-    <div id="welcomeMessage" class="welcome-text">
-        Bem-vindo ao Caminho para a Calma! Aqui você encontrará personagens especiais que irão ajudá-lo a enfrentar diferentes desafios emocionais de maneira leve e divertida. 
-        Clique em um dos personagens acima para começar. Cada personagem tem uma missão única para ajudá-lo a lidar com questões como ansiedade, raiva e autoestima. 
-        Estamos aqui para guiá-lo nesse caminho de autoconhecimento e tranquilidade.
-    </div>
-
-    <div class="game-area" id="gameArea">
+    <div id="gameArea">
         <h2 id="gameTitle"></h2>
-        <p id="characterDescription" class="character-info"></p>
+        <p id="characterDescription"></p>
         <div id="gameContent"></div>
-        <button onclick="stopMusic()">Parar Música</button>
-        <button onclick="closeGame()">Fechar Jogo</button>
+        <audio id="music" loop></audio>
+        <button onclick="closeGame()">Sair</button>
     </div>
-
-    <audio id="music" src="" preload="auto"></audio>
 
     <script>
         const messages = {
-            selfEsteem: [
-                "Você é incrível!",
-                "Ame-se do jeito que você é!",
-                "Você tem o poder de fazer a diferença!",
-                "Você é digno de tudo que deseja!",
-                "Acredite em si mesmo todos os dias!",
-                "Você é capaz de superar qualquer desafio!",
-                "Seu valor não depende da opinião dos outros.",
-                "Você tem o direito de ser feliz e realizado.",
-                "Você é uma pessoa única e especial.",
-                "Não deixe ninguém apagar o seu brilho!",
-                "Você merece ser amado e respeitado.",
-                "Sua força interior é imensa!",
-                "Você está se tornando uma versão melhor de si mesmo.",
-                "Você é mais forte do que imagina.",
-                "Cada passo que você dá é importante.",
-                "Você pode alcançar tudo o que deseja.",
-                "Você está no caminho certo para o sucesso.",
-                "Confie no seu potencial!",
-                "Você é mais do que suficiente.",
-                "Continue acreditando em si mesmo!"
-            ],
             calm: [
-                "Respire fundo e relaxe.",
-                "Acalme sua mente e o seu coração.",
-                "Você tem o poder de controlar suas emoções.",
-                "Tudo vai ficar bem.",
-                "Cada respiração traz mais calma para o seu corpo.",
-                "Você está seguro e tranquilo.",
-                "Permita-se descansar e recuperar suas energias.",
-                "A paz interior está ao seu alcance.",
-                "Tudo o que você precisa está dentro de você.",
-                "A calma é o seu estado natural.",
-                "Vamos juntos encontrar a serenidade.",
-                "Seja gentil consigo mesmo.",
-                "Você está em um lugar seguro.",
-                "A tranquilidade é uma escolha.",
-                "Deixe suas preocupações irem embora.",
+                "Respire fundo e sinta a calma entrando.",
+                "Deixe seus pensamentos irem embora.",
                 "A cada respiração, você se sente mais calmo.",
                 "Você é capaz de lidar com qualquer situação.",
                 "Você pode criar um espaço de paz em sua mente.",
                 "A serenidade é seu direito de nascença.",
                 "Vamos respirar juntos e encontrar a calma."
+            ],
+            selfEsteem: [
+                "Você é único e especial.",
+                "Acredite em si mesmo!",
+                "Sua luz brilha intensamente.",
+                "Você merece amor e respeito.",
+                "Você é forte e capaz.",
+                "Confie em suas habilidades.",
+                "Cada dia é uma nova oportunidade."
             ],
             anger: [
                 "A raiva é uma emoção normal.",
@@ -303,21 +109,21 @@
                 title.textContent = "Aventuras de Calmi";
                 description.textContent = "Calmi é o guardião da serenidade. Ele te ajudará a controlar a ansiedade e a encontrar o seu centro.";
                 content.innerHTML = `<div class="breathing-circle"></div><p id="breathingMessage"></p>`;
-                music.src = "musicas/calmi_music.mp3"; // Caminho para a música do Calmi
+                music.src = "musica_calmi.mp3"; // Caminho para a música do Calmi
                 playMusic();
                 breathingExercise();
             } else if (character === 'luzia') {
                 title.textContent = "Aventuras de Luzia";
                 description.textContent = "Luzia ilumina seu caminho e ajuda a fortalecer sua autoestima. Siga com confiança!";
                 content.innerHTML = `<div class="cloud"></div><p id="selfEsteemMessage"></p>`;
-                music.src = "musicas/luzia_music.mp3"; // Caminho para a música da Luzia
+                music.src = "musica_luzia.mp3"; // Caminho para a música da Luzia
                 playMusic();
                 selfEsteemMessages();
             } else if (character === 'tempestade') {
                 title.textContent = "Aventuras de Tempestade";
                 description.textContent = "Tempestade é a energia da transformação. Ele ajuda a transformar a raiva em motivação!";
                 content.innerHTML = `<div class="cloud"></div><p id="angerMessage"></p>`;
-                music.src = "musicas/tempestade_music.mp3"; // Caminho para a música da Tempestade
+                music.src = "musica_tempestade.mp3"; // Caminho para a música da Tempestade
                 playMusic();
                 angerMessages();
             }
@@ -344,31 +150,31 @@
 
         function breathingExercise() {
             const breathingMessage = document.getElementById("breathingMessage");
-            const messages = messages.calm;
+            const messagesArray = messages.calm;
             let index = 0;
             setInterval(() => {
-                breathingMessage.textContent = messages[index];
-                index = (index + 1) % messages.length;
+                breathingMessage.textContent = messagesArray[index];
+                index = (index + 1) % messagesArray.length;
             }, 4000);
         }
 
         function selfEsteemMessages() {
             const selfEsteemMessage = document.getElementById("selfEsteemMessage");
-            const messages = messages.selfEsteem;
+            const messagesArray = messages.selfEsteem;
             let index = 0;
             setInterval(() => {
-                selfEsteemMessage.textContent = messages[index];
-                index = (index + 1) % messages.length;
+                selfEsteemMessage.textContent = messagesArray[index];
+                index = (index + 1) % messagesArray.length;
             }, 4000);
         }
 
         function angerMessages() {
             const angerMessage = document.getElementById("angerMessage");
-            const messages = messages.anger;
+            const messagesArray = messages.anger;
             let index = 0;
             setInterval(() => {
-                angerMessage.textContent = messages[index];
-                index = (index + 1) % messages.length;
+                angerMessage.textContent = messagesArray[index];
+                index = (index + 1) % messagesArray.length;
             }, 4000);
         }
     </script>
