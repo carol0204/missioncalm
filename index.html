@@ -270,7 +270,7 @@
                     }, 500); // Atraso para a nova mensagem aparecer
                     index++;
                 } else {
-                    clearInterval(interval);
+                    index = 0; // Reinicia o índice para looping
                 }
             }, 3000);
         }
