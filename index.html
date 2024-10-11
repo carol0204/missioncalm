@@ -16,8 +16,8 @@
             color: white;
             font-family: Arial, sans-serif;
         }
-        h1, p {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        h1 {
+            font-size: 2.5em; /* Aumentando o tamanho do título */
         }
         #characterContainer {
             display: flex;
@@ -28,16 +28,11 @@
         .character {
             cursor: pointer;
             text-align: center;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .character:hover {
-            transform: scale(1.1);
-            filter: brightness(1.5);
         }
         #messages {
             margin-top: 20px;
-            font-size: 18px;
-            color: #FFD700; /* Ajuste da cor das frases */
+            font-size: 24px; /* Aumentando o tamanho das mensagens */
+            color: #ffff00; /* Mudando a cor das mensagens para amarelo */
             animation: fade-in 2s;
         }
         @keyframes fade-in {
@@ -52,45 +47,41 @@
             display: none;
             position: relative;
             margin-top: 20px;
+            opacity: 1; /* Garantindo que a nuvem começa visível */
         }
-        #luziaButton {
+        #luziaButton, #stopButton {
             display: none;
             margin-top: 10px;
-        }
-        #stopButton {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #FF4500;
-            color: white;
+            padding: 10px 20px; /* Adicionando padding para melhor aparência */
             border: none;
-            font-size: 16px;
-            border-radius: 8px;
+            border-radius: 5px;
+            font-size: 18px; /* Aumentando o tamanho da fonte */
             cursor: pointer;
+            background-color: #ffcc00; /* Cor de fundo do botão */
+            color: #333; /* Cor do texto do botão */
+            transition: background-color 0.3s;
         }
-        #stopButton:hover {
-            background-color: #FF6347;
+        #luziaButton:hover, #stopButton:hover {
+            background-color: #ff9900; /* Cor do botão ao passar o mouse */
         }
     </style>
 </head>
 <body>
     <h1>Bem-vindo à Floresta da Calma</h1>
-    <p>Esta página foi projetada para ajudá-lo a lidar com emoções como ansiedade, raiva e autoestima. Escolha um personagem para iniciar uma jornada de tranquilidade, autoconfiança ou controle da raiva. Aproveite o ambiente relaxante e as mensagens para guiá-lo.</p>
-
     <div id="characterContainer">
         <div class="character" onclick="showCharacter('calmi')">
-            <img src="imagens/calmi.png" alt="Calmi" width="100">
+            <img src="imagens/calmi.png" alt="Calmi" width="150">
             <p>Calmi</p>
         </div>
         <div class="character" onclick="showCharacter('luzia')">
-            <img src="imagens/luzia.png" alt="Luzia" width="100">
+            <img src="imagens/luzia.png" alt="Luzia" width="150">
             <p>Luzia</p>
         </div>
         <div class="character" onclick="showCharacter('tempestade')">
-            <img src="imagens/tempestade.png" alt="Tempestade" width="100">
+            <img src="imagens/tempestade.png" alt="Tempestade" width="150">
             <p>Tempestade</p>
         </div>
     </div>
-
     <div id="calmiCircle">
         <canvas id="circleCanvas" width="200" height="200"></canvas>
     </div>
@@ -101,7 +92,9 @@
     <div id="luziaButton">
         <button onclick="changeLuziaMessage()">Mudar Mensagem de Luzia</button>
     </div>
-    <button id="stopButton" onclick="stopMusic()">Parar Música</button>
+    <div id="stopButton">
+        <button onclick="stopMusic()">Parar Música</button>
+    </div>
 
     <script>
         const calmiMessages = [
@@ -125,9 +118,8 @@
             "Respire... e deixe o corpo relaxar.",
             "Sua respiração é o caminho para a paz.",
             "A cada inspiração, você encontra calma."
-
-            // Adicione mais mensagens aqui conforme necessário
         ];
+
         const luziaMessages = [
             "Você é incrível do jeito que é!",
             "Acredite em si mesma!",
@@ -149,9 +141,8 @@
             "Você tem um propósito valioso.",
             "Você é amada por quem você é.",
             "A sua presença é importante."
-
-            // Adicione mais mensagens aqui conforme necessário
         ];
+
         const tempestadeMessages = [
             "É normal sentir raiva... vamos respirar juntos.",
             "A nuvem vai embora... sinta a calma chegando.",
@@ -173,31 +164,30 @@
             "Você é capaz de se acalmar.",
             "A raiva se dissipa como o vento.",
             "Você está no controle, sempre."
-
-            // Adicione mais mensagens aqui conforme necessário
         ];
 
-        let audio = null;
-        let calmiIndex = 0;
-        let luziaIndex = 0;
-        let tempestadeIndex = 0;
+        let currentAudio = null;
 
         function playMusic(musicPath) {
-            if (audio) {
-                audio.pause();
-                audio.currentTime = 0;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
             }
-            audio = new Audio(musicPath);
-            audio.play();
+            currentAudio = new Audio(musicPath);
+            currentAudio.play();
+            document.getElementById('stopButton').style.display = 'block'; // Exibe o botão para parar a música
         }
 
         function stopMusic() {
-            if (audio) {
-                audio.pause();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
             }
+            document.getElementById('stopButton').style.display = 'none'; // Esconde o botão após parar a música
         }
 
         function showCharacter(character) {
+            stopMusic(); // Para a música ao trocar de personagem
             document.getElementById('messages').innerHTML = '';
             document.getElementById('calmiCircle').style.display = 'none';
             document.getElementById('tempestadeCloud').style.display = 'none';
@@ -255,15 +245,15 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(173, 216, 230, 0.5)'; // Azul claro transparente
+                ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'; // Azul claro e transparente
                 ctx.fill();
                 ctx.closePath();
 
                 if (growing) {
-                    radius += 1; // Respiração mais suave
+                    radius += 0.3; // Movimentos suaves e lentos
                     if (radius >= 80) growing = false;
                 } else {
-                    radius -= 1;
+                    radius -= 0.3;
                     if (radius <= 50) growing = true;
                 }
 
@@ -278,7 +268,7 @@
 
             const dissipateAnimation = () => {
                 if (opacity > 0) {
-                    opacity -= 0.01;
+                    opacity -= 0.01; // Dissipação lenta da nuvem
                     cloud.style.opacity = opacity;
                     requestAnimationFrame(dissipateAnimation);
                 }
