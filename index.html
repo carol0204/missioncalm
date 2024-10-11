@@ -16,6 +16,9 @@
             color: white;
             font-family: Arial, sans-serif;
         }
+        h1, p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
         #characterContainer {
             display: flex;
             justify-content: space-around;
@@ -25,10 +28,16 @@
         .character {
             cursor: pointer;
             text-align: center;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .character:hover {
+            transform: scale(1.1);
+            filter: brightness(1.5);
         }
         #messages {
             margin-top: 20px;
             font-size: 18px;
+            color: #FFD700; /* Ajuste da cor das frases */
             animation: fade-in 2s;
         }
         @keyframes fade-in {
@@ -43,34 +52,45 @@
             display: none;
             position: relative;
             margin-top: 20px;
-            opacity: 1; /* Garantindo que a nuvem começa visível */
         }
         #luziaButton {
             display: none;
             margin-top: 10px;
         }
         #stopButton {
-            margin-top: 10px;
-            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FF4500;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #stopButton:hover {
+            background-color: #FF6347;
         }
     </style>
 </head>
 <body>
     <h1>Bem-vindo à Floresta da Calma</h1>
+    <p>Esta página foi projetada para ajudá-lo a lidar com emoções como ansiedade, raiva e autoestima. Escolha um personagem para iniciar uma jornada de tranquilidade, autoconfiança ou controle da raiva. Aproveite o ambiente relaxante e as mensagens para guiá-lo.</p>
+
     <div id="characterContainer">
         <div class="character" onclick="showCharacter('calmi')">
-            <img src="imagens/calmi.png" alt="Calmi" width="150">
+            <img src="imagens/calmi.png" alt="Calmi" width="100">
             <p>Calmi</p>
         </div>
         <div class="character" onclick="showCharacter('luzia')">
-            <img src="imagens/luzia.png" alt="Luzia" width="150">
+            <img src="imagens/luzia.png" alt="Luzia" width="100">
             <p>Luzia</p>
         </div>
         <div class="character" onclick="showCharacter('tempestade')">
-            <img src="imagens/tempestade.png" alt="Tempestade" width="150">
+            <img src="imagens/tempestade.png" alt="Tempestade" width="100">
             <p>Tempestade</p>
         </div>
     </div>
+
     <div id="calmiCircle">
         <canvas id="circleCanvas" width="200" height="200"></canvas>
     </div>
@@ -81,9 +101,7 @@
     <div id="luziaButton">
         <button onclick="changeLuziaMessage()">Mudar Mensagem de Luzia</button>
     </div>
-    <div id="stopButton">
-        <button onclick="stopMusic()">Parar Música</button>
-    </div>
+    <button id="stopButton" onclick="stopMusic()">Parar Música</button>
 
     <script>
         const calmiMessages = [
@@ -107,8 +125,9 @@
             "Respire... e deixe o corpo relaxar.",
             "Sua respiração é o caminho para a paz.",
             "A cada inspiração, você encontra calma."
-        ];
 
+            // Adicione mais mensagens aqui conforme necessário
+        ];
         const luziaMessages = [
             "Você é incrível do jeito que é!",
             "Acredite em si mesma!",
@@ -130,8 +149,9 @@
             "Você tem um propósito valioso.",
             "Você é amada por quem você é.",
             "A sua presença é importante."
-        ];
 
+            // Adicione mais mensagens aqui conforme necessário
+        ];
         const tempestadeMessages = [
             "É normal sentir raiva... vamos respirar juntos.",
             "A nuvem vai embora... sinta a calma chegando.",
@@ -153,30 +173,31 @@
             "Você é capaz de se acalmar.",
             "A raiva se dissipa como o vento.",
             "Você está no controle, sempre."
+
+            // Adicione mais mensagens aqui conforme necessário
         ];
 
-        let currentAudio = null;
+        let audio = null;
+        let calmiIndex = 0;
+        let luziaIndex = 0;
+        let tempestadeIndex = 0;
 
         function playMusic(musicPath) {
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
             }
-            currentAudio = new Audio(musicPath);
-            currentAudio.play();
-            document.getElementById('stopButton').style.display = 'block'; // Exibe o botão para parar a música
+            audio = new Audio(musicPath);
+            audio.play();
         }
 
         function stopMusic() {
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
+            if (audio) {
+                audio.pause();
             }
-            document.getElementById('stopButton').style.display = 'none'; // Esconde o botão após parar a música
         }
 
         function showCharacter(character) {
-            stopMusic(); // Para a música ao trocar de personagem
             document.getElementById('messages').innerHTML = '';
             document.getElementById('calmiCircle').style.display = 'none';
             document.getElementById('tempestadeCloud').style.display = 'none';
@@ -234,15 +255,15 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'; // Azul claro e transparente
+                ctx.fillStyle = 'rgba(173, 216, 230, 0.5)'; // Azul claro transparente
                 ctx.fill();
                 ctx.closePath();
 
                 if (growing) {
-                    radius += 0.3; // Movimentos suaves e lentos
+                    radius += 1; // Respiração mais suave
                     if (radius >= 80) growing = false;
                 } else {
-                    radius -= 0.3;
+                    radius -= 1;
                     if (radius <= 50) growing = true;
                 }
 
@@ -257,7 +278,7 @@
 
             const dissipateAnimation = () => {
                 if (opacity > 0) {
-                    opacity -= 0.01; // Dissipação lenta da nuvem
+                    opacity -= 0.01;
                     cloud.style.opacity = opacity;
                     requestAnimationFrame(dissipateAnimation);
                 }
