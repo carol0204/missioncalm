@@ -82,10 +82,9 @@
             line-height: 1.5em;
             font-family: 'Patrick Hand', cursive;
             opacity: 0;
-            transition: opacity 3s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        /* Texto de boas-vindas */
         .welcome-text {
             font-size: 1.4em;
             margin: 20px auto;
@@ -95,10 +94,9 @@
             max-width: 80%;
             color: #fff;
             font-family: 'Raleway', sans-serif;
-            display: block; 
+            display: block;
         }
 
-        /* Círculo de respiração */
         .breathing-circle {
             width: 150px;
             height: 150px;
@@ -118,7 +116,6 @@
             }
         }
 
-        /* Animação da nuvem */
         .cloud {
             position: relative;
             display: inline-block;
@@ -127,7 +124,7 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 60px 60px 40px 40px;
             margin: 20px auto;
-            animation: dissipate 8s infinite ease-in-out;
+            animation: dissipate 5s infinite ease-in-out;
         }
 
         .cloud::before,
@@ -156,22 +153,13 @@
             0% {
                 transform: scale(1);
                 opacity: 1;
-                background-color: rgba(255, 99, 71, 0.4); 
+                background-color: rgba(255, 99, 71, 0.4);
             }
             100% {
                 transform: scale(1.5);
                 opacity: 0;
                 background-color: rgba(255, 255, 255, 0);
             }
-        }
-
-        .fade-message {
-            opacity: 0;
-            transition: opacity 3s ease-in-out;
-        }
-
-        .fade-message.show {
-            opacity: 1;
         }
 
         @media screen and (max-width: 768px) {
@@ -225,11 +213,11 @@
         <button onclick="closeGame()">Fechar Jogo</button>
     </div>
 
-    <audio id="music" preload="auto"></audio>
+    <audio id="music" src="" preload="auto"></audio>
 
     <script>
         const messages = {
-            calm: [
+            calmi: [
                 "Respire fundo e relaxe.",
                 "Acalme sua mente e o seu coração.",
                 "Você tem o poder de controlar suas emoções.",
@@ -246,108 +234,92 @@
                 "Tire um momento para olhar ao redor e notar cinco coisas que você vê.",
                 "Continue respirando devagar. A ansiedade vai passar."
             ],
-            anger: [
-                "Respire profundamente, a raiva vai passar.",
-                "Observe sua raiva se dissipando como uma nuvem.",
-                "O controle está nas suas mãos.",
-                "Permita-se acalmar a cada respiração.",
-                "Sua paz interior é mais forte que a raiva.",
-                "Imagine sua raiva como uma nuvem desaparecendo no céu.",
-                "A calma vem a cada respiração que você toma.",
+            tempestade: [
                 "Você não está sozinho, e sua dor é válida.",
                 "A raiva é uma emoção temporária.",
                 "Dê um passo para trás e respire.",
                 "Cada pensamento pode ser transformado.",
                 "Você está no controle. A raiva vai passar."
             ],
-            selfEsteem: [
+            luzia: [
                 "Você é suficiente do jeito que é.",
                 "Seja gentil consigo mesmo.",
                 "Você merece ser amado.",
                 "Sua voz merece ser ouvida.",
-                "Cada passo que você dá é importante.",
-                "Você tem valor.",
-                "Seus sentimentos são válidos.",
-                "Acredite na sua capacidade de crescer.",
-                "Você merece tudo de bom.",
-                "Seu brilho é único."
+                "Cada passo que você dá é um passo na direção certa."
             ]
         };
 
+        let currentMessageIndex = 0;
+        let messageTimeout;
+        let music;
+
         function startGame(character) {
-            const gameArea = document.getElementById('gameArea');
-            const gameTitle = document.getElementById('gameTitle');
-            const gameContent = document.getElementById('gameContent');
-            const characterDescription = document.getElementById('characterDescription');
-            const music = document.getElementById('music');
-            const welcomeMessage = document.getElementById('welcomeMessage');
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('gameTitle').innerText = `Bem-vindo(a) ${character.charAt(0).toUpperCase() + character.slice(1)}!`;
+            document.getElementById('characterDescription').innerText = character === 'calmi' 
+                ? "Calmi está aqui para ajudá-lo a encontrar a paz interior." 
+                : character === 'tempestade' 
+                ? "Tempestade está aqui para ajudá-lo a lidar com sua raiva." 
+                : "Luzia está aqui para ajudá-lo a melhorar sua autoestima.";
 
-            welcomeMessage.style.display = "none";
-            gameArea.style.display = 'block';
-            gameContent.innerHTML = '';
+            currentMessageIndex = 0;
+            showMessage(character);
 
-            if (character === 'calmi') {
-                gameTitle.innerText = 'Respire com Calmi';
-                characterDescription.innerText = 'Concentre-se na respiração para aliviar a ansiedade.';
-                music.src = './musicas/calma.mp3'; 
-                const circle = document.createElement('div');
-                circle.className = 'breathing-circle';
-                gameContent.appendChild(circle);
-                showMessages('calm', gameContent);
-            } else if (character === 'tempestade') {
-                gameTitle.innerText = 'Dissipando a Raiva com Tempestade';
-                characterDescription.innerText = 'Visualize a raiva dissipando como uma nuvem.';
-                music.src = './musicas/tempestade.mp3'; 
-                const cloud = document.createElement('div');
-                cloud.className = 'cloud';
-                gameContent.appendChild(cloud);
-                showMessages('anger', gameContent);
-            } else if (character === 'luzia') {
-                gameTitle.innerText = 'Aumentando sua Autoestima com Luzia';
-                characterDescription.innerText = 'Reflita sobre o seu valor e fortaleça sua autoestima.';
-                music.src = './musicas/luzia.mp3';
-                showMessages('selfEsteem', gameContent);
-            }
-
-            music.currentTime = 0; // Reseta a música
-            music.play(); // Começa a tocar a música
+            music = document.getElementById('music');
+            music.src = character === 'calmi' ? 'imagens/musica_calmi.mp3' :
+                          character === 'tempestade' ? 'imagens/musica_tempestade.mp3' : 
+                          'imagens/musica_luzia.mp3';
+            music.play();
         }
 
-        function showMessages(type, container) {
-            const msgs = messages[type];
-            let i = 0;
+        function showMessage(character) {
+            if (currentMessageIndex < messages[character].length) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('message-box');
+                messageBox.innerText = messages[character][currentMessageIndex];
+                document.getElementById('gameContent').appendChild(messageBox);
 
-            function showNextMessage() {
-                if (i < msgs.length) {
-                    const msgBox = document.createElement('div');
-                    msgBox.className = 'message-box fade-message';
-                    msgBox.innerText = msgs[i];
-                    container.appendChild(msgBox);
+                // Animação para aparecer
+                setTimeout(() => {
+                    messageBox.style.opacity = 1;
+                }, 100);
 
-                    // Mostrar mensagem com ritmo de respiração para Calmi ou efeito de desvanecimento para Tempestade
-                    setTimeout(() => msgBox.classList.add('show'), 500);
-                    i++;
-                    setTimeout(showNextMessage, 8000); // Altera o tempo conforme o ritmo desejado.
+                // Incrementar o índice da mensagem
+                currentMessageIndex++;
+
+                // Remover mensagem anterior
+                if (currentMessageIndex > 1) {
+                    const previousMessage = document.getElementsByClassName('message-box')[0];
+                    previousMessage.style.opacity = 0;
+                    setTimeout(() => {
+                        previousMessage.remove();
+                    }, 500);
                 }
-            }
 
-            showNextMessage();
+                // Chamar showMessage após um intervalo
+                messageTimeout = setTimeout(() => {
+                    showMessage(character);
+                }, 3000); // 3 segundos
+            } else {
+                // Reiniciar o índice se todas as mensagens foram exibidas
+                currentMessageIndex = 0;
+            }
         }
 
         function stopMusic() {
-            const music = document.getElementById('music');
-            music.pause();
-            music.currentTime = 0; 
+            if (music) {
+                music.pause();
+                music.currentTime = 0; // Reiniciar a música
+            }
         }
 
         function closeGame() {
-            const gameArea = document.getElementById('gameArea');
-            gameArea.style.display = 'none';
-            stopMusic(); // Para a música ao fechar o jogo
+            stopMusic();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('gameContent').innerHTML = ''; // Limpar mensagens
+            clearTimeout(messageTimeout); // Limpar timeout
         }
     </script>
-
 </body>
 </html>
-
-
