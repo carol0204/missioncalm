@@ -43,10 +43,14 @@
             display: none;
             position: relative;
             margin-top: 20px;
+            opacity: 1;
         }
         #luziaButton {
             display: none;
             margin-top: 10px;
+        }
+        #stopButton {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -54,15 +58,15 @@
     <h1>Bem-vindo à Floresta da Calma</h1>
     <div id="characterContainer">
         <div class="character" onclick="showCharacter('calmi')">
-            <img src="imagens/calmi.png" alt="Calmi" width="160">
+            <img src="imagens/calmi.png" alt="Calmi" width="100">
             <p>Calmi</p>
         </div>
         <div class="character" onclick="showCharacter('luzia')">
-            <img src="imagens/luzia.png" alt="Luzia" width="160">
+            <img src="imagens/luzia.png" alt="Luzia" width="100">
             <p>Luzia</p>
         </div>
         <div class="character" onclick="showCharacter('tempestade')">
-            <img src="imagens/tempestade.png" alt="Tempestade" width="160">
+            <img src="imagens/tempestade.png" alt="Tempestade" width="100">
             <p>Tempestade</p>
         </div>
     </div>
@@ -76,80 +80,82 @@
     <div id="luziaButton">
         <button onclick="changeLuziaMessage()">Mudar Mensagem de Luzia</button>
     </div>
+    <button id="stopButton" onclick="stopMusic()">Parar Música</button>
 
     <script>
-        let currentAudio = null;
-
         const calmiMessages = [
-           "Respire profundamente... inale... exale...",
+            "Respire profundamente... inale... exale...",
             "Você está seguro e em paz.",
             "Sinta a calma invadindo seu corpo.",
             "A cada respiração, relaxe mais.",
-            "Sinta seu corpo relaxando aos poucos.",
-            "Você pode lidar com isso. Continue respirando.",
-            "A calma está dentro de você, acessível a qualquer momento.",
-            "Você está no controle de sua respiração.",
-            "Inspire calma, expire tensão.",
-            "Permita que sua mente se acalme aos poucos.",
-            "Você está fazendo um ótimo trabalho ao se acalmar.",
-            "Tudo vai ficar bem, respire devagar.",
-            "A ansiedade vai diminuir com cada respiração.",
-            "Concentre-se no momento presente.",
-            "Sua respiração é sua âncora.",
-            "Você está seguro aqui e agora.",
-            "Seu corpo está relaxando com cada respiração.",
-            "Aos poucos, a calma está tomando conta de você.",
-            "Respire... a paz está vindo.",
-            "Você está fazendo o melhor que pode."
+            "Seu corpo está desacelerando, você está seguro.",
+            "Acalme sua mente, foque no agora.",
+            "Permita que o ar encha seus pulmões lentamente.",
+            "Deixe a tensão sair com cada expiração.",
+            "Sinta seu coração batendo devagar e suave.",
+            "Você está no controle da sua respiração.",
+            "Acalme-se... você está em um lugar seguro.",
+            "Sua respiração é sua âncora, foque nela.",
+            "Permita-se relaxar, tudo vai ficar bem.",
+            "Sinta o ar entrando... e saindo calmamente.",
+            "Sua mente está calma, você está em paz.",
+            "O presente é o que importa, você está aqui agora.",
+            "Desacelere, permita-se sentir a calma.",
+            "Seu corpo está relaxando a cada respiração.",
+            "Tudo está bem, foque na sua respiração.",
+            "Relaxe, sinta a tranquilidade tomando conta de você."
         ];
+
         const luziaMessages = [
             "Você é incrível do jeito que é!",
-            "Acredite em si mesmo!",
+            "Acredite em si mesma!",
             "Sua autoestima é sua força!",
             "Você merece amor e respeito!",
-            "Você é mais forte do que imagina.",
-            "Valorize suas conquistas, grandes ou pequenas.",
-            "Você é suficiente exatamente como é.",
-            "Ninguém pode tirar seu valor.",
-            "Você é digno de coisas boas.",
-            "Confie na sua jornada.",
-            "Seu potencial é ilimitado.",
-            "Você é uma pessoa especial.",
-            "Seus talentos são únicos.",
-            "O que você faz tem valor.",
-            "Você tem o poder de realizar seus sonhos.",
-            "Sua presença ilumina o mundo.",
-            "Você é uma inspiração para os outros.",
-            "Seu crescimento é contínuo.",
-            "Você merece todo o sucesso.",
-            "Continue se amando."
+            "Você é única e especial.",
+            "Suas conquistas são importantes.",
+            "Você é mais forte do que pensa.",
+            "Sua autenticidade é sua beleza.",
+            "Você é capaz de realizar grandes coisas.",
+            "Seja gentil consigo mesma.",
+            "Você merece tudo o que deseja.",
+            "Seu valor é inestimável.",
+            "Você tem o poder dentro de você.",
+            "Confie em si mesma, você pode.",
+            "Você é suficiente.",
+            "Você é amada e apreciada.",
+            "Seja você mesma, sempre.",
+            "Você é uma inspiração.",
+            "Você é digna de felicidade.",
+            "Sua luz interior brilha intensamente."
         ];
+
         const tempestadeMessages = [
             "É normal sentir raiva... vamos respirar juntos.",
             "A nuvem vai embora... sinta a calma chegando.",
             "Você pode controlar sua raiva.",
             "Liberte-se do que te incomoda.",
-            "Respire fundo, a raiva não precisa controlar suas ações.",
-            "Permita-se uma pausa para respirar antes de reagir.",
-            "Sua calma é mais forte que sua raiva.",
-            "A raiva é temporária, a paz é permanente.",
-            "Dê espaço para sua mente se acalmar.",
-            "Concentre-se no que você pode controlar.",
-            "Deixe o que não te serve mais ir embora.",
-            "Sua paz é mais importante do que qualquer discussão.",
-            "Sinta a raiva dissipando-se com cada respiração.",
-            "Você pode transformar essa energia em algo positivo.",
-            "Acalme-se antes de agir.",
-            "Sua calma trará soluções melhores.",
-            "A raiva não define quem você é.",
-            "Respire e veja a nuvem se dissipar.",
-            "Dê a si mesmo tempo para acalmar.",
-            "A paz que você busca está dentro de você."
+            "A raiva vai passar, respire fundo.",
+            "Foque na sua respiração e deixe a tensão sair.",
+            "Seu corpo precisa de calma agora, respire.",
+            "A raiva não te define, você está no controle.",
+            "Solte a raiva com cada expiração.",
+            "Você tem o poder de se acalmar.",
+            "Respire fundo e sinta a tranquilidade voltando.",
+            "Não deixe a raiva dominar, você é mais forte.",
+            "Permita que a nuvem de raiva se dissipe.",
+            "Sua calma é mais forte do que sua raiva.",
+            "Respire profundamente e sinta o alívio.",
+            "Cada respiração te traz mais controle.",
+            "Acalme-se, você está no comando de suas emoções.",
+            "Liberte-se da raiva... sinta-se mais leve.",
+            "Sua paz interior está voltando.",
+            "Tudo bem sentir raiva, mas agora é hora de deixá-la ir."
         ];
 
         let calmiIndex = 0;
         let luziaIndex = 0;
         let tempestadeIndex = 0;
+        let currentAudio = null;
 
         function playMusic(musicPath) {
             if (currentAudio) {
@@ -160,7 +166,15 @@
             currentAudio.play();
         }
 
+        function stopMusic() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+        }
+
         function showCharacter(character) {
+            stopMusic(); // Para a música ao trocar de personagem
             document.getElementById('messages').innerHTML = '';
             document.getElementById('calmiCircle').style.display = 'none';
             document.getElementById('tempestadeCloud').style.display = 'none';
@@ -192,7 +206,6 @@
 
         function showTempestade() {
             document.getElementById('tempestadeCloud').style.display = 'block';
-            document.getElementById('tempestadeCloud').style.opacity = '1';
             displayMessage(tempestadeMessages);
             animateDissipatingCloud();
         }
@@ -218,13 +231,14 @@
             const breathingAnimation = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, radius,
                 ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(173, 216, 230, 0.5)'; // Azul claro transparente
+                ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'; // Azul claro e transparente
                 ctx.fill();
                 ctx.closePath();
 
                 if (growing) {
-                    radius += 0.5; // Ajusta a velocidade para ficar mais lento
+                    radius += 0.5; // Movimentos mais lentos
                     if (radius >= 80) growing = false;
                 } else {
                     radius -= 0.5;
@@ -242,7 +256,7 @@
 
             const dissipateAnimation = () => {
                 if (opacity > 0) {
-                    opacity -= 0.01;
+                    opacity -= 0.01; // Animação lenta para a nuvem se dissipar
                     cloud.style.opacity = opacity;
                     requestAnimationFrame(dissipateAnimation);
                 }
