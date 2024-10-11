@@ -82,7 +82,7 @@
             line-height: 1.5em;
             font-family: 'Patrick Hand', cursive;
             opacity: 0;
-            transition: opacity 4s ease-in-out;
+            transition: opacity 2s ease-in-out;
         }
 
         /* Círculo de respiração */
@@ -220,6 +220,18 @@
                 "Acalme-se e observe a situação com clareza.",
                 "Sua tranquilidade é mais forte que a tempestade.",
                 "Respire fundo, isso vai passar."
+            ],
+            selfEsteem: [
+                "Você é forte e capaz.",
+                "Aceite-se como você é, você é único.",
+                "Seu valor não depende da opinião dos outros.",
+                "Você merece amor e respeito.",
+                "Cada dia é uma nova chance para crescer.",
+                "Você é suficiente, exatamente como é.",
+                "Confie em si mesmo e no seu caminho.",
+                "Você tem tudo o que precisa para ser feliz.",
+                "Acredite em si mesmo, você pode conquistar seus sonhos.",
+                "Seu brilho é único, ninguém pode apagá-lo."
             ]
         };
 
@@ -248,9 +260,16 @@
                 case 'tempestade':
                     music.src = 'musicas/musica_tempestade.mp3';
                     gameTitle.innerText = 'Jogo do Tempestade';
-                    characterDescription.innerText = 'Tempestade ajuda a dissipar a raiva e frustração, trazendo clareza.';
+                    characterDescription.innerText = 'Tempestade, a personificação da raiva. Ajuda a dissipar a frustração.';
                     gameContent.innerHTML = '<div class="cloud"></div>';
                     cycleMessages(messages.anger);
+                    break;
+                case 'luzia':
+                    music.src = 'musicas/musica_luzia.mp3';
+                    gameTitle.innerText = 'Jogo da Luzia';
+                    characterDescription.innerText = 'Luzia, que ilumina o caminho da autoestima e autoconfiança.';
+                    gameContent.innerHTML = ''; // Aqui você pode adicionar algo especial para Luzia se quiser.
+                    cycleMessages(messages.selfEsteem);
                     break;
             }
 
@@ -269,8 +288,8 @@
                     messageBox.innerText = messageArray[index];
                     messageBox.style.opacity = 1;
                     index = (index + 1) % messageArray.length;
-                }, 4000);
-            }, 8000); // Síncrono com o ciclo de respiração/nuvem
+                }, 2000); // Atraso para permitir transição suave
+            }, 10000); // Ciclo total de 10 segundos
         }
 
         function stopMusic() {
@@ -289,4 +308,3 @@
 
 </body>
 </html>
-
