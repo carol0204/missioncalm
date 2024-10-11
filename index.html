@@ -15,6 +15,7 @@
             background-color: #e0f7fa;
             color: #004d40;
             margin: 0;
+            position: relative; /* Para a nuvem flutuar corretamente */
         }
 
         #gameArea {
@@ -41,7 +42,7 @@
             align-items: center;
             justify-content: center;
             margin: 20px auto;
-            animation: breathe 8s infinite;
+            animation: breathe 4s infinite; /* Reduzido para um ciclo mais rápido */
         }
 
         @keyframes breathe {
@@ -63,7 +64,7 @@
 
         #cloud {
             position: absolute;
-            top: 20%;
+            top: 10%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 200px;
@@ -71,7 +72,7 @@
             background-color: #fff;
             border-radius: 50%;
             opacity: 0;
-            transition: opacity 3s;
+            transition: opacity 2s;
             animation: float 5s infinite alternate;
         }
 
