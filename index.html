@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floresta da Calma</title>
     <style>
+        /* Importando uma nova fonte mais profissional */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
         body {
             background-image: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
             background-size: cover;
@@ -14,60 +17,73 @@
             justify-content: center;
             height: 100vh;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif; /* Nova fonte */
         }
+
         h1 {
-            font-size: 2.5em; /* Aumentando o tamanho do título */
+            font-size: 2.5em; /* Tamanho do título */
+            margin-bottom: 10px;
         }
+
         #characterContainer {
             display: flex;
             justify-content: space-around;
             width: 80%;
             margin: 20px 0;
         }
+
         .character {
             cursor: pointer;
             text-align: center;
         }
+
         #messages {
             margin-top: 20px;
-            font-size: 24px; /* Aumentando o tamanho das mensagens */
-            color: #ffff00; /* Mudando a cor das mensagens para amarelo */
+            font-size: 24px; /* Tamanho das mensagens */
+            color: #556B2F; /* Verde musgo para combinar com a página */
             animation: fade-in 2s;
+            transition: opacity 0.5s ease-in-out; /* Suavizando a troca das frases */
         }
+
         @keyframes fade-in {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         #calmiCircle {
             display: none;
             margin-top: 20px;
         }
+
         #tempestadeCloud {
             display: none;
             position: relative;
             margin-top: 20px;
-            opacity: 1; /* Garantindo que a nuvem começa visível */
+            opacity: 1; /* Nuvem começa visível */
         }
+
         #luziaButton, #stopButton {
             display: none;
             margin-top: 10px;
-            padding: 10px 20px; /* Adicionando padding para melhor aparência */
+            padding: 10px 20px; /* Padding para melhor aparência */
             border: none;
             border-radius: 5px;
-            font-size: 18px; /* Aumentando o tamanho da fonte */
+            font-size: 18px; /* Tamanho da fonte */
             cursor: pointer;
-            background-color: #ffcc00; /* Cor de fundo do botão */
-            color: #333; /* Cor do texto do botão */
+            background-color: #2F4F4F; /* Verde escuro para os botões */
+            color: white;
             transition: background-color 0.3s;
         }
+
         #luziaButton:hover, #stopButton:hover {
-            background-color: #ff9900; /* Cor do botão ao passar o mouse */
+            background-color: #556B2F; /* Cor dos botões ao passar o mouse */
         }
     </style>
 </head>
 <body>
     <h1>Bem-vindo à Floresta da Calma</h1>
+    <p>Esse espaço é para todos que procuram um momento de tranquilidade, alívio e equilíbrio emocional. Respire fundo e siga adiante.</p>
+
     <div id="characterContainer">
         <div class="character" onclick="showCharacter('calmi')">
             <img src="imagens/calmi.png" alt="Calmi" width="150">
@@ -82,16 +98,21 @@
             <p>Tempestade</p>
         </div>
     </div>
+
     <div id="calmiCircle">
         <canvas id="circleCanvas" width="200" height="200"></canvas>
     </div>
+
     <div id="tempestadeCloud">
         <img src="imagens/nuvem.png" alt="Nuvem" width="200">
     </div>
+
     <div id="messages"></div>
+
     <div id="luziaButton">
         <button onclick="changeLuziaMessage()">Mudar Mensagem de Luzia</button>
     </div>
+
     <div id="stopButton">
         <button onclick="stopMusic()">Parar Música</button>
     </div>
