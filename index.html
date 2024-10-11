@@ -17,11 +17,11 @@
             justify-content: center;
             height: 100vh;
             color: white;
-            font-family: 'Poppins', sans-serif; /* Nova fonte */
+            font-family: 'Poppins', sans-serif;
         }
 
         h1 {
-            font-size: 2.5em; /* Tamanho do título */
+            font-size: 2.5em;
             margin-bottom: 10px;
         }
 
@@ -35,25 +35,25 @@
         .character {
             cursor: pointer;
             text-align: center;
-            transition: transform 0.3s, filter 0.3s; /* Transição suave para o efeito de brilho e aumento */
+            transition: transform 0.3s, filter 0.3s;
         }
 
         .character:hover {
-            transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
-            filter: brightness(1.5); /* Aumenta o brilho ao passar o mouse */
+            transform: scale(1.1);
+            filter: brightness(1.5);
         }
 
         .character.active {
-            filter: brightness(1.5); /* Aumenta o brilho quando clicado */
+            filter: brightness(1.5);
         }
 
         #messages {
             margin-top: 20px;
-            font-size: 24px; /* Tamanho das mensagens */
-            color: #556B2F; /* Verde musgo para combinar com a página */
+            font-size: 24px;
+            color: #556B2F;
             animation: fade-in 2s;
-            transition: opacity 0.5s ease-in-out; /* Suavizando a troca das frases */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Brilho nas legendas */
+            transition: opacity 0.5s ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes fade-in {
@@ -67,32 +67,38 @@
         }
 
         #tempestadeCloud {
-            display: none; /* Começa oculto */
+            display: none;
             position: relative;
             margin-top: 20px;
-            width: 200px; /* Largura da nuvem */
-            height: 100px; /* Altura da nuvem */
-            background-color: white; /* Fundo branco */
-            opacity: 1; /* Nuvem começa visível */
-            transition: opacity 1s; /* Efeito suave de desaparecimento */
-            border-radius: 50%; /* Círculo */
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+
+        /* Ajustes de brilho e saturação para harmonizar com o fundo */
+        #tempestadeCloud img, #luzia img {
+            filter: brightness(0.7) saturate(0.8);
+            opacity: 0.9;
         }
 
         #luziaButton, #stopButton {
             display: none;
             margin-top: 10px;
-            padding: 10px 20px; /* Padding para melhor aparência */
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            font-size: 18px; /* Tamanho da fonte */
+            font-size: 18px;
             cursor: pointer;
-            background-color: #2F4F4F; /* Verde escuro para os botões */
+            background-color: #2F4F4F;
             color: white;
             transition: background-color 0.3s;
         }
 
         #luziaButton:hover, #stopButton:hover {
-            background-color: #556B2F; /* Cor dos botões ao passar o mouse */
+            background-color: #556B2F;
         }
     </style>
 </head>
@@ -120,7 +126,6 @@
     </div>
 
     <div id="tempestadeCloud">
-        <!-- Agora temos um círculo que aparece em vez de uma nuvem -->
         <div id="cloud" style="width: 100%; height: 100%; background: white; border-radius: 50%;"></div>
     </div>
 
@@ -213,7 +218,7 @@
             }
             currentAudio = new Audio(musicPath);
             currentAudio.play();
-            document.getElementById('stopButton').style.display = 'block'; // Exibe o botão para parar a música
+            document.getElementById('stopButton').style.display = 'block';
         }
 
         function stopMusic() {
@@ -221,34 +226,33 @@
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
             }
-            document.getElementById('stopButton').style.display = 'none'; // Esconde o botão após parar a música
+            document.getElementById('stopButton').style.display = 'none';
         }
 
         function showCharacter(character) {
-            stopMusic(); // Para a música ao trocar de personagem
+            stopMusic();
             document.getElementById('messages').innerHTML = '';
             document.getElementById('calmiCircle').style.display = 'none';
             document.getElementById('tempestadeCloud').style.display = 'none';
             document.getElementById('luziaButton').style.display = 'none';
 
-            // Remove brilho de todos os personagens
             const characters = document.querySelectorAll('.character');
             characters.forEach((char) => {
-                char.classList.remove('active'); // Remove brilho de todos os personagens
+                char.classList.remove('active');
             });
 
             if (character === 'calmi') {
                 playMusic('musicas/musica_calmi.mp3');
                 showCalmi();
-                document.querySelector('.character:nth-child(1)').classList.add('active'); // Adiciona brilho ao personagem Calmi
+                document.querySelector('.character:nth-child(1)').classList.add('active');
             } else if (character === 'luzia') {
                 playMusic('musicas/musica_luzia.mp3');
                 showLuzia();
-                document.querySelector('.character:nth-child(2)').classList.add('active'); // Adiciona brilho ao personagem Luzia
+                document.querySelector('.character:nth-child(2)').classList.add('active');
             } else if (character === 'tempestade') {
                 playMusic('musicas/musica_tempestade.mp3');
                 showTempestade();
-                document.querySelector('.character:nth-child(3)').classList.add('active'); // Adiciona brilho ao personagem Tempestade
+                document.querySelector('.character:nth-child(3)').classList.add('active');
             }
         }
 
@@ -273,14 +277,14 @@
         function displayMessage(messages) {
             let index = 0;
             const interval = setInterval(() => {
-                document.getElementById('messages').style.opacity = '0'; // Suaviza a transição
+                document.getElementById('messages').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('messages').innerHTML = messages[index];
-                    document.getElementById('messages').style.opacity = '1'; // Faz a mensagem aparecer suavemente
-                }, 500); // Atraso para a nova mensagem aparecer
+                    document.getElementById('messages').style.opacity = '1';
+                }, 500);
                 index++;
                 if (index >= messages.length) {
-                    index = 0; // Reinicia o índice para looping
+                    index = 0;
                 }
             }, 3000);
         }
@@ -291,23 +295,23 @@
             let radius = 50;
             let growing = true;
             
-            const growthRate = 0.1; // Velocidade da respiração tranquila
-            const maxRadius = 80; // Raio máximo
-            const minRadius = 50; // Raio mínimo
+            const growthRate = 0.05; // Velocidade mais lenta para uma respiração tranquila
+            const maxRadius = 80;
+            const minRadius = 50;
 
             const breathingAnimation = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 150, 255, 0.3)'; // Azul claro e transparente
+                ctx.fillStyle = 'rgba(0, 150, 255, 0.3)';
                 ctx.fill();
                 ctx.closePath();
 
                 if (growing) {
-                    radius += growthRate; // Crescendo lentamente
+                    radius += growthRate;
                     if (radius >= maxRadius) growing = false;
                 } else {
-                    radius -= growthRate; // Diminuindo lentamente
+                    radius -= growthRate;
                     if (radius <= minRadius) growing = true;
                 }
 
@@ -318,17 +322,17 @@
 
         function animateDissipatingCloud() {
             const cloud = document.getElementById('tempestadeCloud');
-            cloud.style.opacity = '1'; // Reseta a opacidade da nuvem
+            cloud.style.opacity = '1';
             let growing = true;
             let size = 1;
 
             const cloudBreathing = () => {
                 cloud.style.transform = `scale(${size})`;
                 if (growing) {
-                    size += 0.01; // Aumentando a nuvem
+                    size += 0.01;
                     if (size >= 1.1) growing = false;
                 } else {
-                    size -= 0.01; // Diminuindo a nuvem
+                    size -= 0.01;
                     if (size <= 1) growing = true;
                 }
                 requestAnimationFrame(cloudBreathing);
