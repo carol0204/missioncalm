@@ -80,7 +80,19 @@
             text-align: left;
             font-size: 1.1em;
             line-height: 1.5em;
-            font-family: 'Patrick Hand', cursive; /* Fonte de escrita à mão */
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        /* Texto de boas-vindas */
+        .welcome-text {
+            font-size: 1.4em;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            max-width: 80%;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
         }
 
         /* Círculo de respiração */
@@ -178,6 +190,11 @@
                 font-size: 1em;
                 line-height: 1.3em;
             }
+
+            .welcome-text {
+                font-size: 1.2em;
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -189,6 +206,12 @@
         <img class="character" src="imagens/calmi.png" alt="Calmi" onclick="startGame('calmi')">
         <img class="character" src="imagens/luzia.png" alt="Luzia" onclick="startGame('luzia')">
         <img class="character" src="imagens/tempestade.png" alt="Tempestade" onclick="startGame('tempestade')">
+    </div>
+
+    <div id="welcomeMessage" class="welcome-text">
+        Bem-vindo ao Caminho para a Calma! Aqui você encontrará personagens especiais que irão ajudá-lo a enfrentar diferentes desafios emocionais de maneira leve e divertida. 
+        Clique em um dos personagens acima para começar. Cada personagem tem uma missão única para ajudá-lo a lidar com questões como ansiedade, raiva e autoestima. 
+        Estamos aqui para guiá-lo nesse caminho de autoconhecimento e tranquilidade.
     </div>
 
     <div class="game-area" id="gameArea">
@@ -233,33 +256,27 @@
                 "Lembre-se, você é forte e pode superar isso. Estou aqui com você.",
                 "Respire profundamente. Inspire contando até quatro e expire contando até seis.",
                 "Concentre-se na sua respiração. Você está seguro e isso vai passar.",
-                "Sinta seu corpo relaxando a cada respiração. Você é capaz de superar este momento.",
-            ],
-            angerControl: [
-                "Vamos trabalhar juntos para dissipar essa raiva.",
-                "A raiva é uma emoção normal, mas você pode controlá-la.",
-                "Concentre-se na sua respiração e deixe a tensão ir embora.",
-                "Você é capaz de encontrar paz mesmo nas tempestades.",
+                "Tire um momento para olhar ao redor e notar cinco coisas que você vê.",
+                "Continue respirando devagar. A ansiedade vai passar."
             ]
         };
 
         function startGame(character) {
-            const music = document.getElementById('music');
+            const gameArea = document.getElementById('gameArea');
             const gameTitle = document.getElementById('gameTitle');
             const characterDescription = document.getElementById('characterDescription');
             const gameContent = document.getElementById('gameContent');
-            const gameArea = document.getElementById('gameArea');
+            const music = document.getElementById('music');
+            const welcomeMessage = document.getElementById('welcomeMessage');
 
-            if (!music.paused) {
-                music.pause();
-                music.currentTime = 0;
-            }
+            // Esconder a mensagem de boas-vindas quando o jogo começa
+            welcomeMessage.style.display = 'none';
 
-            switch(character) {
+            switch (character) {
                 case 'calmi':
                     music.src = 'musicas/musica_calmi.mp3';
                     gameTitle.innerText = 'Jogo do Calmi';
-                    characterDescription.innerText = 'Calmi é o mestre da calma e da respiração profunda. Ajuda a controlar a ansiedade.';
+                    characterDescription.innerText = 'Calmi, o mestre da calma e da respiração profunda. Ajuda a controlar a ansiedade.';
                     gameContent.innerHTML = '<div class="breathing-circle"></div><p>Inspire profundamente e sinta a paz interior. Relaxe enquanto o círculo se expande e contrai.</p>';
                     break;
                 case 'luzia':
@@ -306,4 +323,3 @@
     </script>
 </body>
 </html>
-
