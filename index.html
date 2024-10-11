@@ -228,24 +228,7 @@
 
     <script>
         const messages = {
-            calmi: [
-                "Respire fundo e relaxe.",
-                "Acalme sua mente e o seu coração.",
-                "Você tem o poder de controlar suas emoções.",
-                "Tudo vai ficar bem.",
-                "Cada respiração traz mais calma para o seu corpo.",
-                "Você está seguro e tranquilo.",
-                "Permita-se descansar e recuperar suas energias.",
-                "A paz interior está ao seu alcance.",
-                "Tudo o que você precisa está dentro de você.",
-                "A calma é o seu estado natural.",
-                "O que você está sentindo agora vai passar.",
-                "Observe sua respiração e sinta a tranquilidade que ela traz.",
-                "Você é como uma árvore firme, com raízes profundas e tranquilidade em seu ser.",
-                "Tire um momento para olhar ao redor e notar cinco coisas que você vê.",
-                "Continue respirando devagar. A ansiedade vai passar."
-            ],
-            luzia: [
+            selfEsteem: [
                 "Você é incrível!",
                 "Ame-se do jeito que você é!",
                 "Você tem o poder de fazer a diferença!",
@@ -257,105 +240,116 @@
                 "Você é uma pessoa única e especial.",
                 "Não deixe ninguém apagar o seu brilho!",
                 "Você merece ser amado e respeitado.",
-                "Sua força interior é inigualável.",
-                "Seja gentil consigo mesmo.",
+                "Sua força interior é imensa!",
+                "Você está se tornando uma versão melhor de si mesmo.",
                 "Você é mais forte do que imagina.",
-                "Acredite em você e siga em frente."
+                "Cada passo que você dá é importante.",
+                "Você pode alcançar tudo o que deseja.",
+                "Você está no caminho certo para o sucesso.",
+                "Confie no seu potencial!",
+                "Você é mais do que suficiente.",
+                "Continue acreditando em si mesmo!"
             ],
-            tempestade: [
-                "É normal sentir raiva, mas você pode controlá-la.",
-                "Respire fundo e libere essa energia.",
-                "A raiva é uma emoção passageira.",
-                "Tente canalizar sua energia em algo produtivo.",
-                "Sinta a raiva indo embora com cada respiração.",
-                "O que te irrita não define quem você é.",
-                "Cada desafio é uma oportunidade de crescimento.",
-                "Encontre algo que te faça sorrir e mude seu foco.",
-                "Lembre-se de que você é mais forte do que a sua raiva.",
-                "Libere a tensão e permita-se relaxar.",
-                "Você pode transformar sua raiva em motivação.",
-                "Concentre-se nas soluções, não nos problemas.",
-                "A vida é cheia de altos e baixos, e tudo vai passar.",
-                "Aprenda a se perdoar e a deixar ir.",
-                "Você é capaz de se acalmar e encontrar paz.",
-                "As nuvens sempre se dissipam após a tempestade."
+            calm: [
+                "Respire fundo e relaxe.",
+                "Acalme sua mente e o seu coração.",
+                "Você tem o poder de controlar suas emoções.",
+                "Tudo vai ficar bem.",
+                "Cada respiração traz mais calma para você.",
+                "Sinta a tranquilidade entrando em você.",
+                "Permita-se sentir paz neste momento.",
+                "A vida é feita de altos e baixos, e tudo é passageiro.",
+                "Concentre-se no aqui e agora.",
+                "Você é mais forte do que pensa."
+            ],
+            anger: [
+                "É normal sentir raiva, mas é importante saber como lidar com ela.",
+                "Respire profundamente e deixe a raiva ir.",
+                "Você tem o controle sobre suas emoções.",
+                "Tente identificar o que está causando essa raiva.",
+                "Lembre-se de que você pode escolher como reagir.",
+                "A raiva é uma emoção, mas não precisa definir você.",
+                "Encontre formas saudáveis de liberar a sua raiva.",
+                "Deixe a raiva sair como uma nuvem se dissipando no céu.",
+                "Permita-se sentir a raiva, mas não a deixe controlar você.",
+                "A cada respiração, sinta sua raiva se dissipar."
             ]
         };
 
-        let currentCharacter = '';
         let currentMessageIndex = 0;
-        let messageTimeout;
-        let musicPlaying = false;
+        let messageInterval;
 
         function startGame(character) {
-            currentCharacter = character;
-            document.getElementById("welcomeMessage").style.display = "none";
-            document.getElementById("gameArea").style.display = "block";
-            document.getElementById("gameTitle").innerText = character.charAt(0).toUpperCase() + character.slice(1);
-            document.getElementById("characterDescription").innerText = getCharacterDescription(character);
-            playMusic(character);
-            showMessage();
-        }
-
-        function getCharacterDescription(character) {
-            switch (character) {
-                case 'calmi':
-                    return "Calmi te ensina a respirar e a encontrar sua paz interior.";
-                case 'luzia':
-                    return "Luzia traz mensagens de autoestima e empoderamento.";
-                case 'tempestade':
-                    return "Tempestade ajuda a lidar com a raiva e a tensão.";
-                default:
-                    return "";
-            }
-        }
-
-        function showMessage() {
-            if (currentMessageIndex < messages[currentCharacter].length) {
-                const message = messages[currentCharacter][currentMessageIndex];
-                const messageBox = document.createElement("div");
-                messageBox.className = "message-box fade-message";
-                messageBox.innerText = message;
-                document.getElementById("gameContent").appendChild(messageBox);
-
-                setTimeout(() => {
-                    messageBox.classList.add("show");
-                }, 10);
-
-                currentMessageIndex++;
-                clearTimeout(messageTimeout);
-                messageTimeout = setTimeout(() => {
-                    messageBox.classList.remove("show");
-                    setTimeout(() => {
-                        messageBox.remove();
-                        showMessage();
-                    }, 2000);
-                }, 5000); // Tempo antes de remover a mensagem
-            } else {
-                currentMessageIndex = 0; // Resetar índice para reiniciar as mensagens
-            }
-        }
-
-        function playMusic(character) {
+            const gameArea = document.getElementById("gameArea");
+            const gameTitle = document.getElementById("gameTitle");
+            const characterDescription = document.getElementById("characterDescription");
+            const gameContent = document.getElementById("gameContent");
+            const welcomeMessage = document.getElementById("welcomeMessage");
             const music = document.getElementById("music");
-            music.src = `musicas/${character}.mp3`; // As músicas devem estar na pasta 'musicas'
+            const messagesContainer = document.createElement("div");
+
+            // Esconder mensagem de boas-vindas
+            welcomeMessage.style.display = "none";
+            gameArea.style.display = "block";
+            messagesContainer.className = "message-box";
+            gameContent.appendChild(messagesContainer);
+
+            // Controlar música e título
+            if (character === 'calmi') {
+                music.src = "musicas/calm_music.mp3";
+                gameTitle.innerText = "Calmi - Respiração e Calma";
+                characterDescription.innerText = "Calmi é seu guia para encontrar a tranquilidade através da respiração.";
+                showMessages(messages.calm, messagesContainer);
+            } else if (character === 'luzia') {
+                music.src = "musicas/self_esteem_music.mp3";
+                gameTitle.innerText = "Luzia - Autoestima";
+                characterDescription.innerText = "Luzia ajuda você a se amar e se aceitar.";
+                showMessages(messages.selfEsteem, messagesContainer);
+            } else if (character === 'tempestade') {
+                music.src = "musicas/anger_management_music.mp3";
+                gameTitle.innerText = "Tempestade - Controle da Raiva";
+                characterDescription.innerText = "Tempestade ensina a lidar com a raiva de forma saudável.";
+                showMessages(messages.anger, messagesContainer);
+            }
             music.play();
-            musicPlaying = true;
+        }
+
+        function showMessages(messageArray, container) {
+            currentMessageIndex = 0;
+            container.innerHTML = ''; // Limpa mensagens anteriores
+            messageInterval = setInterval(() => {
+                if (currentMessageIndex < messageArray.length) {
+                    const messageElement = document.createElement('div');
+                    messageElement.innerText = messageArray[currentMessageIndex];
+                    messageElement.classList.add('fade-message');
+                    container.appendChild(messageElement);
+                    setTimeout(() => {
+                        messageElement.classList.add('show'); // Faz o texto aparecer
+                    }, 100); // Tempo de espera para mostrar a mensagem
+                    currentMessageIndex++;
+                } else {
+                    clearInterval(messageInterval); // Limpa o intervalo quando acabar as mensagens
+                }
+            }, 7000); // Tempo entre mensagens
         }
 
         function stopMusic() {
             const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0; // Reiniciar a música
-            musicPlaying = false;
+            music.currentTime = 0; // Reinicia a música
         }
 
         function closeGame() {
-            document.getElementById("gameArea").style.display = "none";
-            document.getElementById("welcomeMessage").style.display = "block";
-            stopMusic(); // Parar a música ao fechar o jogo
-            currentMessageIndex = 0; // Resetar índice
-            document.getElementById("gameContent").innerHTML = ""; // Limpar mensagens
+            const gameArea = document.getElementById("gameArea");
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            const music = document.getElementById("music");
+            gameArea.style.display = "none";
+            welcomeMessage.style.display = "block";
+            stopMusic(); // Para a música quando o jogo é fechado
+            const messagesContainer = document.getElementById("gameContent").querySelector('.message-box');
+            messagesContainer.innerHTML = ''; // Limpa as mensagens ao fechar
+            currentMessageIndex = 0; // Reinicia o índice das mensagens
+            clearInterval(messageInterval); // Limpa o intervalo
         }
     </script>
 </body>
