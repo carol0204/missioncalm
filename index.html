@@ -75,6 +75,7 @@
             background-color: white; /* Fundo branco */
             opacity: 1; /* Nuvem começa visível */
             transition: opacity 1s; /* Efeito suave de desaparecimento */
+            border-radius: 50%; /* Círculo */
         }
 
         #luziaButton, #stopButton {
@@ -119,7 +120,8 @@
     </div>
 
     <div id="tempestadeCloud">
-        <img src="imagens/nuvem.png" alt="Nuvem" width="200">
+        <!-- Agora temos um círculo que aparece em vez de uma nuvem -->
+        <div id="cloud" style="width: 100%; height: 100%; background: white; border-radius: 50%;"></div>
     </div>
 
     <div id="messages"></div>
