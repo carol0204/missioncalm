@@ -67,14 +67,14 @@
         }
 
         #tempestadeCloud {
-            display: none;
+            display: none; /* Começa oculto */
             position: relative;
             margin-top: 20px;
-            opacity: 1; /* Nuvem começa visível */
-            background-color: white; /* Fundo branco */
-            transition: opacity 1s; /* Efeito suave de desaparecimento */
             width: 200px; /* Largura da nuvem */
             height: 100px; /* Altura da nuvem */
+            background-color: white; /* Fundo branco */
+            opacity: 1; /* Nuvem começa visível */
+            transition: opacity 1s; /* Efeito suave de desaparecimento */
         }
 
         #luziaButton, #stopButton {
@@ -229,7 +229,7 @@
             document.getElementById('tempestadeCloud').style.display = 'none';
             document.getElementById('luziaButton').style.display = 'none';
 
-            // Adiciona brilho ao personagem clicado
+            // Remove brilho de todos os personagens
             const characters = document.querySelectorAll('.character');
             characters.forEach((char) => {
                 char.classList.remove('active'); // Remove brilho de todos os personagens
@@ -317,19 +317,22 @@
         function animateDissipatingCloud() {
             const cloud = document.getElementById('tempestadeCloud');
             cloud.style.opacity = '1'; // Reseta a opacidade da nuvem
-            let opacity = 1;
+            let growing = true;
+            let size = 1;
 
-            const dissipateAnimation = () => {
-                if (opacity > 0) {
-                    opacity -= 0.01; // Dissipação lenta da nuvem
-                    cloud.style.opacity = opacity;
-                    requestAnimationFrame(dissipateAnimation);
+            const cloudBreathing = () => {
+                cloud.style.transform = `scale(${size})`;
+                if (growing) {
+                    size += 0.01; // Aumentando a nuvem
+                    if (size >= 1.1) growing = false;
                 } else {
-                    opacity = 1; // Reseta a opacidade da nuvem
-                    cloud.style.opacity = opacity; // Reinicia a nuvem
+                    size -= 0.01; // Diminuindo a nuvem
+                    if (size <= 1) growing = true;
                 }
+                requestAnimationFrame(cloudBreathing);
             };
-            dissipateAnimation();
+
+            cloudBreathing();
         }
 
         function changeLuziaMessage() {
