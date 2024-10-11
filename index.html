@@ -254,90 +254,59 @@
                 "Cada dia é uma nova oportunidade de brilhar.",
                 "Acredite em você e no seu potencial.",
                 "Sua história é linda e vale a pena ser contada.",
-                "Você merece amor e carinho, comece por si mesma.",
-                "A verdadeira beleza é ser autêntica.",
-                "Ame-se em todas as suas formas.",
-                "Você é forte e capaz de superar qualquer desafio.",
-                "Seja gentil com você mesma.",
-                "O amor próprio é o primeiro passo para a felicidade.",
-                "Você é digna de tudo que há de bom."
+                "Ame-se incondicionalmente.",
+                "A sua felicidade deve ser a sua prioridade.",
+                "Você merece todas as coisas boas da vida.",
+                "Confie no seu próprio valor.",
+                "Você é uma obra-prima em constante evolução.",
+                "Cada erro é uma oportunidade de aprendizado.",
+                "Você é amada exatamente como é."
             ],
             tempestade: [
-                "É normal sentir raiva, mas como você pode expressá-la de forma saudável?",
-                "Respire e deixe a raiva ir.",
-                "Você pode controlar suas reações.",
-                "A raiva não precisa governar você.",
-                "Encontre formas saudáveis de liberar a tensão.",
-                "Lembre-se de que sua voz merece ser ouvida.",
-                "Canalize sua energia para algo positivo.",
-                "É hora de transformar sua raiva em motivação.",
-                "Pratique o autocuidado e a autoaceitação.",
-                "A raiva é uma emoção válida; saiba como lidar com ela.",
-                "Enfrente seus desafios com coragem.",
-                "Use a raiva para impulsionar mudanças construtivas.",
-                "A calma é a resposta mais poderosa.",
-                "Peça apoio quando necessário.",
-                "Você é mais forte do que imagina."
+                "Reconheça sua raiva, mas não deixe que ela o controle.",
+                "É normal sentir raiva; o importante é como você lida com isso.",
+                "Respire fundo e conte até dez.",
+                "Permita-se sentir, mas escolha como agir.",
+                "A raiva é uma emoção válida, mas não precisa ser destrutiva.",
+                "Converse sobre seus sentimentos de maneira calma.",
+                "Você tem o poder de transformar sua raiva em energia positiva.",
+                "Pense nas consequências de suas ações antes de agir.",
+                "A comunicação é a chave para resolver conflitos.",
+                "Seu bem-estar emocional é mais importante do que estar certo.",
+                "Encontre uma forma saudável de liberar sua raiva.",
+                "Lembre-se: a calma é sua aliada.",
+                "Desenhe ou escreva sobre seus sentimentos.",
+                "A raiva pode ser um sinal de que algo precisa ser mudado.",
+                "Você é mais forte do que pensa."
             ]
         };
 
-        const sounds = {
-            calmi: './musicas/musica_calmi.mp3',
-            luzia: './musicas/musica_luzia.mp3',
-            tempestade: './musicas/musica_tempestade.mp3'
-        };
-
         function startGame(character) {
-            document.getElementById('gameArea').style.display = 'block';
-            document.getElementById('welcomeMessage').style.display = 'none';
-            document.getElementById('gameTitle').innerText = `Missão de ${character.charAt(0).toUpperCase() + character.slice(1)}`;
-            document.getElementById('characterDescription').innerText = `Mensagem de ${character.charAt(0).toUpperCase() + character.slice(1)}:`;
-            document.getElementById('gameContent').innerHTML = '';
-            playMusic(character);
-            showMessages(character);
+            const title = character.charAt(0).toUpperCase() + character.slice(1);
+            document.getElementById("gameTitle").innerText = title;
+            document.getElementById("characterDescription").innerText = `Esta é a missão de ${title}:`;
+            document.getElementById("gameContent").innerText = getRandomMessage(character);
+            document.getElementById("music").src = `musicas/${character}.mp3`; // Adicione o caminho correto para suas músicas
+            document.getElementById("music").play();
+            document.getElementById("welcomeMessage").style.display = "none";
+            document.getElementById("gameArea").style.display = "block";
         }
 
-        function playMusic(character) {
-            const music = document.getElementById('music');
-            music.src = sounds[character];
-            music.play();
-        }
-
-        function showMessages(character) {
-            const messageBox = document.getElementById('gameContent');
-            let messageIndex = 0;
-
-            function displayNextMessage() {
-                if (messageIndex < messages[character].length) {
-                    const message = messages[character][messageIndex];
-                    const msgElement = document.createElement('div');
-                    msgElement.className = 'message-box fade-message';
-                    msgElement.innerText = message;
-                    messageBox.appendChild(msgElement);
-                    setTimeout(() => {
-                        msgElement.classList.add('show');
-                    }, 50);
-
-                    messageIndex++;
-                    setTimeout(displayNextMessage, 4000);
-                }
-            }
-
-            displayNextMessage();
+        function getRandomMessage(character) {
+            const messageArray = messages[character];
+            return messageArray[Math.floor(Math.random() * messageArray.length)];
         }
 
         function stopMusic() {
-            const music = document.getElementById('music');
+            const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0;
+            music.currentTime = 0; // Reseta a música para o início
         }
 
         function closeGame() {
-            const gameArea = document.getElementById('gameArea');
-            gameArea.style.display = 'none';
-            document.getElementById('welcomeMessage').style.display = 'block';
             stopMusic();
-            document.getElementById('gameContent').innerHTML = '';
+            document.getElementById("gameArea").style.display = "none";
+            document.getElementById("welcomeMessage").style.display = "block";
         }
     </script>
 </body>
