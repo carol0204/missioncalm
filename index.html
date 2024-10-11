@@ -219,6 +219,7 @@
     <div class="game-area" id="gameArea">
         <h2 id="gameTitle"></h2>
         <p id="characterDescription" class="character-info"></p>
+        <div class="breathing-circle"></div> <!-- Círculo de respiração adicionado aqui -->
         <div id="gameContent"></div>
         <button onclick="stopMusic()">Parar Música</button>
         <button onclick="closeGame()">Fechar Jogo</button>
@@ -242,109 +243,94 @@
                 "O que você está sentindo agora vai passar.",
                 "Observe sua respiração e sinta a tranquilidade que ela traz.",
                 "Você é como uma árvore firme, com raízes profundas e tranquilidade em seu ser.",
-                "Tire um momento para olhar ao redor e notar cinco coisas que você vê.",
-                "Continue respirando devagar. A ansiedade vai passar."
+                "O momento presente é tudo o que você tem.",
+                "Confie no processo da vida e na sua capacidade de lidar com as situações."
             ],
-            anger: [
-                "A raiva é uma emoção válida, mas não deixe que ela o controle.",
-                "Respire profundamente e deixe a raiva ir embora.",
-                "Dê um passo para trás e observe seus sentimentos.",
-                "Concentre-se na sua respiração, a raiva vai se dissipar.",
-                "Transforme a raiva em energia positiva.",
-                "Você tem o poder de escolher sua resposta.",
-                "Imagine sua raiva se transformando em uma nuvem que se dissipa.",
-                "Lembre-se de que você é mais forte do que a raiva.",
-                "Deixe a raiva sair e faça espaço para a calma.",
-                "Sorria e respire fundo. Você pode superar isso."
+            luzia: [
+                "Você é única e especial.",
+                "A beleza vem de dentro e brilha para fora.",
+                "Você tem um brilho que é só seu.",
+                "Aceite-se como você é.",
+                "A autoestima é o seu superpoder.",
+                "Cada dia é uma nova oportunidade de brilhar.",
+                "Acredite em você e no seu potencial.",
+                "Sua história é linda e merece ser contada.",
+                "Você merece ser feliz e amada.",
+                "Seja gentil consigo mesma.",
+                "Olhe para si mesma com amor e compaixão.",
+                "Você é mais forte do que imagina.",
+                "Não tenha medo de ser quem você realmente é.",
+                "O amor-próprio é a base de toda felicidade.",
+                "Você é a protagonista da sua vida!"
+            ],
+            tempestade: [
+                "É normal sentir raiva, mas saiba como lidar com isso.",
+                "Respire fundo e conte até dez.",
+                "A raiva é uma emoção, mas você pode controlá-la.",
+                "Expresse sua raiva de maneira saudável.",
+                "Cada respiração acalma sua tempestade interna.",
+                "Você é capaz de transformar a raiva em energia positiva.",
+                "Lembre-se de que a raiva é passageira.",
+                "Concentre-se no que te faz feliz.",
+                "A calma sempre vem após a tempestade.",
+                "Permita-se sentir, mas não deixe a raiva te dominar.",
+                "Você tem o poder de mudar sua perspectiva.",
+                "Converta sua raiva em ação construtiva.",
+                "Seja gentil consigo mesmo enquanto lida com suas emoções.",
+                "Você é um ser humano incrível, digno de amor e respeito.",
+                "Use sua força para criar paz ao seu redor."
             ]
         };
 
-        let currentCharacter = '';
-        let currentMessageIndex = 0;
-        let intervalId;
-
         function startGame(character) {
-            currentCharacter = character;
-            document.getElementById('welcomeMessage').style.display = 'none';
-            document.getElementById('gameArea').style.display = 'block';
-            const gameTitle = document.getElementById('gameTitle');
-            const characterDescription = document.getElementById('characterDescription');
-            const music = document.getElementById('music');
+            const gameArea = document.getElementById("gameArea");
+            const gameTitle = document.getElementById("gameTitle");
+            const characterDescription = document.getElementById("characterDescription");
+            const gameContent = document.getElementById("gameContent");
 
-            if (character === 'calmi') {
-                gameTitle.textContent = 'Calmi';
-                characterDescription.textContent = 'Calmi é o seu guia para a serenidade. Ele irá ajudá-lo a encontrar a paz interior.';
-                music.src = 'musicas/musica_calmi.mp3'; // Certifique-se de que o caminho está correto
-                startBreathingAnimation();
-            } else if (character === 'luzia') {
-                gameTitle.textContent = 'Luzia';
-                characterDescription.textContent = 'Luzia acredita em você! Ela traz mensagens de auto-estima e confiança.';
-                music.src = 'musicas/musica_luzia.mp3'; // Certifique-se de que o caminho está correto
-                startAffirmationAnimation();
-            } else if (character === 'tempestade') {
-                gameTitle.textContent = 'Tempestade';
-                characterDescription.textContent = 'Tempestade é intensa, mas tem a sabedoria para acalmar sua raiva.';
-                music.src = 'musicas/musica_tempestade.mp3'; // Certifique-se de que o caminho está correto
-                startAngerManagementAnimation();
+            gameArea.style.display = "block";
+
+            switch (character) {
+                case 'calmi':
+                    gameTitle.textContent = "Calmi";
+                    characterDescription.textContent = "Calmi é seu guia para encontrar paz e tranquilidade. Vamos juntos respirar e relaxar!";
+                    document.getElementById('music').src = 'musicas/calme_music.mp3'; // Substitua pelo caminho correto da música
+                    break;
+                case 'luzia':
+                    gameTitle.textContent = "Luzia";
+                    characterDescription.textContent = "Luzia te ajuda a brilhar e a valorizar sua autoestima. Aceite-se e ame-se!";
+                    document.getElementById('music').src = 'musicas/luzia_music.mp3'; // Substitua pelo caminho correto da música
+                    break;
+                case 'tempestade':
+                    gameTitle.textContent = "Tempestade";
+                    characterDescription.textContent = "Tempestade é uma amiga que te ensina a lidar com a raiva de forma construtiva. Vamos juntos acalmar essa tempestade!";
+                    document.getElementById('music').src = 'musicas/tempestade_music.mp3'; // Substitua pelo caminho correto da música
+                    break;
             }
 
-            music.play();
-            showMessage();
+            document.getElementById('music').play();
+            showMessage(character);
         }
 
-        function startBreathingAnimation() {
-            // Adicione animação do círculo de respiração se necessário
-        }
+        function showMessage(character) {
+            const gameContent = document.getElementById("gameContent");
+            const characterMessages = messages[character];
 
-        function startAffirmationAnimation() {
-            // Lógica para Luzia
-        }
+            const randomIndex = Math.floor(Math.random() * characterMessages.length);
+            const message = characterMessages[randomIndex];
 
-        function startAngerManagementAnimation() {
-            // Lógica para Tempestade
-        }
-
-        function showMessage() {
-            if (currentCharacter === 'calmi') {
-                currentMessageIndex = (currentMessageIndex + 1) % messages.calm.length;
-                displayMessage(messages.calm[currentMessageIndex], 'fade-message');
-                setTimeout(showMessage, 8000); // Altere o tempo conforme necessário
-            } else if (currentCharacter === 'tempestade') {
-                currentMessageIndex = (currentMessageIndex + 1) % messages.anger.length;
-                displayMessage(messages.anger[currentMessageIndex], 'fade-message');
-                setTimeout(showMessage, 8000); // Altere o tempo conforme necessário
-            }
-        }
-
-        function displayMessage(message, className) {
-            const messageBox = document.createElement('div');
-            messageBox.className = `message-box ${className}`;
-            messageBox.innerText = message;
-            document.getElementById('gameContent').appendChild(messageBox);
-
-            // Animar mensagem
-            setTimeout(() => {
-                messageBox.classList.add('show');
-            }, 50);
-
-            // Remover mensagem após 8 segundos
-            setTimeout(() => {
-                messageBox.classList.remove('show');
-                setTimeout(() => {
-                    messageBox.remove();
-                }, 2000);
-            }, 8000); // Tempo de exibição total
+            gameContent.innerHTML = `<div class="message-box">${message}</div>`;
         }
 
         function stopMusic() {
-            const music = document.getElementById('music');
+            const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0;
+            music.currentTime = 0; // Reinicia a música para o início
         }
 
         function closeGame() {
-            document.getElementById('gameArea').style.display = 'none';
-            document.getElementById('welcomeMessage').style.display = 'block';
+            const gameArea = document.getElementById("gameArea");
+            gameArea.style.display = "none";
             stopMusic();
         }
     </script>
