@@ -259,166 +259,117 @@
                 "A calma é o seu estado natural.",
                 "Vamos juntos encontrar a serenidade.",
                 "Seja gentil consigo mesmo.",
-                "Você é capaz de superar isso.",
-                "Respire, solte e siga em frente.",
-                "Você é forte e capaz.",
-                "A vida é cheia de possibilidades.",
-                "Confie em sua jornada.",
-                "Sorria, você está fazendo o seu melhor.",
-                "Aceite o que não pode controlar.",
-                "A gratidão traz paz ao coração.",
-                "Lembre-se, você não está sozinho."
+                "Você está em um lugar seguro.",
+                "A tranquilidade é uma escolha.",
+                "Deixe suas preocupações irem embora.",
+                "A cada respiração, você se sente mais calmo.",
+                "Você é capaz de lidar com qualquer situação.",
+                "Você pode criar um espaço de paz em sua mente.",
+                "A serenidade é seu direito de nascença.",
+                "Vamos respirar juntos e encontrar a calma."
             ],
-            rage: [
-                "É normal sentir raiva, mas vamos transformá-la em energia positiva.",
+            anger: [
+                "A raiva é uma emoção normal.",
+                "É importante expressar o que você sente.",
+                "Você pode transformar a raiva em algo positivo.",
+                "Sinta a raiva, mas não deixe que ela controle você.",
                 "Respire fundo e conte até dez.",
-                "Você pode escolher como reagir a essa situação.",
-                "A raiva pode ser um sinal de que algo precisa mudar.",
-                "Lembre-se de que você está no controle.",
-                "Vamos canalizar essa energia para algo construtivo.",
+                "Você tem o poder de escolher suas reações.",
+                "A calma vem depois da tempestade.",
+                "Reconhecer sua raiva é o primeiro passo.",
                 "A raiva não define quem você é.",
-                "Você pode lidar com isso de maneira saudável.",
-                "Encontre um lugar seguro para expressar sua raiva.",
-                "A comunicação é a chave para resolver conflitos.",
-                "Perdoar é libertar-se do peso da raiva.",
-                "Respire e visualize a raiva se dissipando.",
-                "Não deixe a raiva tomar conta de você.",
-                "Lembre-se de que a calma é uma escolha.",
-                "Foque no que você pode controlar.",
-                "Mantenha a perspectiva e lembre-se do que é importante.",
-                "A raiva é uma emoção, mas você é muito mais que isso.",
-                "Você pode transformar sua raiva em motivação.",
-                "Não se esqueça de cuidar de si mesmo durante momentos difíceis.",
-                "A serenidade está a um passo da raiva.",
-                "Você tem o poder de mudar sua história."
+                "Você é mais do que suas emoções.",
+                "Transforme sua raiva em energia criativa.",
+                "Vamos juntos encontrar formas saudáveis de expressar a raiva.",
+                "A comunicação aberta pode ajudar a resolver conflitos.",
+                "Você pode liberar sua raiva de maneira construtiva.",
+                "Cada emoção é uma oportunidade de aprendizado.",
+                "A raiva é uma mensagem que precisa ser ouvida.",
+                "Não tenha medo de pedir ajuda.",
+                "Você é forte o suficiente para superar isso.",
+                "Lembre-se: a raiva é temporária, mas suas ações têm consequências.",
+                "Você pode escolher como reagir."
             ]
         };
 
-        let currentMessageIndex = 0;
-        let messageInterval;
-
         function startGame(character) {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            const gameArea = document.getElementById('gameArea');
-            const gameTitle = document.getElementById('gameTitle');
-            const characterDescription = document.getElementById('characterDescription');
-            const gameContent = document.getElementById('gameContent');
-            const music = document.getElementById('music');
-
-            welcomeMessage.style.display = 'none';
-            gameArea.style.display = 'block';
-
-            switch (character) {
-                case 'calmi':
-                    gameTitle.innerText = 'Calmi: Encontre a Calma';
-                    characterDescription.innerText = 'Calmi está aqui para ajudá-lo a relaxar e encontrar a paz interior.';
-                    music.src = 'musicas/musica_calmi.mp3';
-                    playCalmMessages();
-                    break;
-                case 'luzia':
-                    gameTitle.innerText = 'Luzia: Acredite em Si Mesmo';
-                    characterDescription.innerText = 'Luzia é sua amiga para elevar sua autoestima e autoconfiança.';
-                    music.src = 'musicas/musica_luzia.mp3';
-                    playSelfEsteemMessages();
-                    break;
-                case 'tempestade':
-                    gameTitle.innerText = 'Tempestade: Transformando Raiva';
-                    characterDescription.innerText = 'Tempestade ajuda você a lidar com a raiva e a transformar em energia positiva.';
-                    music.src = 'musicas/musica_tempestade.mp3';
-                    playRageMessages();
-                    break;
-                default:
-                    break;
+            document.getElementById("gameArea").style.display = "block";
+            const title = document.getElementById("gameTitle");
+            const description = document.getElementById("characterDescription");
+            const content = document.getElementById("gameContent");
+            const music = document.getElementById("music");
+            
+            if (character === 'calmi') {
+                title.textContent = "Aventuras de Calmi";
+                description.textContent = "Calmi é o guardião da serenidade. Ele te ajudará a controlar a ansiedade e a encontrar o seu centro.";
+                content.innerHTML = `<div class="breathing-circle"></div><p id="breathingMessage"></p>`;
+                music.src = "musicas/calmi_music.mp3"; // Caminho para a música do Calmi
+                playMusic();
+                breathingExercise();
+            } else if (character === 'luzia') {
+                title.textContent = "Aventuras de Luzia";
+                description.textContent = "Luzia ilumina seu caminho e ajuda a fortalecer sua autoestima. Siga com confiança!";
+                content.innerHTML = `<div class="cloud"></div><p id="selfEsteemMessage"></p>`;
+                music.src = "musicas/luzia_music.mp3"; // Caminho para a música da Luzia
+                playMusic();
+                selfEsteemMessages();
+            } else if (character === 'tempestade') {
+                title.textContent = "Aventuras de Tempestade";
+                description.textContent = "Tempestade é a energia da transformação. Ele ajuda a transformar a raiva em motivação!";
+                content.innerHTML = `<div class="cloud"></div><p id="angerMessage"></p>`;
+                music.src = "musicas/tempestade_music.mp3"; // Caminho para a música da Tempestade
+                playMusic();
+                angerMessages();
             }
+        }
 
+        function playMusic() {
+            const music = document.getElementById("music");
             music.play();
         }
 
-        function playCalmMessages() {
-            const messageContainer = document.createElement('div');
-            messageContainer.className = 'message-box';
-            const breathingCircle = document.createElement('div');
-            breathingCircle.className = 'breathing-circle';
-            messageContainer.appendChild(breathingCircle);
-            document.getElementById('gameContent').appendChild(messageContainer);
-
-            messageInterval = setInterval(() => {
-                if (currentMessageIndex < messages.calm.length) {
-                    const messageElement = document.createElement('p');
-                    messageElement.innerText = messages.calm[currentMessageIndex];
-                    messageElement.className = 'fade-message';
-                    messageContainer.appendChild(messageElement);
-                    
-                    setTimeout(() => {
-                        messageElement.classList.add('show');
-                    }, 100);
-
-                    currentMessageIndex++;
-                } else {
-                    clearInterval(messageInterval);
-                }
-            }, 5000); // Ajuste o intervalo conforme necessário
-        }
-
-        function playSelfEsteemMessages() {
-            const messageContainer = document.createElement('div');
-            messageContainer.className = 'message-box';
-            document.getElementById('gameContent').appendChild(messageContainer);
-
-            messageInterval = setInterval(() => {
-                if (currentMessageIndex < messages.selfEsteem.length) {
-                    const messageElement = document.createElement('p');
-                    messageElement.innerText = messages.selfEsteem[currentMessageIndex];
-                    messageElement.className = 'fade-message';
-                    messageContainer.appendChild(messageElement);
-                    
-                    setTimeout(() => {
-                        messageElement.classList.add('show');
-                    }, 100);
-
-                    currentMessageIndex++;
-                } else {
-                    clearInterval(messageInterval);
-                }
-            }, 5000); // Ajuste o intervalo conforme necessário
-        }
-
-        function playRageMessages() {
-            const messageContainer = document.createElement('div');
-            messageContainer.className = 'message-box';
-            document.getElementById('gameContent').appendChild(messageContainer);
-
-            messageInterval = setInterval(() => {
-                if (currentMessageIndex < messages.rage.length) {
-                    const messageElement = document.createElement('p');
-                    messageElement.innerText = messages.rage[currentMessageIndex];
-                    messageElement.className = 'fade-message';
-                    messageContainer.appendChild(messageElement);
-                    
-                    setTimeout(() => {
-                        messageElement.classList.add('show');
-                    }, 100);
-
-                    currentMessageIndex++;
-                } else {
-                    clearInterval(messageInterval);
-                }
-            }, 5000); // Ajuste o intervalo conforme necessário
-        }
-
         function stopMusic() {
-            const music = document.getElementById('music');
+            const music = document.getElementById("music");
             music.pause();
-            music.currentTime = 0; // Reseta a música
+            music.currentTime = 0; // Volta ao início
         }
 
         function closeGame() {
-            const gameArea = document.getElementById('gameArea');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            gameArea.style.display = 'none';
-            welcomeMessage.style.display = 'block';
-            currentMessageIndex = 0;
+            document.getElementById("gameArea").style.display = "none";
             stopMusic();
+            document.getElementById("gameTitle").textContent = "";
+            document.getElementById("characterDescription").textContent = "";
+            document.getElementById("gameContent").innerHTML = "";
+        }
+
+        function breathingExercise() {
+            const breathingMessage = document.getElementById("breathingMessage");
+            const messages = messages.calm;
+            let index = 0;
+            setInterval(() => {
+                breathingMessage.textContent = messages[index];
+                index = (index + 1) % messages.length;
+            }, 4000);
+        }
+
+        function selfEsteemMessages() {
+            const selfEsteemMessage = document.getElementById("selfEsteemMessage");
+            const messages = messages.selfEsteem;
+            let index = 0;
+            setInterval(() => {
+                selfEsteemMessage.textContent = messages[index];
+                index = (index + 1) % messages.length;
+            }, 4000);
+        }
+
+        function angerMessages() {
+            const angerMessage = document.getElementById("angerMessage");
+            const messages = messages.anger;
+            let index = 0;
+            setInterval(() => {
+                angerMessage.textContent = messages[index];
+                index = (index + 1) % messages.length;
+            }, 4000);
         }
     </script>
 </body>
