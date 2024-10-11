@@ -8,6 +8,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
+            margin-top: 13px;
             background-image: url('./imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
             background-size: cover;
             color: #fff;
@@ -19,7 +20,7 @@
         h1 {
             font-size: 5em;
             text-shadow: 2px 2px 8px #000;
-            font-family: 'Permanent Marker', cursive;
+            font-family: 'Patrick Hand', cursive;
             margin: 20px 0;
         }
 
@@ -64,15 +65,15 @@
         }
 
         button:hover {
-            background-color: #66b3ff;
+            background-color: #1d588b;
             transform: translateY(-2px);
         }
 
         .message-box {
             margin-top: 18px;
             padding: 15px;
-            background-color: #1d588b
-            color: #333333;
+            background-color: #1d588b;
+            color: #fff;
             border-radius: 5px;
             display: inline-block;
             max-width: 90%;
@@ -82,11 +83,11 @@
             font-family: 'Patrick Hand', cursive; /* Fonte de escrita à mão */
         }
 
-        /* Círculo de respiração com cor da calma */
+        /* Círculo de respiração */
         .breathing-circle {
             width: 150px;
             height: 150px;
-            border: 5px solid #8FDDE7; /* Cor suave de calma */
+            border: 5px solid #8FDDE7;
             border-radius: 50%;
             margin: 20px auto;
             animation: breathe 8s infinite ease-in-out;
@@ -258,92 +259,43 @@
                 case 'calmi':
                     music.src = 'musicas/musica_calmi.mp3';
                     gameTitle.innerText = 'Jogo do Calmi';
-                    characterDescription.innerText = 'Calmi é um personagem que ensina a respirar e a se acalmar. Vamos aprender juntos!';
-                    gameContent.innerHTML = `
-                        <div class="breathing-circle"></div>
-                        <div class="message-box fade-message" id="calmMessageBox"></div>
-                    `;
-                    displayFadeMessages('anxietyCrisis', 'calmMessageBox');
+                    characterDescription.innerText = 'Calmi é o mestre da calma e da respiração profunda. Ajuda a controlar a ansiedade.';
+                    gameContent.innerHTML = '<div class="breathing-circle"></div><p>Inspire profundamente e sinta a paz interior. Relaxe enquanto o círculo se expande e contrai.</p>';
                     break;
                 case 'luzia':
                     music.src = 'musicas/musica_luzia.mp3';
                     gameTitle.innerText = 'Jogo da Luzia';
-                    characterDescription.innerText = 'Luzia ajuda a aumentar a autoestima! Vamos valorizar quem somos!';
-                    gameContent.innerHTML = `
-                        <p>Aumentando a autoestima!</p>
-                        <div class="message-box fade-message" id="selfEsteemMessageBox"></div>
-                        <button onclick="nextMessage('selfEsteem', 'selfEsteemMessageBox')">Próxima frase</button>
-                    `;
-                    showFirstMessage('selfEsteem', 'selfEsteemMessageBox');
+                    characterDescription.innerText = 'Luzia traz palavras de amor-próprio e autoaceitação. Ela ajuda a fortalecer a autoestima.';
+                    gameContent.innerHTML = '<div class="message-box fade-message" id="messageBox"></div><button onclick="generateMessage()">Nova Mensagem</button>';
                     break;
                 case 'tempestade':
                     music.src = 'musicas/musica_tempestade.mp3';
                     gameTitle.innerText = 'Jogo do Tempestade';
-                    characterDescription.innerText = 'Tempestade ajuda a controlar a raiva. Vamos aprender a acalmar essa tempestade interna!';
-                    gameContent.innerHTML = `
-                        <div class="cloud" id="angerCloud"></div>
-                        <div class="message-box fade-message" id="angerControlMessageBox"></div>
-                    `;
-                    displayAngerMessages('angerControl', 'angerControlMessageBox');
+                    characterDescription.innerText = 'Tempestade ajuda a dissipar a raiva e a controlar os impulsos.';
+                    gameContent.innerHTML = '<div class="cloud"></div><p>Observe a nuvem da raiva se dissipar enquanto você respira e relaxa.</p>';
                     break;
+                default:
+                    return;
             }
 
-            gameArea.style.display = 'block';
             music.play();
+            gameArea.style.display = 'block';
         }
 
-        function showFirstMessage(type, boxId) {
-            const messageBox = document.getElementById(boxId);
-            const messagesArray = messages[type];
-            messageBox.innerHTML = messagesArray[0];
+        function generateMessage() {
+            const messageBox = document.getElementById('messageBox');
+            const randomMessage = messages.selfEsteem[Math.floor(Math.random() * messages.selfEsteem.length)];
+            messageBox.innerText = randomMessage;
             messageBox.classList.add('show');
-        }
-
-        function nextMessage(type, boxId) {
-            const messageBox = document.getElementById(boxId);
-            const messagesArray = messages[type];
-            let currentMessage = messageBox.innerHTML;
-            let index = messagesArray.indexOf(currentMessage);
-            index = (index + 1) % messagesArray.length;
-            messageBox.innerHTML = messagesArray[index];
-        }
-
-        function displayFadeMessages(type, boxId) {
-            const messageBox = document.getElementById(boxId);
-            const messagesArray = messages[type];
-            let index = 0;
-            setInterval(() => {
-                messageBox.classList.remove('show');
-                setTimeout(() => {
-                    messageBox.innerHTML = messagesArray[index];
-                    messageBox.classList.add('show');
-                    index = (index + 1) % messagesArray.length;
-                }, 1000);
-            }, 5000);
-        }
-
-        function displayAngerMessages(type, boxId) {
-            const messageBox = document.getElementById(boxId);
-            const messagesArray = messages[type];
-            let index = 0;
-            setInterval(() => {
-                const cloud = document.getElementById('angerCloud');
-                cloud.style.animation = 'none'; // Reset the animation
-                void cloud.offsetWidth; // Trigger reflow to restart animation
-                cloud.style.animation = ''; // Start the animation again
-                messageBox.classList.remove('show');
-                setTimeout(() => {
-                    messageBox.innerHTML = messagesArray[index];
-                    messageBox.classList.add('show');
-                    index = (index + 1) % messagesArray.length;
-                }, 1000);
-            }, 7000); // Intervalo ajustado para permitir que a animação da nuvem se complete
+            setTimeout(() => messageBox.classList.remove('show'), 3000);
         }
 
         function stopMusic() {
             const music = document.getElementById('music');
-            music.pause();
-            music.currentTime = 0;
+            if (!music.paused) {
+                music.pause();
+                music.currentTime = 0;
+            }
         }
 
         function closeGame() {
@@ -354,3 +306,4 @@
     </script>
 </body>
 </html>
+
