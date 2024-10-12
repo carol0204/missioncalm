@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calmi - Floresta da Calma</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            background-image: url('../imagens/calmi_background.png');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #calmiCircle {
+            margin-top: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(85, 107, 47, 0.5); /* Verde musgo transparente */
+            transition: transform 2s ease-in-out; /* Simula a respiração */
+        }
+
+        #calmiMessages {
+            font-size: 24px;
+            color: #556B2F; /* Verde musgo */
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        #stopButton, #backButton, #startButton {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #2F4F4F;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        #stopButton:hover, #backButton:hover, #startButton:hover {
+            background-color: #556B2F;
+        }
+    </style>
+</head>
+<body>
+    <h1>Respire com Calmi</h1>
+    <div id="calmiCircle"></div>
+    <div id="calmiMessages"></div>
+    <button id="startButton" onclick="startMusic()">Iniciar Música</button>
+    <button id="stopButton" onclick="stopMusic()">Parar Música</button>
+    <button id="backButton" onclick="goBack()">Voltar</button>
+
+    <audio id="calmiMusic">
+        <source src="calmi.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        const calmiMessages = [
+            "Respire profundamente... inale... exale...",
+            "Você está seguro e em paz.",
+            "Sinta a calma invadindo seu corpo.",
+            "A cada respiração, relaxe mais.",
+            "Este momento é seu, respire devagar.",
+            "Você está no controle de suas emoções.",
+            "Acalme sua mente, foque na respiração.",
+            "Respire, você está no presente.",
+            "Cada respiração alivia a tensão.",
+            "Sua mente pode encontrar paz.",
+            "Devagar... respire e solte.",
+            "Sinta o ar entrando... e saindo...",
+            "Você é capaz de encontrar a calma.",
+            "Sua respiração traz serenidade.",
+            "Você está protegido aqui.",
+            "Nada mais importa agora, apenas respire.",
+            "Solte os pensamentos que te incomodam.",
+            "Respire... e deixe o corpo relaxar.",
+            "Sua respiração é o caminho para a paz.",
+            "A cada inspiração, você encontra calma."
+        ];
+
+        let index = 0;
+
+        function displayMessage() {
+            document.getElementById('calmiMessages').textContent = calmiMessages[index];
+            index = (index + 1) % calmiMessages.length;
+        }
+
+        setInterval(displayMessage, 5000); // Exibe novas mensagens a cada 5 segundos
+
+        function startMusic() {
+            const audio = document.getElementById('calmiMusic');
+            audio.volume = 0.8; // Ajuste o volume se necessário
+            audio.play().catch(error => {
+                console.log('Erro ao tentar tocar a música:', error);
+            });
+        }
+
+        function stopMusic() {
+            const audio = document.getElementById('calmiMusic');
+            audio.pause();
+        }
+
+        function goBack() {
+            window.location.href = '../index.html'; // Volta para a página inicial
+        }
+
+        // Animação do círculo respirando
+        const circle = document.getElementById('calmiCircle');
+        let growing = true;
+
+        setInterval(() => {
+            circle.style.transform = growing ? 'scale(1.2)' : 'scale(1)';
+            growing = !growing;
+        }, 4000); // Ajusta o tempo de respiração para 4 segundos (2s inalar, 2s exalar)
+    </script>
+</body>
+</html>
