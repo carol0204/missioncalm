@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
         body {
             background-image: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png');
             background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,11 +18,13 @@
             height: 100vh;
             color: white;
             font-family: 'Poppins', sans-serif;
+            margin: 0;
         }
 
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
+            text-align: center;
         }
 
         #characterContainer {
@@ -29,12 +32,18 @@
             justify-content: space-around;
             width: 80%;
             margin: 20px 0;
+            flex-wrap: wrap; /* Permite que os personagens se ajustem em telas menores */
         }
 
         .character {
             cursor: pointer;
             text-align: center;
             transition: transform 0.3s, filter 0.3s;
+            margin-bottom: 20px; /* Adiciona espaço entre os personagens em telas pequenas */
+        }
+
+        .character img {
+            width: 150px;
         }
 
         .character:hover {
@@ -58,6 +67,23 @@
         #startMusic:hover {
             background-color: #556B2F;
         }
+
+        /* Media Queries para dispositivos móveis */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            #characterContainer {
+                flex-direction: column; /* Empilha os personagens verticalmente */
+                align-items: center;
+            }
+
+            .character img {
+                width: 120px; /* Reduz o tamanho das imagens em telas menores */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -66,19 +92,19 @@
 
     <div id="characterContainer">
         <div class="character" onclick="openCharacterPage('guia')">
-            <img src="imagens/guia.png" alt="Guia" width="150">
+            <img src="imagens/guia.png" alt="Guia">
             <p>Guia</p>
         </div>
         <div class="character" onclick="openCharacterPage('calmi')">
-            <img src="imagens/calmi.png" alt="Calmi" width="150">
+            <img src="imagens/calmi.png" alt="Calmi">
             <p>Calmi</p>
         </div>
         <div class="character" onclick="openCharacterPage('luzia')">
-            <img src="imagens/luzia.png" alt="Luzia" width="150">
+            <img src="imagens/luzia.png" alt="Luzia">
             <p>Luzia</p>
         </div>
         <div class="character" onclick="openCharacterPage('tempestade')">
-            <img src="imagens/tempestade.png" alt="Tempestade" width="150">
+            <img src="imagens/tempestade.png" alt="Tempestade">
             <p>Tempestade</p>
         </div>
     </div>
