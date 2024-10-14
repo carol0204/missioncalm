@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia - Floresta da Calma</title>
+    <style>
+        body {
+            background-color: #7D9B6D; /* Cor de fundo */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            background-image: url('guia_background.png'); /* Imagem de fundo */
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .character-description {
+            margin: 20px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2F4F4F;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #556B2F;
+        }
+
+        /* Estilos do formulário de feedback */
+        #feedback-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        #feedback-form input, #feedback-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #feedback-form button {
+            background-color: #2F4F4F;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #feedback-form button:hover {
+            background-color: #556B2F;
+        }
+
+        /* Estilo da mensagem de sucesso */
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #90EE90; /* Cor verde clara para feedback positivo */
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
+            padding: 5px;
+            z-index: 100;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            position: relative;
+        }
+
+        .button-container:hover .tooltip {
+            display: block;
+        }
+    </style>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Inicializa o EmailJS com seu User ID correto
+        emailjs.init('VM4QBNua8MT8s7cEA'); // Chave pública correta
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('feedback-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio padrão do formulário
+
+                emailjs.sendForm('service_4q9t9wr', 'template_39uxs6i', this)
+                    .then(function() {
+                        // Mostra a mensagem de sucesso
+                        document.querySelector('.success-message').style.display = 'block';
+                        document.getElementById('feedback-form').reset(); // Limpa o formulário após envio
+                    }, function(error) {
+                        alert('Erro ao enviar mensagem: ' + JSON.stringify(error));
+                    });
+            });
+        });
+
+        function showTip(character) {
+            const tooltip = document.getElementById(`tooltip-${character}`);
+            tooltip.style.display = 'block'; // Mostra a dica
+            setTimeout(() => tooltip.style.display = 'none', 5000); // Esconde após 5 segundos
+        }
+    </script>
+</head>
+<body>
+    <h1>Guia da Floresta da Calma</h1>
+    <p>Bem-vindo ao seu espaço acolhedor, onde técnicas de autocuidado são aplicadas a todas as idades. Este guia é baseado em comprovações científicas e oferece suporte a todos os públicos, promovendo saúde mental e bem-estar. Respire fundo e encontre sua paz interior.</p>
+
+    <div class="character-description">
+        <h2>Personagens:</h2>
+        <p><strong>Calmi:</strong> Um guia amigável que ensina técnicas de respiração e mindfulness para ajudar a controlar a ansiedade, baseado em práticas reconhecidas na psicologia.</p>
+        <p><strong>Luzia:</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com o bullying e a pressão social, fundamentadas em pesquisas sobre autoeficácia.</p>
+        <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras, apoiadas por estudos de comportamento.</p>
+        <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos, com base nas melhores práticas de acolhimento e empatia.</p>
+        <img src="guia.png" alt="Personagem Guia" style="display: block; margin: 20px auto; max-width: 200px;">
+    </div>
+
+    <div class="action-buttons">
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('Calmi')">Como usar o Calmi</button>
+            <div class="tooltip" id="tooltip-Calmi">Use o Calmi para técnicas de respiração. Ele pode ajudar a acalmar sua mente em momentos de estresse.</div>
+        </div>
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('Luzia')">Como usar a Luzia</button>
+            <div class="tooltip" id="tooltip-Luzia">Luzia oferece dicas para aumentar a autoestima e enfrentar desafios sociais.</div>
+        </div>
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('Tempestade')">Como usar a Tempestade</button>
+            <div class="tooltip" id="tooltip-Tempestade">Tempestade ajuda a gerenciar a raiva e a impulsividade. Use suas dicas em situações desafiadoras.</div>
+        </div>
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('Guia')">Como usar o Guia</button>
+            <div class="tooltip" id="tooltip-Guia">O Guia oferece apoio emocional e dicas de autocuidado, baseadas em técnicas comprovadas.</div>
+        </div>
+    </div>
+
+    <h2>Deixe seu Feedback:</h2>
+    <form id="feedback-form">
+        <input type="text" name="from_name" placeholder="Seu Nome" required />
+        <input type="email" name="from_email" placeholder="Seu Email" required />
+        <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <!-- Mensagem de sucesso -->
+    <div class="success-message">Obrigado pelo seu feedback! Nós agradecemos sua contribuição.</div>
+</body>
+</html>
