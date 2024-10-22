@@ -17,14 +17,32 @@
             height: 100vh;
             color: white;
             font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Evita barra de rolagem devido à animação */
+            transition: background-color 0.5s ease;
+            font-size: 1.2rem; /* Tamanho base */
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 1rem; /* Tamanho menor em telas pequenas */
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         #luziaMessages {
             font-size: 24px;
-            color: #556B2F; /* Verde musgo */
+            color: #556B2F;
             margin-top: 20px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
             text-align: center;
+            role: alert;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
         #luziaButton, #backButton, #startButton {
@@ -36,22 +54,52 @@
             cursor: pointer;
             background-color: #2F4F4F;
             color: white;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         #luziaButton:hover, #backButton:hover, #startButton:hover {
             background-color: #556B2F;
+            transform: scale(1.05);
+        }
+
+        #luziaButton:focus, #backButton:focus, #startButton:focus {
+            outline: 2px solid #FFD700; /* Cor dourada */
+            outline-offset: 2px; /* Distância do contorno do botão */
+        }
+
+        /* Estilos para a estrela animada */
+        .star {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: gold;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: moveStar 5s linear infinite;
+        }
+
+        @keyframes moveStar {
+            0% {
+                transform: translateX(-100%) translateY(0);
+                opacity: 1; /* Começa visível */
+            }
+            50% {
+                opacity: 1; /* Mantém visível no meio da animação */
+            }
+            100% {
+                transform: translateX(100vw) translateY(-100vh);
+                opacity: 0; /* Torna invisível ao final */
+            }
         }
     </style>
 </head>
 <body>
     <h1>Aumente sua autoestima com Luzia</h1>
 
-    <div id="luziaMessages"></div>
+    <div id="luziaMessages" aria-live="polite"></div>
 
-    <button id="startButton" onclick="startMusic()">Iniciar Música</button>
-    <button id="luziaButton" onclick="changeMessage()">Próxima Mensagem</button>
-    <button id="backButton" onclick="goBack()">Voltar</button>
+    <button id="startButton" onclick="startMusic()" aria-label="Iniciar música">Iniciar Música</button>
+    <button id="luziaButton" onclick="changeMessage()" aria-label="Próxima mensagem">Próxima Mensagem</button>
+    <button id="backButton" onclick="goBack()" aria-label="Voltar à página anterior">Voltar</button>
 
     <audio id="luziaMusic">
         <source src="luzia.mp3" type="audio/mp3">
@@ -95,25 +143,44 @@
         let index = 0;
 
         function changeMessage() {
-            // Mostra a próxima mensagem e reinicia a sequência quando chegar ao final
-            document.getElementById('luziaMessages').textContent = luziaMessages[index];
-            index = (index + 1) % luziaMessages.length; // Volta ao início quando atingir o fim
+            const luziaMessagesDiv = document.getElementById('luziaMessages');
+            luziaMessagesDiv.textContent = luziaMessages[index];
+            luziaMessagesDiv.style.opacity = '0';
+            setTimeout(() => {
+                luziaMessagesDiv.style.opacity = '1';
+            }, 50);
+            index = (index + 1) % luziaMessages.length;
         }
 
         function startMusic() {
             const audio = document.getElementById('luziaMusic');
-            audio.volume = 0.8; // Ajuste o volume se necessário
+            audio.volume = 0.8;
             audio.play().catch(error => {
                 console.log('Erro ao tentar tocar a música:', error);
             });
         }
 
         function goBack() {
-            window.location.href = '../index.html'; // Volta para a página inicial
+            window.location.href = '../index.html';
         }
 
-        // Iniciar com a primeira mensagem
-        document.addEventListener("DOMContentLoaded", changeMessage);
+        // Criar e adicionar estrelas animadas
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            // Adiciona uma posição vertical aleatória
+            star.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(star);
+
+            // Remover a estrela após a animação
+            setTimeout(() => {
+                star.remove();
+            }, 5000); // Dura o mesmo tempo da animação
+        }
+
+        // Criar estrelas a cada segundo
+        setInterval(createStar, 1000);
+
     </script>
 </body>
 </html>
