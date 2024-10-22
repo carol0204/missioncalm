@@ -146,7 +146,7 @@
         setInterval(() => {
             circle.style.transform = growing ? 'scale(1.2)' : 'scale(1)';
             circle.style.boxShadow = growing ? '0 0 20px 10px rgba(255, 255, 255, 0.7)' : 'none'; // Efeito de brilho
-            calmiText.textContent = growing ? "Puxa o ar" : "Solta o ar"; // Muda o texto entre "Puxa o ar" e "Solta o ar"
+            calmiText.textContent = growing ? "Puxe o ar" : "Solte o ar"; // Muda o texto entre "Puxe o ar" e "Solte o ar"
             if (!growing) {
                 successSound.play(); // Toca o som de recompensa ao completar um ciclo
             }
