@@ -26,19 +26,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura total da tela */
+            min-height: 100vh; 
             margin: 0;
             padding: 20px;
             color: white;
             font-family: 'Poppins', sans-serif;
-            text-align: center; /* Centraliza o texto */
-            overflow-y: auto; /* Permite rolar o conteúdo se ele exceder a altura da tela */
+            text-align: center; 
+            overflow-y: auto; 
         }
 
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            word-wrap: break-word; /* Força quebra de linha, se necessário */
+            word-wrap: break-word; 
         }
 
         p {
@@ -51,7 +51,7 @@
             justify-content: space-around;
             width: 80%;
             margin: 20px 0;
-            flex-wrap: wrap; /* Permite que os personagens se ajustem em telas menores */
+            flex-wrap: wrap; 
         }
 
         .character {
@@ -59,6 +59,7 @@
             text-align: center;
             transition: transform 0.3s, filter 0.3s;
             margin-bottom: 20px;
+            position: relative; /* Para posicionar a descrição */
         }
 
         .character img {
@@ -70,7 +71,29 @@
             filter: brightness(1.5);
         }
 
-        #startMusic {
+        /* Descrição do personagem */
+        .character:hover .description {
+            visibility: visible;
+            opacity: 1; /* Para efeito de transição */
+        }
+
+        .description {
+            position: absolute;
+            bottom: 100%; /* Coloca acima do personagem */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            visibility: hidden; /* Inicialmente oculto */
+            opacity: 0; /* Inicialmente invisível */
+            transition: visibility 0s, opacity 0.3s ease;
+            z-index: 10; /* Para garantir que apareça acima */
+            white-space: nowrap; /* Evita quebra de linha */
+        }
+
+        #startMusic, #toggleTheme {
             margin-top: 20px;
             padding: 10px 20px;
             border: none;
@@ -79,26 +102,31 @@
             cursor: pointer;
             background-color: #2F4F4F;
             color: white;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s; /* Adicionado efeito de escala */
         }
 
-        #startMusic:hover {
+        #startMusic:hover, #toggleTheme:hover {
             background-color: #556B2F;
+            transform: scale(1.05); /* Efeito de escala ao passar o mouse */
         }
 
         /* Media Queries para dispositivos móveis */
         @media (max-width: 600px) {
             h1 {
-                font-size: 1.8em; /* Reduz o tamanho da fonte para telas menores */
-                white-space: normal; /* Permite que o texto quebre linha se necessário */
+                font-size: 1.8em; 
+                white-space: normal; 
             }
 
             p {
-                font-size: 1em; /* Reduz o tamanho da fonte do parágrafo */
+                font-size: 1em; 
             }
 
             .character img {
-                width: 120px; /* Reduz o tamanho das imagens */
+                width: 120px; 
+            }
+
+            #startMusic, #toggleTheme {
+                font-size: 16px; 
             }
         }
 
@@ -110,21 +138,25 @@
     <p>Um espaço de acolhimento para todos. Respire fundo e encontre sua paz interior.</p>
 
     <div id="characterContainer">
-        <div class="character" onclick="openCharacterPage('guia')">
-            <img src="imagens/guia.png" alt="Guia">
+        <div class="character" onclick="openCharacterPage('guia')" aria-label="Acessar a página do personagem Guia" role="button">
+            <img src="imagens/guia.png" alt="Imagem do personagem Guia" aria-label="Personagem Guia" />
             <p>Guia</p>
+            <div class="description">O guia que nos orienta na floresta da calma.</div>
         </div>
-        <div class="character" onclick="openCharacterPage('calmi')">
-            <img src="imagens/calmi.png" alt="Calmi">
+        <div class="character" onclick="openCharacterPage('calmi')" aria-label="Acessar a página do personagem Calmi" role="button">
+            <img src="imagens/calmi.png" alt="Imagem do personagem Calmi" aria-label="Personagem Calmi" />
             <p>Calmi</p>
+            <div class="description">O amigo que ajuda a acalmar os corações.</div>
         </div>
-        <div class="character" onclick="openCharacterPage('luzia')">
-            <img src="imagens/luzia.png" alt="Luzia">
+        <div class="character" onclick="openCharacterPage('luzia')" aria-label="Acessar a página do personagem Luzia" role="button">
+            <img src="imagens/luzia.png" alt="Imagem do personagem Luzia" aria-label="Personagem Luzia" />
             <p>Luzia</p>
+            <div class="description">A luz que ilumina o caminho da aceitação.</div>
         </div>
-        <div class="character" onclick="openCharacterPage('tempestade')">
-            <img src="imagens/tempestade.png" alt="Tempestade">
+        <div class="character" onclick="openCharacterPage('tempestade')" aria-label="Acessar a página do personagem Tempestade" role="button">
+            <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" alt="Imagem do personagem Tempestade" />
             <p>Tempestade</p>
+            <div class="description">A força que transforma a raiva em calma.</div>
         </div>
     </div>
 
@@ -132,7 +164,8 @@
         <source src="musicas/musica_inicial.mp3" type="audio/mp3">
     </audio>
 
-    <button id="startMusic" onclick="startMusic()">Iniciar Música</button>
+    <button id="startMusic" onclick="startMusic()" aria-label="Iniciar a música de fundo">Iniciar Música</button>
+    <button id="toggleTheme" onclick="toggleTheme()" aria-label="Trocar entre tema claro e escuro">Trocar Tema</button>
 
     <script>
         const music = document.getElementById('backgroundMusic');
@@ -146,7 +179,25 @@
 
         function openCharacterPage(character) {
             music.pause();
-            window.location.href = `${character}/${character}.html`;
+            window.location.href = `${character}/${character}.html`; // Corrigido para uso de template literals
+        }
+
+        let darkMode = false;
+
+        function toggleTheme() {
+            darkMode = !darkMode;
+            
+            if (darkMode) {
+                document.body.style.backgroundColor = '#121212';
+                document.body.style.color = '#ffffff';
+                document.getElementById('startMusic').style.backgroundColor = '#1E1E1E';
+                document.getElementById('toggleTheme').style.backgroundColor = '#1E1E1E';
+            } else {
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                document.getElementById('startMusic').style.backgroundColor = '#2F4F4F';
+                document.getElementById('toggleTheme').style.backgroundColor = '#2F4F4F';
+            }
         }
     </script>
 </body>
