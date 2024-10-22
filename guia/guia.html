@@ -6,20 +6,19 @@
     <title>Guia - Floresta da Calma</title>
     <style>
         body {
-    background-image: url('guia_background.png');
-    background-size: cover;
-    background-position: center;
-    color: #F0F0F0; /* Cor clara para o texto */
-}
+            background-image: url('guia_background.png');
+            background-size: cover;
+            background-position: center;
+            color: #F0F0F0; /* Cor clara para o texto */
+        }
 
-h1, h2, p {
-    color: #FFFFFF; /* Cor clara para o texto principal */
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente atrás do texto */
-    padding: 10px;
-    border-radius: 5px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
-}
-
+        h1, h2, p {
+            color: #FFFFFF; /* Cor clara para o texto principal */
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente atrás do texto */
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+        }
 
         .character-description {
             margin: 20px 0;
@@ -149,45 +148,45 @@ h1, h2, p {
 </head>
 <body>
     <h1>Guia da Floresta da Calma</h1>
-    <p>Bem-vindo ao seu espaço acolhedor, onde técnicas de autocuidado são aplicadas a todas as idades. Este guia é baseado em comprovações científicas e oferece suporte a todos os públicos, promovendo saúde mental e bem-estar. Respire fundo e encontre sua paz interior.</p>
+    <p>Bem-vindo ao seu espaço acolhedor, onde técnicas de autocuidado são aplicadas a todas as idades. Este guia é baseado em comprovações científicas e oferece suporte a todos os públicos, promovendo saúde mental e bem-estar. Nossa página é acessível e projetada para atender às necessidades de todos, com foco em acessibilidade digital, garantindo que pessoas com diferentes níveis de habilidade possam navegar e interagir de maneira fácil e intuitiva. Respire fundo e encontre sua paz interior.</p>
+
 
     <div class="character-description">
         <h2>Personagens:</h2>
-        <p><strong>Calmi:</strong> Um guia amigável que ensina técnicas de respiração e mindfulness para ajudar a controlar a ansiedade, baseado em práticas reconhecidas na psicologia.</p>
-        <p><strong>Luzia:</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com o bullying e a pressão social, fundamentadas em pesquisas sobre autoeficácia.</p>
-        <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras, apoiadas por estudos de comportamento.</p>
-        <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos, com base nas melhores práticas de acolhimento e empatia.</p>
-        <img src="guia.png" alt="Personagem Guia" style="display: block; margin: 20px auto; max-width: 200px;">
+        <p><strong>Calmi:</strong> Um guia amigável que ensina técnicas de respiração e mindfulness para ajudar a controlar a ansiedade.</p>
+        <p><strong>Luzia:</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com o bullying e a pressão social.</p>
+        <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras.</p>
+        <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos.</p>
+        <img src="guia.png" alt="Personagem Guia" style="display: block; margin: 20px auto; max-width: 200px;" role="img" aria-label="Imagem do personagem Guia, um mentor acolhedor na Floresta da Calma.">
     </div>
 
     <div class="action-buttons">
         <div class="button-container">
-            <button class="action-button" onclick="showTip('Calmi')">Como usar o Calmi</button>
-            <div class="tooltip" id="tooltip-Calmi">Use o Calmi para técnicas de respiração. Ele pode ajudar a acalmar sua mente em momentos de estresse.</div>
+            <button class="action-button" onclick="showTip('Calmi')" aria-describedby="tooltip-Calmi">Como usar o Calmi</button>
+            <div class="tooltip" id="tooltip-Calmi" role="tooltip">Use o Calmi para técnicas de respiração. Ele pode ajudar a acalmar sua mente em momentos de estresse.</div>
         </div>
         <div class="button-container">
-            <button class="action-button" onclick="showTip('Luzia')">Como usar a Luzia</button>
-            <div class="tooltip" id="tooltip-Luzia">Luzia oferece dicas para aumentar a autoestima e enfrentar desafios sociais.</div>
+            <button class="action-button" onclick="showTip('Luzia')" aria-describedby="tooltip-Luzia">Como usar a Luzia</button>
+            <div class="tooltip" id="tooltip-Luzia" role="tooltip">Luzia oferece dicas para aumentar a autoestima e enfrentar desafios sociais.</div>
         </div>
         <div class="button-container">
-            <button class="action-button" onclick="showTip('Tempestade')">Como usar a Tempestade</button>
-            <div class="tooltip" id="tooltip-Tempestade">Tempestade ajuda a gerenciar a raiva e a impulsividade. Use suas dicas em situações desafiadoras.</div>
+            <button class="action-button" onclick="showTip('Tempestade')" aria-describedby="tooltip-Tempestade">Como usar a Tempestade</button>
+            <div class="tooltip" id="tooltip-Tempestade" role="tooltip">Tempestade ajuda a gerenciar a raiva e a impulsividade. Use suas dicas em situações desafiadoras.</div>
         </div>
         <div class="button-container">
-            <button class="action-button" onclick="showTip('Guia')">Como usar o Guia</button>
-            <div class="tooltip" id="tooltip-Guia">O Guia oferece apoio emocional e dicas de autocuidado, baseadas em técnicas comprovadas.</div>
+            <button class="action-button" onclick="showTip('Guia')" aria-describedby="tooltip-Guia">Como usar o Guia</button>
+            <div class="tooltip" id="tooltip-Guia" role="tooltip">O Guia oferece apoio emocional e dicas de autocuidado.</div>
         </div>
     </div>
 
     <h2>Deixe seu Feedback:</h2>
-    <form id="feedback-form">
-        <input type="text" name="from_name" placeholder="Seu Nome" required />
-        <input type="email" name="from_email" placeholder="Seu Email" required />
-        <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+    <form id="feedback-form" aria-label="Formulário de feedback">
+        <input type="text" name="from_name" placeholder="Seu Nome" required aria-required="true" />
+        <input type="email" name="from_email" placeholder="Seu Email" required aria-required="true" />
+        <textarea name="message" placeholder="Sua Mensagem" required aria-required="true"></textarea>
         <button type="submit">Enviar</button>
     </form>
 
-    <div class="success-message">Obrigado pelo seu feedback! Nós agradecemos sua contribuição.</div>
+    <div class="success-message" role="alert">Mensagem enviada com sucesso!</div>
 </body>
 </html>
-
