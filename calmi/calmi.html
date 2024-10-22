@@ -40,6 +40,8 @@
             color: #556B2F; /* Verde musgo */
             margin-top: 20px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            opacity: 0; /* Inicia invisível */
+            transition: opacity 0.5s ease-in-out; /* Transição suave */
         }
 
         #stopButton, #backButton, #startButton {
@@ -51,29 +53,30 @@
             cursor: pointer;
             background-color: #2F4F4F;
             color: white;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s; /* Suaviza a transição */
         }
 
         #stopButton:hover, #backButton:hover, #startButton:hover {
             background-color: #556B2F;
+            transform: scale(1.05); /* Efeito de zoom */
         }
     </style>
 </head>
 <body>
     <h1>Respire com Calmi</h1>
-    <div id="calmiCircle">
+    <div id="calmiCircle" aria-label="Círculo de respiração">
         <span id="calmiText">Puxa o ar</span> <!-- Texto mais simples -->
     </div>
-    <div id="calmiMessages"></div>
-    <button id="startButton" onclick="startMusic()">Iniciar Música</button>
-    <button id="stopButton" onclick="stopMusic()">Parar Música</button>
-    <button id="backButton" onclick="goBack()">Voltar</button>
+    <div id="calmiMessages" role="alert"></div> <!-- Acessibilidade -->
+    <button id="startButton" onclick="startMusic()" aria-label="Iniciar música">Iniciar Música</button>
+    <button id="stopButton" onclick="stopMusic()" aria-label="Parar música">Parar Música</button>
+    <button id="backButton" onclick="goBack()" aria-label="Voltar para a página inicial">Voltar</button>
 
-    <audio id="calmiMusic">
+    <audio id="calmiMusic" aria-label="Música de fundo">
         <source src="calmi.mp3" type="audio/mp3">
     </audio>
 
-    <audio id="successSound">
+    <audio id="successSound" aria-label="Som de recompensa">
         <source src="success.mp3" type="audio/mp3"> <!-- Som suave de recompensa -->
     </audio>
 
@@ -104,7 +107,14 @@
         let index = 0;
 
         function displayMessage() {
-            document.getElementById('calmiMessages').textContent = calmiMessages[index];
+            const calmiMessagesDiv = document.getElementById('calmiMessages');
+            calmiMessagesDiv.textContent = calmiMessages[index];
+            calmiMessagesDiv.style.opacity = 1; // Torna visível
+
+            setTimeout(() => {
+                calmiMessagesDiv.style.opacity = 0; // Torna invisível após 4s
+            }, 4000);
+
             index = (index + 1) % calmiMessages.length;
         }
 
