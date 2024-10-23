@@ -59,7 +59,6 @@
             text-align: center;
             transition: transform 0.3s, filter 0.3s;
             margin-bottom: 20px;
-            position: relative; /* Para posicionar a descrição */
         }
 
         .character img {
@@ -71,28 +70,6 @@
             filter: brightness(1.5);
         }
 
-        /* Descrição do personagem */
-        .character:hover .description {
-            visibility: visible;
-            opacity: 1; /* Para efeito de transição */
-        }
-
-        .description {
-            position: absolute;
-            bottom: 100%; /* Coloca acima do personagem */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            visibility: hidden; /* Inicialmente oculto */
-            opacity: 0; /* Inicialmente invisível */
-            transition: visibility 0s, opacity 0.3s ease;
-            z-index: 10; /* Para garantir que apareça acima */
-            white-space: nowrap; /* Evita quebra de linha */
-        }
-
         #startMusic, #toggleTheme {
             margin-top: 20px;
             padding: 10px 20px;
@@ -102,12 +79,12 @@
             cursor: pointer;
             background-color: #2F4F4F;
             color: white;
-            transition: background-color 0.3s, transform 0.3s; /* Adicionado efeito de escala */
+            transition: background-color 0.3s, transform 0.3s; 
         }
 
         #startMusic:hover, #toggleTheme:hover {
             background-color: #556B2F;
-            transform: scale(1.05); /* Efeito de escala ao passar o mouse */
+            transform: scale(1.05);
         }
 
         /* Media Queries para dispositivos móveis */
@@ -129,7 +106,6 @@
                 font-size: 16px; 
             }
         }
-
     </style>
 </head>
 <script src="//code.tidio.co/u5awo0oriqiumtyslty9caj4kvu8nbck.js" async></script>
@@ -141,22 +117,18 @@
         <div class="character" onclick="openCharacterPage('guia')" aria-label="Acessar a página do personagem Guia" role="button">
             <img src="imagens/guia.png" alt="Imagem do personagem Guia" aria-label="Personagem Guia" />
             <p>Guia</p>
-            <div class="description">O guia que nos orienta na floresta da calma.</div>
         </div>
         <div class="character" onclick="openCharacterPage('calmi')" aria-label="Acessar a página do personagem Calmi" role="button">
             <img src="imagens/calmi.png" alt="Imagem do personagem Calmi" aria-label="Personagem Calmi" />
             <p>Calmi</p>
-            <div class="description">O amigo que ajuda a acalmar os corações.</div>
         </div>
         <div class="character" onclick="openCharacterPage('luzia')" aria-label="Acessar a página do personagem Luzia" role="button">
             <img src="imagens/luzia.png" alt="Imagem do personagem Luzia" aria-label="Personagem Luzia" />
             <p>Luzia</p>
-            <div class="description">A luz que ilumina o caminho da aceitação.</div>
         </div>
         <div class="character" onclick="openCharacterPage('tempestade')" aria-label="Acessar a página do personagem Tempestade" role="button">
-            <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" alt="Imagem do personagem Tempestade" />
+            <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" aria-label="Personagem Tempestade" />
             <p>Tempestade</p>
-            <div class="description">A força que transforma a raiva em calma.</div>
         </div>
     </div>
 
@@ -179,7 +151,7 @@
 
         function openCharacterPage(character) {
             music.pause();
-            window.location.href = `${character}/${character}.html`; // Corrigido para uso de template literals
+            window.location.href = `${character}/${character}.html`;
         }
 
         let darkMode = false;
