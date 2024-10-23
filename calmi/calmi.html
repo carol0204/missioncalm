@@ -3,81 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calmi - Uma experiência de meditação guiada para encontrar paz e tranquilidade">
     <title>Calmi - Floresta da Calma</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #88B04B;
+            --secondary-color: #496B2F;
+            --text-color: #333;
+            --white: #ffffff;
+            --transition-slow: 0.5s ease-in-out;
+            --transition-medium: 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background-image: url('../imagens/calmi_background.png');
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                        url('../imagens/calmi_background.png');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            color: white;
             font-family: 'Poppins', sans-serif;
+            color: var(--white);
+            padding: 20px;
         }
 
-        #calmiCircle {
-            margin-top: 20px;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background-color: rgba(85, 107, 47, 0.5); /* Verde musgo transparente */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: white;
-            font-weight: 600;
+        .container {
+            max-width: 800px;
+            width: 100%;
             text-align: center;
-            transition: transform 2s ease-in-out, box-shadow 0.5s ease-in-out; /* Simula a respiração e o brilho */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+        }
+
+        .breathing-container {
+            position: relative;
+            margin: 2rem auto;
+            width: 250px;
+            height: 250px;
+        }
+
+        .breathing-circle {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform var(--transition-slow);
+        }
+
+        #calmiText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--white);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: opacity var(--transition-medium);
+            z-index: 2;
         }
 
         #calmiMessages {
-            font-size: 24px;
-            color: #556B2F; /* Verde musgo */
-            margin-top: 20px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            opacity: 0; /* Inicia invisível */
-            transition: opacity 0.5s ease-in-out; /* Transição suave */
+            min-height: 60px;
+            margin: 2rem 0;
+            font-size: 1.25rem;
+            color: var(--white);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity var(--transition-medium);
         }
 
-        #stopButton, #backButton, #startButton {
-            margin-top: 10px;
-            padding: 10px 20px;
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 25px;
+            font-size: 1rem;
             cursor: pointer;
-            background-color: #2F4F4F;
-            color: white;
-            transition: background-color 0.3s, transform 0.3s; /* Suaviza a transição */
+            background-color: rgba(73, 107, 47, 0.8);
+            color: var(--white);
+            transition: all var(--transition-medium);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        #stopButton:hover, #backButton:hover, #startButton:hover {
-            background-color: #556B2F;
-            transform: scale(1.05); /* Efeito de zoom */
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .breathing-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            #calmiMessages {
+                font-size: 1rem;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .breathe {
+            animation: breathe 8s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
-    <h1>Respire com Calmi</h1>
-    <div id="calmiCircle" aria-label="Círculo de respiração">
-        <span id="calmiText">Puxa o ar</span> <!-- Texto mais simples -->
+    <div class="container fade-in">
+        <h1>Respire com Calmi</h1>
+        
+        <div class="breathing-container">
+            <svg class="breathing-circle" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Gradiente de fundo -->
+                <defs>
+                    <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#88B04B" stop-opacity="0.9"/>
+                        <stop offset="100%" style="stop-color:#496B2F" stop-opacity="0.7"/>
+                    </radialGradient>
+                    <!-- Gradiente para o brilho -->
+                    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:white" stop-opacity="0.3"/>
+                        <stop offset="100%" style="stop-color:white" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                
+                <!-- Círculo de brilho externo -->
+                <circle cx="100" cy="100" r="95" fill="url(#glowGradient)"/>
+                
+                <!-- Círculo principal -->
+                <circle cx="100" cy="100" r="90" fill="url(#circleGradient)"/>
+                
+                <!-- Elementos decorativos orgânicos -->
+                <path d="M100,30 Q130,70 100,110 Q70,70 100,30" 
+                    fill="rgba(255,255,255,0.1)" />
+                <path d="M30,100 Q70,130 110,100 Q70,70 30,100" 
+                    fill="rgba(255,255,255,0.1)" />
+                <path d="M100,170 Q130,130 100,90 Q70,130 100,170" 
+                    fill="rgba(255,255,255,0.1)" />
+                <path d="M170,100 Q130,130 90,100 Q130,70 170,100" 
+                    fill="rgba(255,255,255,0.1)" />
+            </svg>
+            <span id="calmiText">Inspire</span>
+        </div>
+
+        <div id="calmiMessages" role="status" aria-live="polite"></div>
+
+        <div class="controls">
+            <button id="startButton" class="btn" onclick="startExercise()" aria-label="Iniciar exercício">
+                Iniciar
+            </button>
+            <button id="stopButton" class="btn" onclick="stopExercise()" aria-label="Parar exercício">
+                Pausar
+            </button>
+            <button id="backButton" class="btn" onclick="goBack()" aria-label="Voltar para a página inicial">
+                Voltar
+            </button>
+        </div>
     </div>
-    <div id="calmiMessages" role="alert"></div> <!-- Acessibilidade -->
-    <button id="startButton" onclick="startMusic()" aria-label="Iniciar música">Iniciar Música</button>
-    <button id="stopButton" onclick="stopMusic()" aria-label="Parar música">Parar Música</button>
-    <button id="backButton" onclick="goBack()" aria-label="Voltar para a página inicial">Voltar</button>
 
-    <audio id="calmiMusic" aria-label="Música de fundo">
+    <audio id="calmiMusic" preload="auto">
         <source src="calmi.mp3" type="audio/mp3">
-    </audio>
-
-    <audio id="successSound" aria-label="Som de recompensa">
-        <source src="success.mp3" type="audio/mp3"> <!-- Som suave de recompensa -->
     </audio>
 
     <script>
@@ -104,54 +237,89 @@
             "A cada inspiração, você encontra calma."
         ];
 
-        let index = 0;
 
-        function displayMessage() {
-            const calmiMessagesDiv = document.getElementById('calmiMessages');
-            calmiMessagesDiv.textContent = calmiMessages[index];
-            calmiMessagesDiv.style.opacity = 1; // Torna visível
+        let currentMessageIndex = 0;
+        let isExerciseActive = false;
+        let messageInterval;
 
-            setTimeout(() => {
-                calmiMessagesDiv.style.opacity = 0; // Torna invisível após 4s
-            }, 4000);
+        const breathingCircle = document.querySelector('.breathing-circle');
+        const calmiText = document.getElementById('calmiText');
 
-            index = (index + 1) % calmiMessages.length;
-        }
-
-        setInterval(displayMessage, 5000); // Exibe novas mensagens a cada 5 segundos
-
-        function startMusic() {
+        function startExercise() {
+            if (isExerciseActive) {
+                stopExercise();
+                setTimeout(startExercise, 100);
+                return;
+            }
+            
+            isExerciseActive = true;
+            
+            // Inicia a música
             const audio = document.getElementById('calmiMusic');
-            audio.volume = 0.8; // Ajuste o volume se necessário
-            audio.play().catch(error => {
-                console.log('Erro ao tentar tocar a música:', error);
-            });
+            audio.volume = 0.5;
+            audio.play().catch(console.error);
+            
+            // Inicia as mensagens
+            displayMessage();
+            messageInterval = setInterval(displayMessage, 5000);
+            
+            // Inicia a animação de respiração
+            breathingCircle.classList.add('breathe');
+            startBreathingText();
+            
+            // Atualiza o botão
+            document.getElementById('startButton').textContent = 'Recomeçar';
         }
 
-        function stopMusic() {
+        function stopExercise() {
+            isExerciseActive = false;
+            clearInterval(messageInterval);
+            
             const audio = document.getElementById('calmiMusic');
             audio.pause();
+            audio.currentTime = 0;
+            
+            breathingCircle.classList.remove('breathe');
+            document.getElementById('startButton').textContent = 'Iniciar';
+            calmiText.textContent = 'Puxe o ar';
+        }
+
+        function displayMessage() {
+            const messageElement = document.getElementById('calmiMessages');
+            messageElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                messageElement.textContent = calmiMessages[currentMessageIndex];
+                messageElement.style.opacity = '1';
+                currentMessageIndex = (currentMessageIndex + 1) % calmiMessages.length;
+            }, 500);
+        }
+
+        function startBreathingText() {
+            let isInhaling = true;
+            
+            const updateText = () => {
+                if (!isExerciseActive) return;
+                calmiText.textContent = isInhaling ? 'Puxe o ar' : 'Solte o ar'
+                isInhaling = !isInhaling;
+                setTimeout(updateText, 4000);
+            };
+            
+            updateText();
         }
 
         function goBack() {
-            window.location.href = '../index.html'; // Volta para a página inicial
+            stopExercise();
+            window.location.href = '../index.html';
         }
 
-        // Animação do círculo respirando com feedback visual
-        const circle = document.getElementById('calmiCircle');
-        const calmiText = document.getElementById('calmiText');
-        const successSound = document.getElementById('successSound');
-        let growing = true;
-
-        setInterval(() => {
-            circle.style.transform = growing ? 'scale(1.2)' : 'scale(1)';
-            circle.style.boxShadow = growing ? '0 0 20px 10px rgba(255, 255, 255, 0.7)' : 'none'; // Efeito de brilho
-            calmiText.textContent = growing ? "Puxe o ar" : "Solte o ar"; // Muda o texto entre "Puxe o ar" e "Solte o ar"
-            if (!growing) {
-                successSound.play(); // Toca o som de recompensa ao completar um ciclo
-            }
-            growing = !growing;
-        }, 4000); // Ajusta o tempo de respiração para 4 segundos (2s inalar, 2s exalar)
+        // Prevenção de problemas com áudio em dispositivos móveis
+        document.addEventListener('touchstart', function() {
+            const audio = document.getElementById('calmiMusic');
+            audio.play().catch(function(error) {
+                console.log('Reprodução automática impedida:', error);
+            });
+        }, { once: true });
     </script>
 </body>
 </html>
