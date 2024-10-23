@@ -5,19 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia - Floresta da Calma</title>
     <style>
+        :root {
+            --primary-bg-color: rgba(0, 0, 0, 0.6); /* Variável para fundo semitransparente */
+            --primary-text-color: #FFFFFF; /* Variável para texto claro */
+            --button-bg-color: #2F4F4F;
+            --button-hover-bg-color: #556B2F;
+            --input-bg-color: #E0E0E0;
+            --input-text-color: #333;
+            --success-color: #90EE90;
+        }
+
         body {
             background-image: url('guia_background.png');
             background-size: cover;
             background-position: center;
-            color: #F0F0F0; /* Cor clara para o texto */
+            color: var(--primary-text-color);
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
         h1, h2, p {
-            color: #FFFFFF; /* Cor clara para o texto principal */
-            background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente atrás do texto */
+            color: var(--primary-text-color);
+            background-color: var(--primary-bg-color);
             padding: 10px;
             border-radius: 5px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .character-description {
@@ -26,7 +38,7 @@
 
         .action-buttons {
             display: flex;
-            flex-wrap: wrap; /* Para ajustar bem em dispositivos móveis */
+            flex-wrap: wrap;
             justify-content: space-around;
             margin: 20px 0;
         }
@@ -35,26 +47,25 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #2F4F4F;
+            background-color: var(--button-bg-color);
             color: white;
             cursor: pointer;
             transition: background-color 0.3s;
             margin: 10px;
-            flex-basis: calc(50% - 20px); /* Botões ocupam 50% no mobile */
+            flex-basis: calc(50% - 20px);
         }
 
         .action-button:hover {
-            background-color: #556B2F;
+            background-color: var(--button-hover-bg-color);
         }
 
-        /* Estilos do formulário de feedback */
         #feedback-form {
             display: flex;
             flex-direction: column;
             max-width: 400px;
             margin: 0 auto;
             padding: 10px;
-            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente mais escuro para melhor legibilidade */
+            background-color: var(--primary-bg-color);
             border-radius: 10px;
         }
 
@@ -63,12 +74,12 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #E0E0E0; /* Cor mais suave nos campos de input */
-            color: #333; /* Cor do texto nos campos */
+            background-color: var(--input-bg-color);
+            color: var(--input-text-color);
         }
 
         #feedback-form button {
-            background-color: #2F4F4F;
+            background-color: var(--button-bg-color);
             color: white;
             border: none;
             padding: 10px;
@@ -78,19 +89,17 @@
         }
 
         #feedback-form button:hover {
-            background-color: #556B2F;
+            background-color: var(--button-hover-bg-color);
         }
 
-        /* Estilo da mensagem de sucesso */
         .success-message {
             display: none;
             text-align: center;
-            color: #90EE90;
+            color: var(--success-color);
             font-size: 1.2em;
             margin-top: 20px;
         }
 
-        /* Tooltip */
         .tooltip {
             display: none;
             position: absolute;
@@ -105,44 +114,49 @@
 
         .button-container {
             position: relative;
-            flex-basis: 45%; /* Ajuste para mobile */
+            flex-basis: 45%;
             margin-bottom: 10px;
         }
 
-        /* Responsividade */
         @media (max-width: 600px) {
             .action-button {
-                flex-basis: 100%; /* Botões ocupam 100% no mobile */
+                flex-basis: 100%;
                 margin: 10px 0;
+            }
+        }
+
+        /* Modo escuro */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                background-image: none;
             }
         }
     </style>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        emailjs.init('VM4QBNua8MT8s7cEA'); // Chave pública
+        emailjs.init('VM4QBNua8MT8s7cEA');
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('feedback-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Impede o envio padrão do formulário
+                event.preventDefault();
 
                 emailjs.sendForm('service_4q9t9wr', 'template_39uxs6i', this)
                     .then(function() {
-                        // Mostra a mensagem de sucesso
                         document.querySelector('.success-message').style.display = 'block';
-                        document.getElementById('feedback-form').reset(); // Limpa o formulário
+                        document.getElementById('feedback-form').reset();
                     }, function(error) {
                         alert('Erro ao enviar mensagem: ' + JSON.stringify(error));
                     });
             });
         });
 
-        // Função para mostrar apenas um tooltip por vez
         function showTip(character) {
             const tooltips = document.querySelectorAll('.tooltip');
-            tooltips.forEach(tooltip => tooltip.style.display = 'none'); // Esconde todos os tooltips
+            tooltips.forEach(tooltip => tooltip.style.display = 'none');
 
             const tooltip = document.getElementById(`tooltip-${character}`);
-            tooltip.style.display = 'block'; // Mostra o tooltip do botão clicado
+            tooltip.style.display = 'block';
         }
     </script>
 </head>
@@ -150,14 +164,13 @@
     <h1>Guia da Floresta da Calma</h1>
     <p>Bem-vindo ao seu espaço acolhedor, onde técnicas de autocuidado são aplicadas a todas as idades. Este guia é baseado em comprovações científicas e oferece suporte a todos os públicos, promovendo saúde mental e bem-estar. Nossa página é acessível e projetada para atender às necessidades de todos, com foco em acessibilidade digital, garantindo que pessoas com diferentes níveis de habilidade possam navegar e interagir de maneira fácil e intuitiva. Respire fundo e encontre sua paz interior.</p>
 
-
     <div class="character-description">
         <h2>Personagens:</h2>
         <p><strong>Calmi:</strong> Um guia amigável que ensina técnicas de respiração e mindfulness para ajudar a controlar a ansiedade.</p>
         <p><strong>Luzia:</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com o bullying e a pressão social.</p>
         <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras.</p>
         <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos.</p>
-        <img src="guia.png" alt="Personagem Guia" style="display: block; margin: 20px auto; max-width: 200px;" role="img" aria-label="Imagem do personagem Guia, um mentor acolhedor na Floresta da Calma.">
+        <img src="guia.png" alt="Imagem do personagem Guia, um mentor acolhedor na Floresta da Calma." style="display: block; margin: 20px auto; max-width: 200px;">
     </div>
 
     <div class="action-buttons">
