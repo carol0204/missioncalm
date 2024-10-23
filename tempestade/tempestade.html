@@ -3,95 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tempestade - Floresta da Calma</title>
+    <meta name="description" content="Página de meditação e relaxamento para ajudar no controle da raiva">
+    <title>Tempestade - Floresta da Calma | Exercícios de Respiração</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        :root {
+            --primary-color: #044138;
+            --hover-color: #0a598d;
+            --text-color: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.7);
+            --glow-color: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background-image: url('../imagens/tempestade_background.png');
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                       url('../imagens/tempestade_background.png');
             background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
             padding: 20px;
-            overflow: hidden; /* Impede rolagem, útil com nuvens flutuando */
+            position: relative;
+            overflow-x: hidden;
         }
 
-        main {
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
             text-align: center;
+            margin-bottom: 2rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         #tempestadeCloud {
             position: relative;
-            margin: 20px auto; /* Centraliza horizontalmente */
-            width: 400px;
+            width: min(400px, 90vw);
             height: 300px;
+            margin: 2rem auto;
             background-image: url('../imagens/tempestade_cloud.png');
             background-size: contain;
+            background-position: center;
             background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            color: #ffffff;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-            animation: breathing 6s ease-in-out infinite; /* Respiração suave */
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 500;
+            text-shadow: 0 0 10px var(--shadow-color);
+            animation: breathing 6s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        #tempestadeCloud:focus-visible {
+            outline: 3px solid var(--hover-color);
+            outline-offset: 5px;
         }
 
         #tempestadeGlow {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
+            inset: 0;
+            background: var(--glow-color);
             border-radius: 50%;
             filter: blur(20px);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
 
-        #tempestadeCloud:hover #tempestadeGlow {
+        #tempestadeCloud:hover #tempestadeGlow,
+        #tempestadeCloud:focus #tempestadeGlow {
             opacity: 1;
         }
 
         #tempestadeMessages {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 1); /* Branco mais visível */
-            margin-top: 20px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 1); /* Melhor contraste */
+            min-height: 80px;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            text-align: center;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            max-width: 600px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
         }
 
         button {
-            margin-top: 10px;
-            padding: 10px 20px;
+            padding: 0.8rem 1.5rem;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            background-color: #044138; /* Nova cor que combina melhor */
-            color: white;
-            transition: background-color 0.3s, transform 0.2s;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
-            background-color: #0a598dd5; /* Cor alterada no hover */
-            transform: scale(1.05);
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
         }
 
-        button:focus {
-            outline: 3px solid #18976d;
+        button:focus-visible {
+            outline: 3px solid var(--hover-color);
+            outline-offset: 2px;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .button-icon {
+            margin-right: 0.5rem;
         }
 
         #rewardPopup {
@@ -100,111 +167,165 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            color: white;
-            font-size: 24px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
             text-align: center;
-            z-index: 10;
-            animation: fadeIn 0.5s;
+            z-index: 100;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         #rewardStar {
             width: 100px;
             height: 100px;
-            margin-top: 10px;
+            margin: 1rem auto;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Animação de "respiração" para a nuvem principal */
-        @keyframes breathing {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); } /* Expande mais no meio da respiração */
-            100% { transform: scale(1); }
-        }
-
-        /* Estilo para as nuvens pequenas */
         .smallCloud {
             position: absolute;
-            width: 100px;
-            height: 60px;
             background-image: url('../imagens/tempestade_cloud.png');
             background-size: contain;
             background-repeat: no-repeat;
-            opacity: 0.4; /* Mais transparente */
-            animation: float 15s linear infinite;
+            opacity: 0.4;
+            pointer-events: none;
         }
 
-        .smallCloud-large {
-            width: 150px; /* Tamanho maior */
-            height: 90px;
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .smallCloud-medium {
-            width: 130px; /* Tamanho médio */
-            height: 70px;
-        }
-
-        /* Animação de flutuação das nuvens */
         @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-30px); } /* Aumenta o movimento para mais aparente */
-            100% { transform: translateY(0); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
         }
 
-        /* Animação flutuando mais lentamente para variedade */
-        .floatSlow {
-            animation-duration: 20s;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
-        .floatFast {
-            animation-duration: 10s;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0 1rem;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #000000;
+                --hover-color: #ffffff;
+                --text-color: #ffffff;
+            }
+
+            button {
+                border: 2px solid var(--text-color);
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            #tempestadeCloud,
+            .smallCloud {
+                animation: none;
+            }
+
+            button {
+                transition: none;
+            }
+        }
+
+        /* Modo escuro */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #055a4e;
+                --hover-color: #0c6ea3;
+            }
         }
     </style>
 </head>
 <body>
-    <main>
+    <div class="container">
         <header>
             <h1>Acalme sua raiva com Tempestade</h1>
+            <p class="subtitle">Um espaço seguro para respirar, relaxar e encontrar sua paz interior</p>
         </header>
-        <section>
-            <div id="tempestadeCloud" role="img" aria-label="Nuvem representando a calma">
+
+        <main>
+            <div id="tempestadeCloud" 
+                 role="img" 
+                 aria-label="Nuvem interativa representando exercício de respiração"
+                 tabindex="0">
                 <div id="tempestadeGlow" aria-hidden="true"></div>
-                Calma
+                <span>Respire</span>
             </div>
-            <div id="tempestadeMessages" aria-live="polite" aria-label="Mensagens de apoio"></div>
-            <button id="startButton" onclick="startMusic()" aria-label="Iniciar música">Iniciar Música</button>
-            <button id="stopButton" onclick="stopMusic()" aria-label="Parar música">Parar Música</button>
-            <button id="backButton" onclick="goBack()" aria-label="Voltar para a página anterior">Voltar</button>
-            <button id="pauseAnimationButton" onclick="toggleAnimation()" aria-label="Pausar animação">Pausar Animação</button>
-        </section>
 
-        <!-- Pop-Up de Recompensa -->
-        <div id="rewardPopup" role="alert">
+            <div id="tempestadeMessages" 
+                 role="status" 
+                 aria-live="polite"
+                 aria-atomic="true">
+            </div>
+
+            <div class="controls">
+                <button id="startButton" 
+                        onclick="startExercise()" 
+                        aria-label="Iniciar exercício de respiração">
+                    <span class="button-icon"></span>
+                    Iniciar
+                </button>
+                
+                <button id="stopButton" 
+                        onclick="stopExercise()" 
+                        aria-label="Parar exercício">
+                    <span class="button-icon"></span>
+                    Parar
+                </button>
+                
+                <button id="pauseAnimationButton" 
+                        onclick="toggleAnimation()" 
+                        aria-label="Alternar animação da nuvem">
+                    <span class="button-icon"></span>
+                    Pausar Animação
+                </button>
+                
+                <button id="backButton" 
+                        onclick="goBack()" 
+                        aria-label="Voltar para página anterior">
+                    <span class="button-icon"></span>
+                    Voltar
+                </button>
+            </div>
+        </main>
+
+        <div id="rewardPopup" 
+             role="alert" 
+             aria-label="Notificação de conquista">
             <p>Parabéns! Você ganhou uma Estrela da Calma!</p>
-            <img id="rewardStar" src="estrela.png" alt="Estrela de Calma" aria-hidden="true">
+            <img id="rewardStar" 
+                 src="estrela.png" 
+                 alt="Estrela dourada de conquista" 
+                 width="100" 
+                 height="100">
         </div>
+    </div>
 
-        <audio id="tempestadeMusic" aria-hidden="true">
-            <source src="tempestade.mp3" type="audio/mp3">
-        </audio>
-
-        <!-- Nuvens flutuantes adicionais -->
-        <div class="smallCloud smallCloud-large floatSlow" style="top: 50px; left: 10%;" aria-label="Nuvem flutuante pequena" role="img"></div>
-        <div class="smallCloud smallCloud-medium floatFast" style="top: 100px; left: 70%;" aria-label="Nuvem flutuante média" role="img"></div>
-        <div class="smallCloud smallCloud-large floatSlow" style="bottom: 100px; right: 20%;" aria-label="Nuvem flutuante grande" role="img"></div>
-        <div class="smallCloud smallCloud-medium floatFast" style="bottom: 150px; right: 60%;" aria-label="Nuvem flutuante média" role="img"></div>
-        <!-- Adicionando mais nuvens -->
-        <div class="smallCloud smallCloud-large floatSlow" style="top: 150px; left: 30%;" aria-label="Nuvem flutuante grande" role="img"></div>
-        <div class="smallCloud smallCloud-medium floatFast" style="bottom: 200px; right: 40%;" aria-label="Nuvem flutuante média" role="img"></div>
-        <div class="smallCloud smallCloud-large floatSlow" style="top: 200px; left: 50%;" aria-label="Nuvem flutuante grande" role="img"></div>
-
-    </main>
+    <audio id="tempestadeMusic" 
+           preload="none"
+           loop
+           aria-hidden="true">
+        <source src="tempestade.mp3" type="audio/mp3">
+        <p>Seu navegador não suporta o elemento de áudio.</p>
+    </audio>
 
     <script>
         const tempestadeMessages = [
@@ -230,68 +351,85 @@
             "Você está no controle, sempre."
         ];
 
-
-
         let messageIndex = 0;
-        let musicPlaying = false;
+        let exerciseActive = false;
+        let messageInterval;
+        const music = document.getElementById('tempestadeMusic');
+        const cloud = document.getElementById('tempestadeCloud');
+        const messagesDiv = document.getElementById('tempestadeMessages');
 
-        function startMusic() {
-            const music = document.getElementById('tempestadeMusic');
-            music.play();
-            musicPlaying = true;
-            showMessage();
+        function startExercise() {
+            if (!exerciseActive) {
+                exerciseActive = true;
+                music.play().catch(error => {
+                    console.log('Reprodução automática bloqueada:', error);
+                });
+                showMessage();
+                messageInterval = setInterval(showMessage, 6000);
+                document.getElementById('startButton').setAttribute('aria-pressed', 'true');
+            }
         }
 
-        function stopMusic() {
-            const music = document.getElementById('tempestadeMusic');
+        function stopExercise() {
+            exerciseActive = false;
             music.pause();
             music.currentTime = 0;
-            musicPlaying = false;
+            clearInterval(messageInterval);
+            messagesDiv.style.opacity = 0;
+            document.getElementById('startButton').setAttribute('aria-pressed', 'false');
         }
 
         function showMessage() {
-            const messagesDiv = document.getElementById('tempestadeMessages');
-            messagesDiv.textContent = tempestadeMessages[messageIndex];
-            messagesDiv.style.opacity = 1;
-            messageIndex = (messageIndex + 1) % tempestadeMessages.length;
-
+            if (!exerciseActive) return;
+            
+            messagesDiv.style.opacity = 0;
             setTimeout(() => {
-                messagesDiv.style.opacity = 0;
-            }, 4000); // Mensagem visível por 4 segundos
-
-            if (musicPlaying) {
-                setTimeout(showMessage, 6000); // Mostra nova mensagem a cada 6 segundos
-            }
+                messagesDiv.textContent = tempestadeMessages[messageIndex];
+                messagesDiv.style.opacity = 1;
+                messageIndex = (messageIndex + 1) % tempestadeMessages.length;
+            }, 500);
         }
 
-        // Adiciona o evento para iniciar mensagens quando a página carrega
-        window.onload = () => {
-            startMusic();
-            showMessage();
-        };
-
-        // Exibe a recompensa
-        function showReward() {
-            const rewardPopup = document.getElementById('rewardPopup');
-            rewardPopup.style.display = 'block';
-            setTimeout(() => {
-                rewardPopup.style.display = 'none';
-            }, 3000); // Exibe a recompensa por 3 segundos
+        function toggleAnimation() {
+            const button = document.getElementById('pauseAnimationButton');
+            const isPaused = cloud.style.animationPlayState === 'paused';
+            
+            cloud.style.animationPlayState = isPaused ? 'running' : 'paused';
+            button.setAttribute('aria-pressed', !isPaused);
+            button.innerHTML = `<span class="button-icon">${isPaused ? '⏯️' : '⏸️'}</span>${isPaused ? 'Pausar Animação' : 'Continuar Animação'}`;
         }
 
-        // Funcionalidade do botão de voltar
         function goBack() {
+            if (exerciseActive) {
+                stopExercise();
+            }
             window.history.back();
         }
 
-        // Pausa a animação da nuvem
-        function toggleAnimation() {
-            const cloud = document.getElementById('tempestadeCloud');
-            if (cloud.style.animationPlayState === 'paused') {
-                cloud.style.animationPlayState = 'running';
-            } else {
-                cloud.style.animationPlayState = 'paused';
+        function showReward() {
+            const popup = document.getElementById('rewardPopup');
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+
+        // Tratamento de teclas
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                stopExercise();
             }
+        });
+
+        // Garantir que o áudio pare quando a página for fechada
+        window.addEventListener('beforeunload', () => {
+            stopExercise();
+        });
+
+        // Detectar se o usuário prefere redução de movimento
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) {
+            cloud.style.animation = 'none';
         }
     </script>
 </body>
