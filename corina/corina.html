@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Espaço de inspiração e crescimento para mulheres, com histórias inspiradoras e recursos de apoio">
+    <title>Corina - Inspiração e Superação</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        :root {
+            --primary-color: #556B2F;
+            --secondary-color: #2F4F4F;
+            --accent-color: #0ca532;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --background-overlay: rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-image: url('../imagens/corina_background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow-x: hidden;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para melhor legibilidade */
+            border-radius: 8px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: var(--primary-color);
+            outline: none;
+        }
+
+        section {
+            margin: 4rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .historia-card, .projeto-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .historia-card:hover, .projeto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .inspiracao-container {
+            position: relative;
+            text-align: center;
+        }
+
+        #corinaMessages {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: rgba(85, 107, 47, 0.3);
+            border-radius: 8px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        button:hover, button:focus {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            outline: 3px solid var(--accent-color);
+        }
+
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-color);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: moveStar 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moveStar {
+            0% {
+                transform: translateX(-100%) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .paused {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .projetos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .star {
+                animation: none;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <header>
+        <div class="container">
+            <h1>Corina - Inspiração e Superação</h1>
+            <p>Um espaço de inspiração e crescimento para mulheres que desejam recomeçar</p>
+        </div>
+    </header>
+
+    <nav role="navigation" aria-label="Navegação principal">
+        <ul>
+            <li><a href="#historia">História</a></li>
+            <li><a href="#mulheres">Mulheres Inspiradoras</a></li>
+            <li><a href="#projetos">Projetos de Apoio</a></li>
+            <li><a href="#inspiracao">Inspiração</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <div class="container">
+            <section id="historia" aria-labelledby="historia-titulo">
+                <h2 id="historia-titulo">História de Cora Coralina</h2>
+                <div class="video-container">
+                    <video id="coraVideo" controls preload="metadata">
+                        <source src="coravideo.mp4" type="video/mp4">
+                        <track kind="captions" src="coravideo-captions.vtt" srclang="pt-BR" label="Português">
+                        <p>Seu navegador não suporta vídeos HTML5. <a href="coravideo.mp4">Baixe o vídeo</a>.</p>
+                    </video>
+                </div>
+                <p>Este vídeo conta a história inspiradora de Cora Coralina, uma mulher que, com coragem e determinação, iniciou sua carreira como poetisa aos 76 anos. Apesar das adversidades, Cora tornou-se um símbolo de resiliência e perseverança, mostrando que nunca é tarde para recomeçar e lutar pelos próprios sonhos.</p>
+            </section>
+
+
+
+            <!-- Seção: Histórias Inspiradoras de Mulheres Reais -->
+            <section id="mulheres" aria-labelledby="mulheres-titulo">
+                <h2 id="mulheres-titulo">Histórias Inspiradoras de Mulheres Reais</h2>
+                
+                <div class="historia-card">
+                    <h3>Maria da Penha</h3>
+                    <p>Ícone na luta contra a violência doméstica, sua história resultou na criação da Lei Maria da Penha, protegendo mulheres no Brasil.</p>
+                    <a href="https://pt.wikipedia.org/wiki/Maria_da_Penha" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                </div>
+
+                <div class="historia-card">
+                    <h3>Luiza Helena Trajano</h3>
+                    <p>Empresária que superou obstáculos para transformar o Magazine Luiza em uma das maiores redes de varejo do Brasil, é também uma grande apoiadora de causas sociais.</p>
+                    <a href="https://pt.wikipedia.org/wiki/Luiza_Helena_Trajano" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                </div>
+
+                <div class="historia-card">
+                    <h3>Malala Yousafzai</h3>
+                    <p>Ativista que defende o direito das meninas à educação após sobreviver a um atentado no Paquistão.</p>
+                    <a href="https://pt.wikipedia.org/wiki/Malala_Yousafzai" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                </div>
+
+                <div class="historia-card">
+                    <h3>Eliane Dias</h3>
+                    <p>Advogada e empresária que superou uma infância difícil e se tornou uma voz importante para a igualdade racial e direitos das mulheres no Brasil.</p>
+                    <a href="https://www.linkedin.com/in/eliane-dias-/" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                </div>
+
+                <div class="historia-card">
+                    <h3>Rosa Parks</h3>
+                    <p>Ativista americana que desafiou a segregação racial nos EUA, marcando a luta pelos direitos civis.</p>
+                    <a href="https://pt.wikipedia.org/wiki/Rosa_Parks" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                </div>
+            </section>
+
+            <!-- Seção: Projetos e Organizações de Apoio -->
+            <section id="projetos" aria-labelledby="projetos-titulo">
+                <h2 id="projetos-titulo">Projetos e Organizações de Apoio</h2>
+                
+                <div class="projetos-grid">
+                    <article class="projeto-card">
+                        <h3>Programa Ela Pode</h3>
+                        <p>Projeto do Instituto Rede Mulher Empreendedora que oferece cursos gratuitos de capacitação em marketing, finanças e autoestima.</p>
+                        <a href="https://www.riomulher.org.br/ela-pode" target="_blank" rel="noopener noreferrer">Acesse o Programa Ela Pode</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Instituto Maria da Penha</h3>
+                        <p>Além do apoio às vítimas de violência, o instituto promove projetos para autonomia financeira e empoderamento feminino.</p>
+                        <a href="https://www.institutomariadapenha.com.br/" target="_blank" rel="noopener noreferrer">Acesse o Instituto Maria da Penha</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Mulheres do Brasil</h3>
+                        <p>Fundado por Luiza Helena Trajano, este movimento trabalha com várias frentes, como educação, empreendedorismo e combate à violência.</p>
+                        <a href="https://www.mulheresdobrasil.com.br/" target="_blank" rel="noopener noreferrer">Acesse Mulheres do Brasil</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>#ElasNoEnem</h3>
+                        <p>Iniciativa da ONG Think Olga que apoia mulheres que estão voltando aos estudos, oferecendo material gratuito e suporte para o Enem.</p>
+                        <a href="https://www.thinkolga.org.br/elasnoenem" target="_blank" rel="noopener noreferrer">Acesse #ElasNoEnem</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>PrograMaria</h3>
+                        <p>Cursos de programação e tecnologia focados em aumentar a presença feminina no setor de tecnologia e capacitar mulheres para o mercado digital.</p>
+                        <a href="https://programaria.com.br/" target="_blank" rel="noopener noreferrer">Acesse PrograMaria</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Reprograma</h3>
+                        <p>Oferece cursos gratuitos de desenvolvimento web, com foco em mulheres que buscam recolocação no mercado de tecnologia.</p>
+                        <a href="https://reprograma.com.br/" target="_blank" rel="noopener noreferrer">Acesse Reprograma</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Instituto Avon</h3>
+                        <p>Apoia mulheres vítimas de violência, promovendo ações de empoderamento e cursos de capacitação.</p>
+                        <a href="https://institutoavon.com.br/" target="_blank" rel="noopener noreferrer">Acesse Instituto Avon</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Vamos Juntas?</h3>
+                        <p>Apoio psicológico e emocional para mulheres, promovendo autocuidado e fortalecimento da autoestima.</p>
+                        <a href="https://www.vamosjuntas.org.br/" target="_blank" rel="noopener noreferrer">Acesse Vamos Juntas?</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Escola de Você</h3>
+                        <p>Plataforma com cursos de desenvolvimento pessoal e empreendedorismo, criada pelas jornalistas Ana Paula Padrão e Natália Leite.</p>
+                        <a href="https://www.escoladevoce.com.br/" target="_blank" rel="noopener noreferrer">Acesse Escola de Você</a>
+                    </article>
+
+                    <article class="projeto-card">
+                        <h3>Pretahub</h3>
+                        <p>Apoio a empreendedoras negras, oferecendo redes de contato e suporte para negócios liderados por mulheres negras.</p>
+                        <a href="https://pretahub.com.br/" target="_blank" rel="noopener noreferrer">Acesse Pretahub</a>
+                    </article>
+                    
+                    
+                    <article class="projeto-card">
+                        <h3>Programa Descodificadas</h3>
+                        <p>A Edtech Descod criou o Programa Descodificadas com o objetivo de formar e apoiar mulheres que buscam entrar e já estão no setor de tecnologia por meio de uma metodologia que as ensina a aprender independentemente. O programa oferece conteúdos e práticas simples e descomplicadas, buscando facilitar o processo de aprendizado.</p>
+                        <a href="https://descodificadas.com.br/" target="_blank" rel="noopener noreferrer">Acesse Descodificadas</a>
+                    </article>
+                    
+                
+                </div>
+            </section>
+
+            <!-- Seção: Depoimentos e Recursos -->
+            <section id="depoimentos" aria-labelledby="depoimentos-titulo">
+                <h2 id="depoimentos-titulo">Depoimentos e Recursos</h2>
+                
+                <div class="historia-card">
+                    <h3>Depoimentos</h3>
+                    <p>"Participar do Programa Ela Pode transformou minha vida. Consegui iniciar meu próprio negócio e recuperar minha autoestima." - <em>Maria S.</em></p>
+                    <p>"O apoio do Instituto Maria da Penha foi fundamental para minha recuperação e independência financeira." - <em>Joana M.</em></p>
+                </div>
+
+                <div class="historia-card">
+                    <h3>Recursos Adicionais</h3>
+                    <p>Confira plataformas de cursos gratuitos e leituras inspiradoras:</p>
+                    <ul>
+                        <li><a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer">Coursera</a> - Cursos gratuitos em diversas áreas.</li>
+                        <li><a href="https://www.edx.org/" target="_blank" rel="noopener noreferrer">edX</a> - Plataforma de cursos online de universidades renomadas.</li>
+                        <li><a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer">Khan Academy</a> - Educação gratuita para todos.</li>
+                        <li><a href="https://www.goodreads.com/" target="_blank" rel="noopener noreferrer">Goodreads</a> - Encontre livros inspiradores, como "Eu Sou Malala".</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção: Inspiração Diária -->
+            <section id="inspiracao" aria-labelledby="inspiracao-titulo">
+                <h2 id="inspiracao-titulo">Inspiração Diária</h2>
+                
+                <div class="inspiracao-container">
+                    <div id="corinaMessages" aria-live="polite" role="status"></div>
+                    
+                    <div class="button-group">
+                        <button id="startButton" aria-label="Iniciar música relaxante">Iniciar Música</button>
+                        <button id="pauseButton" aria-label="Pausar música">Pausar Música</button>
+                        <button id="corinaButton" aria-label="Ver próxima mensagem inspiradora">Próxima Mensagem</button>
+                        <button id="toggleAnimationsButton" aria-label="Ativar ou desativar animações">Ativar/Desativar Animações</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <audio id="corinaMusic" preload="none">
+        <source src="corina/corina.mp3" type="audio/mp3">
+        <p>Seu navegador não suporta o elemento de áudio.</p>
+    </audio>
+
+    <script>
+        // Mensagens inspiradoras
+        const corinaMessages = [
+            "Você é incrível do jeito que é!",
+            "Acredite em si mesma!",
+            "Sua autoestima é sua força!",
+            "Você merece amor e respeito!",
+            "Você é suficiente, exatamente como é.",
+            "A sua luz interior brilha intensamente.",
+            "Você é capaz de conquistar qualquer coisa.",
+            "Confie no seu valor.",
+            "Você faz a diferença no mundo.",
+            "Seu coração é cheio de bondade.",
+            "Você é uma pessoa única e especial.",
+            "Seus esforços são dignos de reconhecimento.",
+            "Você tem talentos incríveis!",
+            "Você merece todo o amor e sucesso.",
+            "Você é corajoso e capaz.",
+            "O seu valor é inegável.",
+            "Você é uma pessoa maravilhosa.",
+            "Você tem um propósito valioso.",
+            "Você é amada por quem você é.",
+            "A sua presença é importante.",
+            "Praticar a autocompaixão fortalece sua autoestima.",
+            "Você é capaz de aprender e crescer com cada experiência.",
+            "Seu valor não depende da aprovação dos outros.",
+            "Errar é parte do aprendizado e você está em constante evolução.",
+            "Você tem a capacidade de superar desafios com resiliência.",
+            "A aceitação de si mesmo é a base de uma autoestima saudável.",
+            "Suas ações refletem sua força interior.",
+            "Você merece ser tratado com respeito, inclusive por você mesmo.",
+            "Celebrar suas conquistas fortalece sua confiança.",
+            "Sua autoestima cresce a cada pensamento positivo que você pratica."
+        ];
+
+        let currentIndex = 0;
+        let starInterval = null;
+        let isAnimationsPaused = false;
+
+        const messageElement = document.getElementById('corinaMessages');
+        const audio = document.getElementById('corinaMusic');
+        const video = document.getElementById('coraVideo');
+        const toggleAnimationsBtn = document.getElementById('toggleAnimationsButton');
+
+        // Função para mudar mensagem
+        function changeMessage() {
+            messageElement.style.opacity = '0';
+            setTimeout(() => {
+                messageElement.textContent = corinaMessages[currentIndex];
+                messageElement.style.opacity = '1';
+                currentIndex = (currentIndex + 1) % corinaMessages.length;
+            }, 500);
+        }
+
+        // Funções de controle de música
+        function handleMusicToggle(action) {
+            if (action === 'play') {
+                audio.volume = 0.8;
+                audio.play().catch(error => {
+                    console.error('Erro ao reproduzir áudio:', error);
+                });
+            } else {
+                audio.pause();
+            }
+        }
+
+        // Funções de animação
+        function createStar() {
+            if (isAnimationsPaused) return;
+
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = '-20px';
+            star.style.top = `${Math.random() * 100}vh`;
+            document.body.appendChild(star);
+
+            star.addEventListener('animationend', () => {
+                star.remove();
+            });
+        }
+
+        function toggleAnimations() {
+            isAnimationsPaused = !isAnimationsPaused;
+            document.querySelectorAll('.star').forEach(star => {
+                star.classList.toggle('paused');
+            });
+            
+            toggleAnimationsBtn.textContent = isAnimationsPaused ? 
+                "Ativar Animações" : "Desativar Animações";
+
+            if (isAnimationsPaused) {
+                clearInterval(starInterval);
+            } else {
+                starInterval = setInterval(createStar, 1000);
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('startButton').addEventListener('click', () => handleMusicToggle('play'));
+        document.getElementById('pauseButton').addEventListener('click', () => handleMusicToggle('pause'));
+        document.getElementById('corinaButton').addEventListener('click', changeMessage);
+        toggleAnimationsBtn.addEventListener('click', toggleAnimations);
+
+        // Inicialização
+        changeMessage();
+        starInterval = setInterval(createStar, 1000);
+
+        // Limpeza ao sair da página
+        window.addEventListener('unload', () => {
+            if (starInterval) clearInterval(starInterval);
+        });
+
+        // Suporte a preferências de redução de movimento
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) {
+            isAnimationsPaused = true;
+            clearInterval(starInterval);
+        }
+    </script>
+</body>
+</html>
