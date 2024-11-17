@@ -170,6 +170,8 @@
         <p><strong>Corina :</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com a pressão social.</p>
         <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras.</p>
         <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos.</p>
+        <p><strong>Empodera:</strong> Um ser da natureza, empoderando mulheres para conquistarem seus objetivos. Use suas dicas para aumentar a autoconfiança e melhorar seu currículo.</p>
+        <p><strong>S.O.S:</strong> Personagem criado para emergências emocionais. Caso precise de ajuda imediata, ele pode direcioná-lo ao CVV (Centro de Valorização da Vida), que oferece apoio emocional. <a href="https://www.cvv.org.br" target="_blank">Clique aqui para acessar o CVV</a></p>
         <img src="guia.png" alt="Imagem do personagem Guia, um mentor acolhedor na Floresta da Calma." style="display: block; margin: 20px auto; max-width: 200px;">
     </div>
 
@@ -190,16 +192,26 @@
             <button class="action-button" onclick="showTip('Guia')" aria-describedby="tooltip-Guia">Como usar o Guia</button>
             <div class="tooltip" id="tooltip-Guia" role="tooltip">O Guia oferece apoio emocional e dicas de autocuidado.</div>
         </div>
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('Empodera')" aria-describedby="tooltip-Empodera">Como usar o Empodera</button>
+            <div class="tooltip" id="tooltip-Empodera" role="tooltip">O Empodera vai ajudar você a aumentar sua autoconfiança e melhorar seu currículo.</div>
+        </div>
+        <div class="button-container">
+            <button class="action-button" onclick="showTip('SOS')" aria-describedby="tooltip-SOS">Como usar o S.O.S</button>
+            <div class="tooltip" id="tooltip-SOS" role="tooltip">Em casos de emergência emocional, o S.O.S oferece uma solução rápida, como o link para o CVV, que oferece suporte emocional.</div>
+        </div>
     </div>
 
-    <h2>Deixe seu Feedback:</h2>
-    <form id="feedback-form" aria-label="Formulário de feedback">
-        <input type="text" name="from_name" placeholder="Seu Nome" required aria-required="true" />
-        <input type="email" name="from_email" placeholder="Seu Email" required aria-required="true" />
-        <textarea name="message" placeholder="Sua Mensagem" required aria-required="true"></textarea>
-        <button type="submit">Enviar</button>
-    </form>
-
-    <div class="success-message" role="alert">Mensagem enviada com sucesso!</div>
+    <div class="character-description">
+        <h2>Formulário de Feedback</h2>
+        <p>Quer nos dar um feedback ou pedir ajuda? Preencha o formulário abaixo:</p>
+        <form id="feedback-form">
+            <input type="text" name="name" placeholder="Seu nome" required>
+            <input type="email" name="email" placeholder="Seu email" required>
+            <textarea name="message" rows="4" placeholder="Sua mensagem" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <div class="success-message">Sua mensagem foi enviada com sucesso! Obrigado pelo seu feedback.</div>
+    </div>
 </body>
 </html>
