@@ -126,19 +126,21 @@
             <img src="imagens/corina.png" alt="Imagem do personagem Corina" aria-label="Personagem Corina" />
             <p>Corina</p>
         </div>
-        
-        </div>
         <div class="character" onclick="openCharacterPage('tempestade')" aria-label="Acessar a página do personagem Tempestade" role="button">
             <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" aria-label="Personagem Tempestade" />
             <p>Tempestade</p>
         </div>
-        <!-- Novo personagem S.O.S. -->
+        <!-- Personagem S.O.S. -->
         <div class="character" onclick="openCharacterPage('sos')" aria-label="Acessar a página do personagem S.O.S." role="button">
             <img src="imagens/sos.png" alt="Imagem do personagem S.O.S." aria-label="Personagem S.O.S." />
-            <p></p>
+            <p>S.O.S.</p>
+        </div>
+        <!-- Novo personagem Empodera -->
+        <div class="character" onclick="openCharacterPage('empodera')" aria-label="Acessar a página do personagem Empodera" role="button">
+            <img src="imagens/empodera.png" alt="Imagem do personagem Empodera" aria-label="Personagem Empodera" />
+            <p>Empodera</p>
         </div>
     </div>
-    
 
     <audio id="backgroundMusic">
         <source src="musicas/musica_inicial.mp3" type="audio/mp3">
@@ -158,8 +160,15 @@
         }
 
         function openCharacterPage(character) {
-            music.pause();
-            window.location.href = `${character}/${character}.html`;
+            if (character === 'empodera') {
+                window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link'
+            } else if (character === 'sos') {
+                music.pause();
+                window.location.href = `${character}/${character}.html`;
+            } else {
+                music.pause();
+                window.location.href = `${character}/${character}.html`;
+            }
         }
 
         let darkMode = false;
