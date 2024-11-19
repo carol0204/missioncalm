@@ -3,205 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Apoio Emocional</title>
+    <meta name="description" content="Página de apoio emocional e suporte psicológico com recursos e contatos úteis">
+    <title>Apoio Emocional - Você Não Está Sozinho</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <style>
-        /* Estilos de animação de entrada */
-        .container {
-            animation: fadeIn 1s ease-in-out;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #147a3b;
+            --secondary-color: #93D3B0;
         }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Estilos gerais */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-image: url('fundosos.png');
-            background-size: cover;
-            background-position: center;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            transition: background-color 0.3s;
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Estilos do contêiner principal */
-        .container {
-            background-color: rgba(147, 211, 176, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-width: 900px;
-            width: 90%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        /* Ajustes responsivos para telas pequenas */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-            }
-            .video-container, .text-container {
-                width: 100%;
-            }
-        }
-
-        /* Estilos do contêiner de vídeo */
-        .video-container {
-            width: 50%;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .video-container video {
-            width: 100%;
-            height: auto;
-        }
-
-        /* Estilos do contêiner de texto */
-        .text-container {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #10793bf6;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-        .button {
-            display: inline-flex;
-            align-items: center;
-            background-color: #147a3b;
-            color: #fff;
-            text-decoration: none;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            margin-top: 1rem;
-            width: fit-content;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .button:hover {
-            background-color: #26773e;
-            transform: translateY(-2px);
-        }
-        .button img {
-            max-width: 32px;
-            margin-right: 0.5rem;
-        }
-
-        /* Rodapé de mensagem acolhedora */
-        footer {
-            margin-top: 3rem;
-            font-size: 2rem;
-            color: #063107;
-            text-align: center;
-        }
-
-        /* Estilos do botão de acessibilidade */
-        .accessibility-btn {
-            background-color: #333;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 1rem 0;
-        }
-
-        /* Links úteis */
-        .links-uteis {
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-        .links-uteis h2 {
-            font-size: 1.5rem;
-            color: #032504;
-        }
-        .links-uteis ul {
-            list-style: none;
-            padding: 0;
-        }
-        .links-uteis li {
-            margin: 0.5rem 0;
-        }
-
-        /* Tema noturno */
         .dark-mode {
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            --primary-color: #4ade80;
+            --secondary-color: #065f46;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        [x-cloak] {
+            display: none;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
 </head>
-<body>
-    <!-- Som ambiente -->
-    <audio controls loop autoplay style="display: none;">
-        <source src="som_ambiente.mp3" type="audio/mp3">
-        Seu navegador não suporta áudio.
-    </audio>
+<body class="custom-scroll min-h-screen bg-gradient-to-br from-green-50 to-blue-50 transition-colors duration-300"
+      x-data="{ darkMode: false, fontSize: 'normal' }"
+      :class="{ 'dark-mode': darkMode }">
 
-    <div class="container">
-        <!-- Vídeo de apoio -->
-        <div class="video-container">
-            <video controls autoplay muted loop>
-                <source src="videosos.mp4" type="video/mp4">
-                Seu navegador não suporta vídeo.
-            </video>
-        </div>
-
-        <!-- Texto e botão do CVV -->
-        <div class="text-container">
-            <h1>Você Não Está Sozinho</h1>
-            <p>Se você está passando por um momento difícil, saiba que existem pessoas e recursos disponíveis para lhe dar apoio. O CVV (Centro de Valorização da Vida) é um serviço do governo que oferece suporte emocional gratuito e confidencial, disponível 24 horas por dia.</p>
-            <a href="https://www.cvv.org.br/" target="_blank" class="button">
-                <img src="cvv.png" alt="Ícone do CVV">
-                Converse com o CVV
+    <!-- Barra de Acessibilidade -->
+    <nav class="bg-white/90 backdrop-blur-sm fixed w-full z-50 shadow-sm" 
+         :class="{ 'bg-gray-900/90': darkMode }">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <button @click="darkMode = !darkMode" 
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        :aria-label="darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'">
+                    <svg x-show="!darkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                    <svg x-show="darkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                    </svg>
+                </button>
+                <button @click="fontSize = fontSize === 'normal' ? 'large' : 'normal'" 
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Ajustar tamanho da fonte">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </button>
+            </div>
+            <a href="tel:188" class="bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition-colors"
+               :class="{ 'text-xl': fontSize === 'large' }">
+                Ligar 188 - CVV
             </a>
         </div>
-    </div>
+    </nav>
 
-    <!-- Links úteis -->
-    <section class="links-uteis">
-        <h2>Recursos Úteis</h2>
-        <ul>
-            <li><a href="https://www.cvv.org.br/">CVV - Centro de Valorização da Vida</a></li>
-            <li><a href="https://www.saude.gov.br/">Ministério da Saúde</a></li>
-        </ul>
-    </section>
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <div class="max-w-6xl mx-auto">
+            <!-- Seção Hero -->
+            <section class="fade-in flex flex-col md:flex-row items-center justify-between gap-12 mb-16">
+                <div class="w-full md:w-1/2">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6 leading-tight"
+                        :class="{ 'text-6xl': fontSize === 'large' }">
+                        Você Não Está Sozinho
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
+                       :class="{ 'text-2xl': fontSize === 'large' }">
+                        Estamos aqui para oferecer apoio e compreensão. O CVV está disponível 24 horas por dia para 
+                        ouvir você, sem julgamentos, com total confidencialidade e respeito.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://www.cvv.org.br/chat" 
+                           class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                           :class="{ 'text-xl px-8 py-4': fontSize === 'large' }">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            Iniciar Chat
+                        </a>
+                        <a href="tel:188" 
+                           class="inline-flex items-center px-6 py-3 border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-800 transition-colors"
+                           :class="{ 'text-xl px-8 py-4': fontSize === 'large' }">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            Ligar 188
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="relative rounded-2xl overflow-hidden shadow-xl hover-card">
+                        <video class="w-full h-auto" controls autoplay muted loop>
+                            <source src="videosos.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeo.
+                        </video>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Rodapé com mensagem acolhedora -->
-    <footer>
-        Estamos aqui para ouvir você.
-    </footer>
+            <!-- Seção de Recursos -->
+            <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover-card">
+                    <div class="mb-4">
+                        <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold mb-3 dark:text-white"
+                        :class="{ 'text-2xl': fontSize === 'large' }">
+                        24 Horas por Dia
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300"
+                       :class="{ 'text-lg': fontSize === 'large' }">
+                        Atendimento gratuito disponível a qualquer momento, todos os dias da semana.
+                    </p>
+                </article>
 
-    <script>
-        // Função para alternar tema noturno e aumentar fonte
-        function toggleAccessibility() {
-            document.body.classList.toggle('dark-mode');
-            const elements = document.querySelectorAll("p, h1, footer");
-            elements.forEach(el => {
-                el.style.fontSize = el.style.fontSize === '1.2rem' ? '1rem' : '1.2rem';
-            });
-        }
-    </script>
-</body>
-</html>
+                <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover-card">
+                    <div class="mb-4">
+                        <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold mb-3 dark:text-white"
+                        :class="{ 'text-2xl': fontSize === 'large' }">
+                        Confidencial
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300"
+                       :class="{ 'text-lg': fontSize === 'large' }">
+                        Seu anonimato é garantido. Todas as conversas são estritamente confidenciais.
+                    </p>
+                </article>
+
+                <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover-card">
+                    <div class="mb-4">
+                        <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold mb-3 dark:text-white"
+                        :class="{ 'text-2xl': fontSize === 'large' }">
+                        Sem Julgamentos
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300"
+                       :class="{ 'text-lg': fontSize === 'large' }">
+                        Um espaço seguro para compartilhar seus pensamentos e sentimentos.
+                    </p>
+                </article>
+            </section>
+
+            <!-- Links Úteis -->
+            <section class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 dark:text-white"
+                    :class="{ 'text-3xl': fontSize === 'large' }">
+                    Recursos Adicionais
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <a href="https://www.cvv.org.br/" 
+                       class="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                        <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9... 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold dark:text-white"
+                                        :class="{ 'text-xl': fontSize === 'large' }">
+                                        Centro de Valorização da Vida
+                                    </h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300"
+                                       :class="{ 'text-base': fontSize === 'large' }">
+                                        Saiba mais sobre o CVV e seus serviços
+                                    </p>
+                                </div>
+                            </a>
+        
+                            <a href="https://www.gov.br/saude/pt-br/assuntos/saude-mental" 
+                               class="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold dark:text-white"
+                                        :class="{ 'text-xl': fontSize === 'large' }">
+                                        Ministério da Saúde
+                                    </h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300"
+                                       :class="{ 'text-base': fontSize === 'large' }">
+                                        Informações sobre saúde mental
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        
+            <!-- Rodapé -->
+            <footer class="bg-white dark:bg-gray-800 shadow-lg mt-12">
+                <div class="container mx-auto px-4 py-8">
+                    <div class="text-center">
+                        <p class="text-2xl font-medium text-gray-800 dark:text-white mb-4"
+                           :class="{ 'text-3xl': fontSize === 'large' }">
+                            Estamos aqui para ouvir você
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300"
+                           :class="{ 'text-lg': fontSize === 'large' }">
+                            Lembre-se: você não está sozinho nesta jornada.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        
+            <script>
+                // Função para verificar preferência de tema escuro do sistema
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.querySelector('body').__x.$data.darkMode = true;
+                }
+        
+                // Função para ajustar tamanho da fonte baseado em preferências de acessibilidade
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    document.querySelectorAll('.fade-in').forEach(el => {
+                        el.style.animation = 'none';
+                    });
+                }
+            </script>
+        </body>
+        </html>
