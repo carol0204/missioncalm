@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floresta da Calma</title>
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DNV5W5MJQ"></script>
     <script>
@@ -57,17 +57,19 @@
         .character {
             cursor: pointer;
             text-align: center;
-            transition: transform 0.3s, filter 0.3s;
+            transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             margin-bottom: 20px;
         }
 
         .character img {
             width: 150px;
+            border-radius: 10px; /* Bordas arredondadas */
         }
 
         .character:hover {
-            transform: scale(1.1);
-            filter: brightness(1.5);
+            transform: scale(1.05);
+            filter: brightness(1.3);
+            box-shadow: 0px 4px 15px rgba(255,255,255,0.5); /* Sombra ao passar o mouse */
         }
 
         #startMusic, #toggleTheme {
@@ -77,13 +79,13 @@
             border-radius: 5px;
             font-size: 18px;
             cursor: pointer;
-            background-color: #2F4F4F;
+            background-color: rgba(47,79,79,0.8); /* Fundo semi-transparente */
             color: white;
-            transition: background-color 0.3s, transform 0.3s; 
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; 
         }
 
         #startMusic:hover, #toggleTheme:hover {
-            background-color: #556B2F;
+            background-color: rgba(85,107,47,0.8);
             transform: scale(1.05);
         }
 
@@ -96,14 +98,19 @@
 
             p {
                 font-size: 1em; 
+                margin-bottom: 15px; /* Menor espaçamento */
             }
 
             .character img {
                 width: 120px; 
+                border-radius: 10px; /* Bordas arredondadas também em dispositivos móveis */
+                max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
             }
 
             #startMusic, #toggleTheme {
                 font-size: 16px; 
+                padding: 8px 16px; /* Ajuste no padding */
+                margin-top: 15px; /* Menor margem superior */
             }
         }
     </style>
@@ -115,29 +122,29 @@
 
     <div id="characterContainer">
         <div class="character" onclick="openCharacterPage('guia')" aria-label="Acessar a página do personagem Guia" role="button">
-            <img src="imagens/guia.png" alt="Imagem do personagem Guia" aria-label="Personagem Guia" />
+            <img src="imagens/guia.png" alt="Imagem do personagem Guia" />
             <p>Guia</p>
         </div>
         <div class="character" onclick="openCharacterPage('calmi')" aria-label="Acessar a página do personagem Calmi" role="button">
-            <img src="imagens/calmi.png" alt="Imagem do personagem Calmi" aria-label="Personagem Calmi" />
+            <img src="imagens/calmi.png" alt="Imagem do personagem Calmi" />
             <p>Calmi</p>
         </div>
         <div class="character" onclick="openCharacterPage('corina')" aria-label="Acessar a página do personagem Corina" role="button">
-            <img src="imagens/corina.png" alt="Imagem do personagem Corina" aria-label="Personagem Corina" />
+            <img src="imagens/corina.png" alt="Imagem do personagem Corina" />
             <p>Corina</p>
         </div>
         <div class="character" onclick="openCharacterPage('tempestade')" aria-label="Acessar a página do personagem Tempestade" role="button">
-            <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" aria-label="Personagem Tempestade" />
+            <img src="imagens/tempestade.png" alt="Imagem do personagem Tempestade" />
             <p>Tempestade</p>
         </div>
         <!-- Personagem S.O.S. -->
         <div class="character" onclick="openCharacterPage('sos')" aria-label="Acessar a página do personagem S.O.S." role="button">
-            <img src="imagens/sos.png" alt="Imagem do personagem S.O.S." aria-label="Personagem S.O.S." />
+            <img src="imagens/sos.png" alt="Imagem do personagem S.O.S." />
             <p>S.O.S.</p>
         </div>
         <!-- Novo personagem Empodera -->
         <div class="character" onclick="openCharacterPage('empodera')" aria-label="Acessar a página do personagem Empodera" role="button">
-            <img src="imagens/empodera.png" alt="Imagem do personagem Empodera" aria-label="Personagem Empodera" />
+            <img src="imagens/empodera.png" alt="Imagem do personagem Empodera" />
             <p>Empodera</p>
         </div>
     </div>
@@ -154,40 +161,40 @@
         music.volume = 0.2;
 
         function startMusic() {
-            music.play().catch(error => {
-                console.log('Erro ao tentar tocar a música:', error);
-            });
-        }
+          music.play().catch(error => {
+              console.log('Erro ao tentar tocar a música:', error);
+          });
+      }
 
-        function openCharacterPage(character) {
-            if (character === 'empodera') {
-                window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link'
-            } else if (character === 'sos') {
-                music.pause();
-                window.location.href = `${character}/${character}.html`;
-            } else {
-                music.pause();
-                window.location.href = `${character}/${character}.html`;
-            }
-        }
+      function openCharacterPage(character) {
+          if (character === 'empodera') {
+              window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link'
+          } else if (character === 'sos') {
+              music.pause();
+              window.location.href = `${character}/${character}.html`;
+          } else {
+              music.pause();
+              window.location.href = `${character}/${character}.html`;
+          }
+      }
 
-        let darkMode = false;
+      let darkMode = false;
 
-        function toggleTheme() {
-            darkMode = !darkMode;
-            
-            if (darkMode) {
-                document.body.style.backgroundColor = '#121212';
-                document.body.style.color = '#ffffff';
-                document.getElementById('startMusic').style.backgroundColor = '#1E1E1E';
-                document.getElementById('toggleTheme').style.backgroundColor = '#1E1E1E';
-            } else {
-                document.body.style.backgroundColor = '';
-                document.body.style.color = '';
-                document.getElementById('startMusic').style.backgroundColor = '#2F4F4F';
-                document.getElementById('toggleTheme').style.backgroundColor = '#2F4F4F';
-            }
-        }
+      function toggleTheme() {
+          darkMode = !darkMode;
+
+          if (darkMode) {
+              document.body.style.backgroundColor = '#121212';
+              document.body.style.color = '#ffffff';
+              document.getElementById('startMusic').style.backgroundColor = '#1E1E1E';
+              document.getElementById('toggleTheme').style.backgroundColor = '#1E1E1E';
+          } else {
+              document.body.style.backgroundColor = '';
+              document.body.style.color = '';
+              document.getElementById('startMusic').style.backgroundColor = 'rgba(47,79,79,0.8)';
+              document.getElementById('toggleTheme').style.backgroundColor = 'rgba(47,79,79,0.8)';
+          }
+      }
     </script>
 </body>
 </html>
