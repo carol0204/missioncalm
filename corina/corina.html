@@ -6,15 +6,16 @@
     <meta name="description" content="Espaço de inspiração e crescimento para mulheres, com histórias inspiradoras e recursos de apoio">
     <title>Corina - Inspiração e Superação</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         :root {
-            --primary-color: #556B2F;
-            --secondary-color: #2F4F4F;
-            --accent-color: #0ca532;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --background-overlay: rgba(0, 0, 0, 0.7);
+            --primary-color: #FF69B4;
+            --secondary-color: #FFB6C1;
+            --accent-color: #FF1493;
+            --text-color: #4A4A4A;
+            --background-light: #FFF5F7;
+            --card-background: #FFF;
+            --shadow-color: rgba(255, 105, 180, 0.15);
         }
 
         * {
@@ -30,12 +31,14 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: var(--text-light);
-            background-image: url('../imagens/corina_background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            overflow-x: hidden;
+            color: var(--text-color);
+            background: var(--background-light);
+            background-image: linear-gradient(45deg, #FFF5F7 25%, transparent 25%),
+                            linear-gradient(-45deg, #FFF5F7 25%, transparent 25%),
+                            linear-gradient(45deg, transparent 75%, #FFF5F7 75%),
+                            linear-gradient(-45deg, transparent 75%, #FFF5F7 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
 
         .skip-link {
@@ -43,7 +46,7 @@
             top: -40px;
             left: 0;
             background: var(--primary-color);
-            color: var(--text-light);
+            color: #FFF;
             padding: 8px;
             z-index: 100;
             transition: top 0.3s;
@@ -57,13 +60,25 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para melhor legibilidade */
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px var(--shadow-color);
         }
 
         header {
             text-align: center;
             margin-bottom: 2rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #FFF5F7, #FFE4E1);
+            border-radius: 20px;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-color);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px var(--shadow-color);
         }
 
         nav {
@@ -72,6 +87,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            box-shadow: 0 2px 10px var(--shadow-color);
         }
 
         nav ul {
@@ -82,27 +98,40 @@
         }
 
         nav a {
-            color: var(--text-light);
+            color: var(--text-color);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
         nav a:hover, nav a:focus {
             background-color: var(--primary-color);
-            outline: none;
+            color: #FFF;
+            transform: translateY(-2px);
         }
 
         section {
             margin: 4rem 0;
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 20px;
+            background: #FFF;
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
-        h1, h2, h3 {
-            color: var(--accent-color);
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-color);
+            font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         .video-container {
@@ -111,6 +140,8 @@
             height: 0;
             overflow: hidden;
             margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
         .video-container video {
@@ -119,19 +150,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 20px;
         }
 
         .historia-card, .projeto-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
+            background-color: #FFF;
+            padding: 2rem;
+            border-radius: 20px;
             margin-bottom: 2rem;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            border: 1px solid var(--secondary-color);
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
         .historia-card:hover, .projeto-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
 
         .projetos-grid {
@@ -143,15 +177,21 @@
         .inspiracao-container {
             position: relative;
             text-align: center;
+            background: linear-gradient(135deg, #FFF5F7, #FFE4E1);
+            padding: 2rem;
+            border-radius: 20px;
         }
 
         #corinaMessages {
-            font-size: 1.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
             margin: 2rem 0;
-            padding: 1rem;
-            background-color: rgba(85, 107, 47, 0.3);
-            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
             transition: opacity 0.5s ease-in-out;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            color: var(--primary-color);
         }
 
         .button-group {
@@ -165,55 +205,46 @@
         button {
             padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             font-size: 1rem;
             cursor: pointer;
-            background-color: var(--secondary-color);
-            color: var(--text-light);
+            background-color: var(--primary-color);
+            color: #FFF;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
         button:hover, button:focus {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-            outline: 3px solid var(--accent-color);
-        }
-
-        .star {
-            position: absolute;
-            width: 20px;
-            height: 20px;
             background-color: var(--accent-color);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: moveStar 5s linear infinite;
-            pointer-events: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
         }
 
-        @keyframes moveStar {
-            0% {
-                transform: translateX(-100%) translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100vw) translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .paused {
-            animation-play-state: paused;
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-radius: 20px 20px 0 0;
         }
 
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
                 text-align: center;
+                padding: 1rem;
             }
 
             .container {
@@ -223,25 +254,22 @@
             .projetos-grid {
                 grid-template-columns: 1fr;
             }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .star {
-                animation: none;
+            * {
+                animation: none !important;
+                transition: none !important;
             }
 
             html {
                 scroll-behavior: auto;
             }
         }
-        footer {
-    background-color: var(--secondary-color);
-    color: var(--text-light);
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: 2rem; /* Espaçamento acima do rodapé */
-}
-    
     </style>
 </head>
 <body>
