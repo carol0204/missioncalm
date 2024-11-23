@@ -1,217 +1,234 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia - Floresta da Calma</title>
+    <meta name="description" content="Guia para apoio emocional e suporte psicológico com recursos acessíveis para todos">
+    <title>Guia - Floresta da Calma | Seu espaço de acolhimento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <style>
-        :root {
-            --primary-bg-color: rgba(0, 0, 0, 0.6); /* Variável para fundo semitransparente */
-            --primary-text-color: #FFFFFF; /* Variável para texto claro */
-            --button-bg-color: #2F4F4F;
-            --button-hover-bg-color: #556B2F;
-            --input-bg-color: #E0E0E0;
-            --input-text-color: #333;
-            --success-color: #90EE90;
-        }
-
         body {
-            background-image: url('guia_background.png');
-            background-size: cover;
-            background-position: center;
-            color: var(--primary-text-color);
-            margin: 0;
-            font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, rgba(240, 247, 244, 0.8), rgba(232, 245, 233, 0.8)),
+        url('guia_background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+        .character-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #4CAF50;
         }
 
-        h1, h2, p {
-            color: var(--primary-text-color);
-            background-color: var(--primary-bg-color);
-            padding: 10px;
-            border-radius: 5px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        .character-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .character-description {
-            margin: 20px 0;
-        }
-
-        .action-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-
-        .action-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--button-bg-color);
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin: 10px;
-            flex-basis: calc(50% - 20px);
-        }
-
-        .action-button:hover {
-            background-color: var(--button-hover-bg-color);
-        }
-
-        #feedback-form {
-            display: flex;
-            flex-direction: column;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 10px;
-            background-color: var(--primary-bg-color);
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            background: white;
+            padding: 1.5rem;
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
-        #feedback-form input, #feedback-form textarea {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--input-bg-color);
-            color: var(--input-text-color);
+        .modal h3 {
+            font-size: 1.25rem;
+            color: #4CAF50;
         }
 
-        #feedback-form button {
-            background-color: var(--button-bg-color);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        .modal p {
+            color: #666;
+            margin-top: 0.5rem;
         }
 
-        #feedback-form button:hover {
-            background-color: var(--button-hover-bg-color);
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            color: var(--success-color);
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-
-        .tooltip {
-            display: none;
+        .modal-close {
             position: absolute;
-            background-color: #FFF;
-            color: #333;
-            border-radius: 5px;
-            padding: 10px;
-            z-index: 100;
-            width: 200px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #4CAF50;
+            cursor: pointer;
         }
 
-        .button-container {
-            position: relative;
-            flex-basis: 45%;
-            margin-bottom: 10px;
+        .modal-close:hover {
+            color: #388E3C;
         }
 
-        @media (max-width: 600px) {
-            .action-button {
-                flex-basis: 100%;
-                margin: 10px 0;
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 40;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
-        }
 
-        /* Modo escuro */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #1a1a1a;
-                background-image: none;
+            to {
+                opacity: 1;
             }
         }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+
+<body>
+    <nav class="bg-white shadow-sm fixed w-full z-50" role="navigation">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-green-700">Floresta da Calma</h1>
+            <a href="tel:188" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                aria-label="Ligar para CVV - 188">
+                CVV - 188
+            </a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-28 pb-16">
+        <section class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-semibold text-green-800 mb-6">
+                Bem-vindo ao seu espaço de acolhimento
+            </h2>
+            <p class="text-lg text-gray-600 mb-12 leading-relaxed">
+                Aqui você encontra apoio emocional e técnicas de autocuidado para todos os momentos.
+                Escolha seu guia e comece sua jornada de bem-estar.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Calmi -->
+                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Calmi')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Calmi</h3>
+                    <p class="text-gray-600 mb-4">
+                        Técnicas de respiração e mindfulness para ajudar a controlar a ansiedade.
+                    </p>
+                </div>
+
+                <!-- Corina -->
+                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Corina')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Corina</h3>
+                    <p class="text-gray-600 mb-4">
+                        Apoio para autoestima e aceitação, lidando com pressões sociais.
+                    </p>
+                </div>
+
+                <!-- Tempestade -->
+                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Tempestade')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Tempestade</h3>
+                    <p class="text-gray-600 mb-4">
+                        Gerenciamento de raiva e impulsividade em situações desafiadoras.
+                    </p>
+                </div>
+
+                <!-- Guia -->
+                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Guia')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Guia</h3>
+                    <p class="text-gray-600 mb-4">
+                        Mentor pessoal com conselhos práticos para seu bem-estar.
+                    </p>
+                </div>
+
+                <!-- Empodera -->
+                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Empodera')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Empodera</h3>
+                    <p class="text-gray-600 mb-4">
+                        Suporte para mulheres reconhecerem sua força e potencial.
+                    </p>
+                </div>
+
+                <!-- S.O.S -->
+                <div class="character-card bg-white p-6 rounded-lg border-red-500" onclick="showTip('SOS')">
+                    <h3 class="text-xl font-semibold text-red-600 mb-3">S.O.S</h3>
+                    <p class="text-gray-600 mb-4">
+                        Suporte imediato para emergências emocionais.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formulário de Feedback -->
+            <div class="mt-16 bg-white p-8 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-semibold text-green-700 mb-6">Compartilhe sua experiência</h2>
+                <form id="feedback-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
+                        <textarea id="message" name="message" rows="4" required
+                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        Enviar Feedback
+                    </button>
+                </form>
+                <div class="success-message hidden text-green-600 text-center mt-4 py-2">
+                    Obrigado por compartilhar! Sua mensagem foi enviada com sucesso.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-green-800 text-white py-6 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Floresta da Calma. Todos os direitos reservados.</p>
+            <p class="mt-2 text-sm">Em caso de emergência, ligue 188 (CVV) - 24h por dia</p>
+        </div>
+    </footer>
+
+    <div id="modal-overlay" class="hidden overlay"></div>
+    <div id="modal" class="hidden modal">
+        <button class="modal-close" onclick="closeTip()">&times;</button>
+        <h3 id="modal-title"></h3>
+        <p id="modal-content"></p>
+    </div>
+
     <script>
-        emailjs.init('VM4QBNua8MT8s7cEA');
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('feedback-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                emailjs.sendForm('service_4q9t9wr', 'template_39uxs6i', this)
-                    .then(function() {
-                        document.querySelector('.success-message').style.display = 'block';
-                        document.getElementById('feedback-form').reset();
-                    }, function(error) {
-                        alert('Erro ao enviar mensagem: ' + JSON.stringify(error));
-                    });
-            });
-        });
+        const tips = {
+            "Calmi": "Calmi é especialista em respiração. Use suas técnicas para reduzir a ansiedade rapidamente.",
+            "Corina": "Com Corina, você pode aprender a se valorizar e superar adversidades.",
+            "Tempestade": "Aprenda com Tempestade a transformar raiva em energia para mudanças positivas.",
+            "Guia": "O Guia orienta caminhos que promovem equilíbrio e paz.",
+            "Empodera": "Empodera ajuda a criar ou ajustar currículos. Acesse o formulário na página dela.",
+            "SOS": "SOS conecta você ao CVV e ferramentas rápidas para crises emocionais."
+        };
 
         function showTip(character) {
-            const tooltips = document.querySelectorAll('.tooltip');
-            tooltips.forEach(tooltip => tooltip.style.display = 'none');
+            document.getElementById('modal-overlay').classList.remove('hidden');
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal-title').textContent = character;
+            document.getElementById('modal-content').textContent = tips[character];
+        }
 
-            const tooltip = document.getElementById(`tooltip-${character}`);
-            tooltip.style.display = 'block';
+        function closeTip() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+            document.getElementById('modal').classList.add('hidden');
         }
     </script>
-</head>
-<body>
-    <h1>Guia da Floresta da Calma</h1>
-    <p>Bem-vindo ao seu espaço acolhedor, onde técnicas de autocuidado são aplicadas a todas as idades. Este guia é baseado em comprovações científicas e oferece suporte a todos os públicos, promovendo saúde mental e bem-estar. Nossa página é acessível e projetada para atender às necessidades de todos, com foco em acessibilidade digital, garantindo que pessoas com diferentes níveis de habilidade possam navegar e interagir de maneira fácil e intuitiva. Respire fundo e encontre sua paz interior.</p>
-
-    <div class="character-description">
-        <h2>Personagens:</h2>
-        <p><strong>Calmi:</strong> Um guia amigável que ensina técnicas de respiração e mindfulness para ajudar a controlar a ansiedade.</p>
-        <p><strong>Corina :</strong> Trabalha a autoestima e a aceitação, oferecendo dicas para lidar com a pressão social.</p>
-        <p><strong>Tempestade:</strong> Ajuda a gerenciar a raiva e a impulsividade, fornecendo estratégias para lidar com situações desafiadoras.</p>
-        <p><strong>Guia:</strong> Seu mentor na floresta, sempre pronto para ajudar e oferecer conselhos práticos.</p>
-        <p><strong>Empodera:</strong> Um ser da natureza, empoderando mulheres para conquistarem seus objetivos. Use suas dicas para aumentar a autoconfiança e melhorar seu currículo.</p>
-        <p><strong>S.O.S:</strong> Personagem criado para emergências emocionais. Caso precise de ajuda imediata, ele pode direcioná-lo ao CVV (Centro de Valorização da Vida), que oferece apoio emocional. <a href="https://www.cvv.org.br" target="_blank">Clique aqui para acessar o CVV</a></p>
-        <img src="guia.png" alt="Imagem do personagem Guia, um mentor acolhedor na Floresta da Calma." style="display: block; margin: 20px auto; max-width: 200px;">
-    </div>
-
-    <div class="action-buttons">
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('Calmi')" aria-describedby="tooltip-Calmi">Como usar o Calmi</button>
-            <div class="tooltip" id="tooltip-Calmi" role="tooltip">Use o Calmi para técnicas de respiração. Ele pode ajudar a acalmar sua mente em momentos de estresse.</div>
-        </div>
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('Corina')" aria-describedby="tooltip-Corina">Como usar a Corina</button>
-            <div class="tooltip" id="tooltip-Corina" role="tooltip">Corina oferece dicas para aumentar a autoestima e enfrentar desafios sociais.</div>
-        </div>
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('Tempestade')" aria-describedby="tooltip-Tempestade">Como usar a Tempestade</button>
-            <div class="tooltip" id="tooltip-Tempestade" role="tooltip">Tempestade ajuda a gerenciar a raiva e a impulsividade. Use suas dicas em situações desafiadoras.</div>
-        </div>
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('Guia')" aria-describedby="tooltip-Guia">Como usar o Guia</button>
-            <div class="tooltip" id="tooltip-Guia" role="tooltip">O Guia oferece apoio emocional e dicas de autocuidado.</div>
-        </div>
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('Empodera')" aria-describedby="tooltip-Empodera">Como usar o Empodera</button>
-            <div class="tooltip" id="tooltip-Empodera" role="tooltip">O Empodera vai ajudar você a aumentar sua autoconfiança e melhorar seu currículo.</div>
-        </div>
-        <div class="button-container">
-            <button class="action-button" onclick="showTip('SOS')" aria-describedby="tooltip-SOS">Como usar o S.O.S</button>
-            <div class="tooltip" id="tooltip-SOS" role="tooltip">Em casos de emergência emocional, o S.O.S oferece uma solução rápida, como o link para o CVV, que oferece suporte emocional.</div>
-        </div>
-    </div>
-
-    <div class="character-description">
-        <h2>Formulário de Feedback</h2>
-        <p>Quer nos dar um feedback ou pedir ajuda? Preencha o formulário abaixo:</p>
-        <form id="feedback-form">
-            <input type="text" name="name" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu email" required>
-            <textarea name="message" rows="4" placeholder="Sua mensagem" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-        <div class="success-message">Sua mensagem foi enviada com sucesso! Obrigado pelo seu feedback.</div>
-    </div>
 </body>
+
 </html>
