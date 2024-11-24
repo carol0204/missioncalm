@@ -7,24 +7,24 @@
     <title>Tempestade - Floresta da Calma | Exercícios de Respiração</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
+    
         :root {
-            --primary-color: #044138;
-            --hover-color: #0a598d;
-            --text-color: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.7);
-            --glow-color: rgba(255, 255, 255, 0.2);
+            --primary-color: #b3d8d8;  /* Cor pastel suave */
+            --hover-color: #aad3d3;    /* Cor pastel mais clara */
+            --text-color: #333333;     /* Cor de texto mais escura para contraste */
+            --shadow-color: rgba(0, 0, 0, 0.2);  /* Sombras mais suaves */
+            --glow-color: rgba(255, 255, 255, 0.3);  /* Efeito de brilho suave */
         }
-
+    
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+    
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                       url('../imagens/tempestade_background.png');
+            background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                        url('../imagens/tempestade_background.png');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
@@ -39,7 +39,7 @@
             position: relative;
             overflow-x: hidden;
         }
-
+    
         .container {
             max-width: 1200px;
             width: 100%;
@@ -48,26 +48,26 @@
             position: relative;
             z-index: 1;
         }
-
+    
         header {
             text-align: center;
             margin-bottom: 2rem;
         }
-
+    
         h1 {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 600;
             text-shadow: 2px 2px 4px var(--shadow-color);
             margin-bottom: 1rem;
         }
-
+    
         .subtitle {
             font-size: clamp(1rem, 2vw, 1.25rem);
-            opacity: 0.9;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
-
+    
         #tempestadeCloud {
             position: relative;
             width: min(400px, 90vw);
@@ -86,12 +86,12 @@
             animation: breathing 6s ease-in-out infinite;
             transition: transform 0.3s ease;
         }
-
+    
         #tempestadeCloud:focus-visible {
             outline: 3px solid var(--hover-color);
             outline-offset: 5px;
         }
-
+    
         #tempestadeGlow {
             position: absolute;
             inset: 0;
@@ -101,26 +101,26 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
-
+    
         #tempestadeCloud:hover #tempestadeGlow,
         #tempestadeCloud:focus #tempestadeGlow {
             opacity: 1;
         }
-
+    
         #tempestadeMessages {
             min-height: 80px;
             font-size: clamp(1rem, 3vw, 1.5rem);
             text-align: center;
             margin: 2rem auto;
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.6);  /* Cor de fundo suave */
             border-radius: 10px;
             backdrop-filter: blur(5px);
             opacity: 0;
             transition: opacity 1s ease-in-out;
             max-width: 600px;
         }
-
+    
         .controls {
             display: flex;
             gap: 1rem;
@@ -128,7 +128,7 @@
             justify-content: center;
             margin-top: 2rem;
         }
-
+    
         button {
             padding: 0.8rem 1.5rem;
             border: none;
@@ -142,117 +142,108 @@
             position: relative;
             overflow: hidden;
         }
-
+    
         button:hover {
             background-color: var(--hover-color);
             transform: translateY(-2px);
         }
-
+    
         button:focus-visible {
             outline: 3px solid var(--hover-color);
             outline-offset: 2px;
         }
-
+    
         button:active {
             transform: translateY(1px);
         }
-
+    
         .button-icon {
             margin-right: 0.5rem;
         }
-
+    
         #rewardPopup {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
             z-index: 100;
             animation: fadeIn 0.5s ease;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
-
+    
         #rewardStar {
             width: 100px;
             height: 100px;
             margin: 1rem auto;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
-
+    
         .smallCloud {
             position: absolute;
             background-image: url('../imagens/tempestade_cloud.png');
             background-size: contain;
             background-repeat: no-repeat;
-            opacity: 0.4;
+            opacity: 0.3;
             pointer-events: none;
         }
-
+    
         @keyframes breathing {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; transform: translate(-50%, -60%); }
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
-
-        /* Responsividade */
+    
         @media (max-width: 768px) {
             .controls {
                 flex-direction: column;
                 align-items: stretch;
                 padding: 0 1rem;
             }
-
+    
             button {
                 width: 100%;
             }
         }
-
-        /* High Contrast Mode */
+    
         @media (prefers-contrast: high) {
             :root {
-                --primary-color: #000000;
-                --hover-color: #ffffff;
-                --text-color: #ffffff;
+                --primary-color: #d1c6cc;
+                --hover-color: #f3e7e0;
+                --text-color: #000000;
             }
-
+    
             button {
                 border: 2px solid var(--text-color);
             }
         }
-
-        /* Reduced Motion */
+    
         @media (prefers-reduced-motion: reduce) {
             #tempestadeCloud,
             .smallCloud {
                 animation: none;
             }
-
+    
             button {
                 transition: none;
             }
         }
-
-        /* Modo escuro */
+    
         @media (prefers-color-scheme: dark) {
             :root {
-                --primary-color: #055a4e;
-                --hover-color: #0c6ea3;
+                --primary-color: #b3d8d8;
+                --hover-color: #aad3d3;
             }
         }
-    </style>
+    </style>    
 </head>
 <body>
     <div class="container">
@@ -280,157 +271,92 @@
                 <button id="startButton" 
                         onclick="startExercise()" 
                         aria-label="Iniciar exercício de respiração">
-                    <span class="button-icon"></span>
+                    <span class="button-icon">▶️</span>
                     Iniciar
                 </button>
                 
                 <button id="stopButton" 
                         onclick="stopExercise()" 
                         aria-label="Parar exercício">
-                    <span class="button-icon"></span>
+                    <span class="button-icon">⏹️</span>
                     Parar
                 </button>
                 
-                <button id="pauseAnimationButton" 
-                        onclick="toggleAnimation()" 
-                        aria-label="Alternar animação da nuvem">
-                    <span class="button-icon"></span>
-                    Pausar Animação
+                <button id="pauseButton" 
+                        onclick="togglePause()" 
+                        aria-label="Pausar exercício">
+                    <span class="button-icon">⏸️</span>
+                    Pausar
                 </button>
                 
                 <button id="backButton" 
                         onclick="goBack()" 
-                        aria-label="Voltar para página anterior">
-                    <span class="button-icon"></span>
+                        aria-label="Voltar para a página anterior">
+                    <span class="button-icon">⬅️</span>
                     Voltar
                 </button>
             </div>
         </main>
-
-        <div id="rewardPopup" 
-             role="alert" 
-             aria-label="Notificação de conquista">
-            <p>Parabéns! Você ganhou uma Estrela da Calma!</p>
-            <img id="rewardStar" 
-                 src="estrela.png" 
-                 alt="Estrela dourada de conquista" 
-                 width="100" 
-                 height="100">
-        </div>
     </div>
 
-    <audio id="tempestadeMusic" 
-           preload="none"
-           loop
-           aria-hidden="true">
-        <source src="tempestade.mp3" type="audio/mp3">
-        <p>Seu navegador não suporta o elemento de áudio.</p>
-    </audio>
+    <div class="smallCloud" style="top: 10%; left: 5%; width: 80px; height: 60px;"></div>
+    <div class="smallCloud" style="top: 60%; left: 80%; width: 100px; height: 80px;"></div>
+    <div class="smallCloud" style="top: 20%; left: 75%; width: 60px; height: 40px;"></div>
+
+    <div id="rewardPopup">
+        <h2>Parabéns!</h2>
+        <p>Você completou o exercício de respiração.</p>
+        <img id="rewardStar" src="../imagens/star.png" alt="Estrela de recompensa">
+    </div>
 
     <script>
-        const tempestadeMessages = [
-           "É normal sentir raiva... vamos respirar juntos.",
-            "A nuvem vai embora... sinta a calma chegando.",
-            "Você pode controlar sua raiva.",
-            "Liberte-se do que te incomoda.",
-            "Respire... a raiva diminui.",
-            "Você é mais forte que a raiva.",
-            "Deixe a tensão ir embora... aos poucos.",
-            "Seu coração pode encontrar calma.",
-            "A raiva é passageira, você é permanente.",
-            "Solte o que te prende.",
-            "Você tem o controle, respire devagar.",
-            "Deixe a raiva se dissipar como uma nuvem.",
-            "Você está seguro, a raiva vai embora.",
-            "Você consegue transformar raiva em tranquilidade.",
-            "Vamos respirar até a nuvem passar.",
-            "A raiva não define você.",
-            "Respire e sinta a calma tomando conta.",
-            "Você é capaz de se acalmar.",
-            "A raiva se dissipa como o vento.",
-            "Você está no controle, sempre."
-        ];
-
-        let messageIndex = 0;
-        let exerciseActive = false;
-        let messageInterval;
-        const music = document.getElementById('tempestadeMusic');
-        const cloud = document.getElementById('tempestadeCloud');
-        const messagesDiv = document.getElementById('tempestadeMessages');
+        let isPaused = false;
+        let exerciseInterval;
 
         function startExercise() {
-            if (!exerciseActive) {
-                exerciseActive = true;
-                music.play().catch(error => {
-                    console.log('Reprodução automática bloqueada:', error);
-                });
-                showMessage();
-                messageInterval = setInterval(showMessage, 6000);
-                document.getElementById('startButton').setAttribute('aria-pressed', 'true');
-            }
+            const messageElement = document.getElementById('tempestadeMessages');
+            messageElement.textContent = "Inspire profundamente... Segure... Expire devagar.";
+            messageElement.style.opacity = "1";
+
+            exerciseInterval = setInterval(() => {
+                const message = messageElement.textContent.includes("Inspire") 
+                                ? "Expire devagar..." 
+                                : "Inspire profundamente...";
+                messageElement.textContent = message;
+            }, 6000);
+
+            const tempestadeCloud = document.getElementById('tempestadeCloud');
+            tempestadeCloud.style.transform = "scale(1.05)";
         }
 
         function stopExercise() {
-            exerciseActive = false;
-            music.pause();
-            music.currentTime = 0;
-            clearInterval(messageInterval);
-            messagesDiv.style.opacity = 0;
-            document.getElementById('startButton').setAttribute('aria-pressed', 'false');
+            clearInterval(exerciseInterval);
+            const messageElement = document.getElementById('tempestadeMessages');
+            messageElement.style.opacity = "0";
+
+            document.getElementById('tempestadeCloud').style.transform = "scale(1)";
         }
 
-        function showMessage() {
-            if (!exerciseActive) return;
-            
-            messagesDiv.style.opacity = 0;
-            setTimeout(() => {
-                messagesDiv.textContent = tempestadeMessages[messageIndex];
-                messagesDiv.style.opacity = 1;
-                messageIndex = (messageIndex + 1) % tempestadeMessages.length;
-            }, 500);
-        }
+        function togglePause() {
+            isPaused = !isPaused;
+            const button = document.getElementById('pauseButton');
+            clearInterval(exerciseInterval);
+            button.textContent = isPaused ? "▶️ Retomar" : "⏸️ Pausar";
 
-        function toggleAnimation() {
-            const button = document.getElementById('pauseAnimationButton');
-            const isPaused = cloud.style.animationPlayState === 'paused';
-            
-            cloud.style.animationPlayState = isPaused ? 'running' : 'paused';
-            button.setAttribute('aria-pressed', !isPaused);
-            button.innerHTML = `<span class="button-icon">${isPaused ? '⏯️' : '⏸️'}</span>${isPaused ? 'Pausar Animação' : 'Continuar Animação'}`;
+            if (!isPaused) {
+                startExercise();
+            }
         }
 
         function goBack() {
-            if (exerciseActive) {
-                stopExercise();
-            }
             window.history.back();
         }
 
-        function showReward() {
-            const popup = document.getElementById('rewardPopup');
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000);
-        }
-
-        // Tratamento de teclas
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
                 stopExercise();
             }
         });
-
-        // Garantir que o áudio pare quando a página for fechada
-        window.addEventListener('beforeunload', () => {
-            stopExercise();
-        });
-
-        // Detectar se o usuário prefere redução de movimento
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (prefersReducedMotion.matches) {
-            cloud.style.animation = 'none';
-        }
     </script>
 </body>
 </html>
