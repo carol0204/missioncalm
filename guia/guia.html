@@ -9,30 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <style>
         body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, rgba(240, 247, 244, 0.8), rgba(232, 245, 233, 0.8)),
-        url('guia_background.png') no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
-}
-
-        .character-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 4px solid #4CAF50;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, rgba(233, 229, 220, 0.8), rgba(210, 233, 218, 0.8)),
+                url('guia_background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #4B4033; /* Tom pastel marrom */
         }
-
+    
+        .character-card {
+            background: #F0EDE4; /* Tom marrom claro */
+            border-left: 4px solid #91B89C; /* Verde pastel */
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
         .character-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
+    
         .modal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 50;
-            background: white;
+            background: #FFFFFF;
             padding: 1.5rem;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -40,17 +44,17 @@
             max-width: 400px;
             animation: fadeIn 0.3s ease-in-out;
         }
-
+    
         .modal h3 {
             font-size: 1.25rem;
-            color: #4CAF50;
+            color: #91B89C; /* Verde pastel */
         }
-
+    
         .modal p {
-            color: #666;
+            color: #665C51; /* Marrom suave */
             margin-top: 0.5rem;
         }
-
+    
         .modal-close {
             position: absolute;
             top: 10px;
@@ -58,14 +62,14 @@
             background: none;
             border: none;
             font-size: 1.25rem;
-            color: #4CAF50;
+            color: #91B89C;
             cursor: pointer;
         }
-
+    
         .modal-close:hover {
-            color: #388E3C;
+            color: #6F9175; /* Verde um pouco mais escuro */
         }
-
+    
         .overlay {
             position: fixed;
             top: 0;
@@ -75,29 +79,20 @@
             background: rgba(0, 0, 0, 0.4);
             z-index: 40;
         }
-
+    
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
-
+    
             to {
                 opacity: 1;
             }
         }
-    </style>
+    </style>    
 </head>
 
 <body>
-    <nav class="bg-white shadow-sm fixed w-full z-50" role="navigation">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-semibold text-green-700">Floresta da Calma</h1>
-            <a href="tel:188" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                aria-label="Ligar para CVV - 188">
-                CVV - 188
-            </a>
-        </div>
-    </nav>
 
     <main class="container mx-auto px-6 pt-28 pb-16">
         <section class="max-w-4xl mx-auto">
@@ -231,4 +226,4 @@
     </script>
 </body>
 
-</html>
+</html>                    
