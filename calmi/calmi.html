@@ -7,24 +7,24 @@
     <title>Calmi - Floresta da Calma</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+    
         :root {
-            --primary-color: #88B04B;
-            --secondary-color: #496B2F;
-            --text-color: #333;
+            --primary-color: #A8D8D8; /* Azul pastel */
+            --secondary-color: #F3E8D2; /* Creme suave */
+            --text-color: #4F453A; /* Marrom suave */
             --white: #ffffff;
             --transition-slow: 0.5s ease-in-out;
             --transition-medium: 0.3s ease-in-out;
         }
-
+    
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+    
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+            background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
                         url('../imagens/calmi_background.png');
             background-size: cover;
             background-position: center;
@@ -35,30 +35,31 @@
             align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
-            color: var(--white);
+            color: var(--text-color);
             padding: 20px;
         }
-
+    
         .container {
             max-width: 800px;
             width: 100%;
             text-align: center;
         }
-
+    
         h1 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             font-weight: 600;
+            color: var(--primary-color);
         }
-
+    
         .breathing-container {
             position: relative;
             margin: 2rem auto;
             width: 250px;
             height: 250px;
         }
-
+    
         .breathing-circle {
             width: 100%;
             height: 100%;
@@ -66,8 +67,10 @@
             top: 0;
             left: 0;
             transition: transform var(--transition-slow);
+            background-color: rgba(0, 0, 0, 0.1); /* Circulo com fundo suave */
+            border-radius: 50%;
         }
-
+    
         #calmiText {
             position: absolute;
             top: 50%;
@@ -80,17 +83,17 @@
             transition: opacity var(--transition-medium);
             z-index: 2;
         }
-
+    
         #calmiMessages {
             min-height: 60px;
             margin: 2rem 0;
             font-size: 1.25rem;
             color: var(--white);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity var(--transition-medium);
         }
-
+    
         .controls {
             display: flex;
             gap: 1rem;
@@ -98,63 +101,63 @@
             flex-wrap: wrap;
             margin-top: 2rem;
         }
-
+    
         .btn {
             padding: 0.8rem 1.5rem;
             border: none;
             border-radius: 25px;
             font-size: 1rem;
             cursor: pointer;
-            background-color: rgba(73, 107, 47, 0.8);
+            background-color: var(--primary-color);
             color: var(--white);
             transition: all var(--transition-medium);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+    
         .btn:hover {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
+    
         .btn:active {
             transform: translateY(0);
         }
-
+    
         @media (max-width: 600px) {
             h1 {
                 font-size: 2rem;
             }
-
+    
             .breathing-container {
                 width: 200px;
                 height: 200px;
             }
-
+    
             #calmiMessages {
                 font-size: 1rem;
             }
         }
-
+    
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
+    
         .breathe {
             animation: breathe 8s infinite ease-in-out;
         }
-
+    
         @keyframes breathe {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
-    </style>
+    </style>    
 </head>
 <body>
     <div class="container fade-in">
