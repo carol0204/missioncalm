@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alia - Guia de Inteligência Artificial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --primary: #a8d5e5;
+            --secondary: #d7ecd9;
+            --accent: #f6c6ea;
+            --text: #2d3748;
+            --background: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        header {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .header-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #2d3748, #805ad5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            color: #805ad5;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .example-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-card a {
+            color: #805ad5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-card a:hover {
+            color: #6b46c1;
+        }
+
+        .tool-card p {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .video-container {
+    width: 100%;
+    max-width: 800px; /* Defina uma largura máxima, se necessário */
+    margin: 0 auto;
+    overflow: hidden; /* Impede que o conteúdo extra transborde */
+}
+
+.video-container video {
+    width: 100%; /* O vídeo ocupa toda a largura da div */
+    height: auto; /* A altura será ajustada proporcionalmente */
+    display: block;
+}
+
+        .floating-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-nav button {
+            display: block;
+            background: none;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .floating-nav button:hover {
+            color: #805ad5;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .floating-nav {
+                bottom: 0;
+                right: 0;
+                top: auto;
+                transform: none;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .floating-nav button {
+                padding: 0.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Modo escuro */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #1a202c;
+                --text: #e2e8f0;
+            }
+
+            .section, .tool-card, .example-card {
+                background: rgba(45, 55, 72, 0.8);
+            }
+
+            .header-content {
+                background: rgba(45, 55, 72, 0.9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <header>
+        <div class="header-content">
+            <h1>Bem-vinda, eu sou a Alia!</h1>
+            <p>Estou aqui para transformar o complicado em simples. Vamos explorar juntas o mundo da inteligência artificial?</p>
+        </div>
+    </header>
+
+    <nav class="floating-nav">
+        <button onclick="scrollToSection('o-que-e-ia')">IA</button>
+        <button onclick="scrollToSection('prompts')">Prompts</button>
+        <button onclick="scrollToSection('exemplos')">Exemplos</button>
+        <button onclick="scrollToSection('ferramentas')">Ferramentas</button>
+    </nav>
+
+    <main class="container">
+        <section id="o-que-e-ia" class="section">
+            <h2>O que é IA?</h2>
+            <p>A inteligência artificial é como ensinar computadores a "pensar" e "aprender" para realizar tarefas que normalmente precisam de humanos, como tomar decisões, resolver problemas ou criar algo novo. E o melhor? Ela está aqui para te ajudar!</p>
+        </section>
+
+        <section id="prompts" class="section">
+            <h2>O que é um Prompt?</h2>
+            <p>Um prompt é uma instrução, pergunta ou comando que você dá para a IA realizar uma tarefa. Ele pode ser algo simples, como "Me diga três curiosidades sobre o espaço", ou mais complexo, como "Descreva um plano de viagem de 5 dias para um casal que gosta de aventura e cultura".</p>
+            <p>Um bom prompt é claro, direto e fornece o contexto necessário para que a IA possa entender o que você deseja.</p>
+        </section>
+
+        <section id="exemplos" class="section">
+            <h2>Exemplos de Prompts</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3>Aprendizado e Estudos</h3>
+                    <ul>
+                        <li>"Explique o que é a teoria da evolução de forma resumida."</li>
+                        <li>"Faça um resumo sobre a história da Segunda Guerra Mundial em até 150 palavras."</li>
+                        <li>"Quais são as principais diferenças entre energia renovável e não renovável?"</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Planejamento e Organização</h3>
+                    <ul>
+                        <li>"Crie uma lista de tarefas para planejar uma festa de aniversário infantil."</li>
+                        <li>"Sugira um cronograma de estudos para preparar-se para um vestibular, estudando 3 horas por dia."</li>
+                        <li>"Organize um planejamento semanal para uma rotina equilibrada de trabalho, estudo e lazer."</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Entretenimento e Criatividade</h3>
+                    <ul>
+                        <li>"Invente uma história curta sobre um robô que descobre emoções."</li>
+                        <li>"Sugira três ideias de roteiros para um canal de vídeos sobre ciência para crianças."</li>
+                        <li>"Escreva uma poesia sobre a natureza durante o outono."</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Carreira e Desenvolvimento Profissional</h3>
+                    <ul>
+                        <li>"Sugira ideias para melhorar minha produtividade no home office."</li>
+                        <li>"Como posso me preparar para uma entrevista de emprego na área de marketing digital?"</li>
+                        <li>"O que devo incluir em um currículo para uma vaga de programador júnior?"</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Vida Cotidiana</h3>
+                    <ul>
+                        <li>"Quais são as melhores opções de plantas para um apartamento pequeno?"</li>
+                        <li>"Sugira um cardápio vegetariano para a semana com café da manhã, almoço e jantar."</li>
+                        <li>"Como fazer um orçamento para economizar dinheiro para uma viagem?"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ferramentas" class="section">
+            <h2>Ferramentas de IA para Você</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+                    <p>Converse com a IA para responder perguntas, criar textos e aprender conceitos.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.anthropic.com/" target="_blank">Claude</a>
+                    <p>Uma IA avançada para geração de texto e respostas complexas, desenvolvida pela Anthropic.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.perplexity.ai/" target="_blank">Perplexity AI</a>
+                    <p>Responda perguntas e obtenha pesquisas com base em informações da web.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://bard.google.com/" target="_blank">Google Bard</a>
+                    <p>Um chatbot desenvolvido pelo Google para busca, escrita e respostas criativas.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://poe.com/" target="_blank">Poe</a>
+                    <p>Plataforma que permite acessar múltiplos bots de IA em um só lugar.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.deepl.com/translator" target="_blank">DeepL</a>
+                    <p>Um tradutor avançado com opções contextuais aprimoradas.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://copy.ai/" target="_blank">Copy.ai</a>
+                    <p>Crie textos publicitários, e-mails e conteúdos profissionais automaticamente.</p>
+                </div>
+                <div class="tool-card">
+                    <a href="https://www.jasper.ai/" target="_blank">Jasper</a>
+                    <p>Especializado em marketing, ideal para criar conteúdo publicitário, blogs e muito mais.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.runwayml.com/" target="_blank">Runway ML</a>
+                    <p>Criação de vídeos e edição com o auxílio de IA.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.canva.com/" target="_blank">Canva</a>
+                    <p>Crie designs visuais e apresentações incríveis com sugestões de IA.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.lumen5.com/" target="_blank">Lumen5</a>
+                    <p>Transforme textos em vídeos automaticamente.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.descript.com/" target="_blank">Descript</a>
+                    <p>Edite vídeos e áudios facilmente com IA, incluindo transcrições automáticas.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.grammarly.com/" target="_blank">Grammarly</a>
+                    <p>Melhore sua escrita em inglês com sugestões de gramática, estilo e clareza.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.huggingface.co/" target="_blank">Hugging Face</a>
+                    <p>Plataforma para desenvolvimento de modelos de aprendizado de máquina e uso de IA generativa.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.notion.so/" target="_blank">Notion AI</a>
+                    <p>Potencialize sua organização e produtividade com ferramentas de IA embutidas.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.d-id.com/" target="_blank">D-ID</a>
+                    <p>Criação de vídeos interativos com personagens animados por IA.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.synthesia.io/" target="_blank">Synthesia</a>
+                    <p>Gere vídeos com avatares e narração personalizada usando IA.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.crisp.chat/" target="_blank">Crisp</a>
+                    <p>Atendimento ao cliente automatizado com IA em sites e aplicativos.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.heygen.com/" target="_blank">HeyGen</a>
+                    <p>Ferramenta para criação de vídeos explicativos e tutoriais com IA.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.grammarly.com/business" target="_blank">Grammarly Business</a>
+                    <p>Otimiza a comunicação de equipes com sugestões contextuais.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://texta.ai/" target="_blank">Texta.ai</a>
+                    <p>Geração automática de artigos, descrições de produtos e relatórios.</p>
+                </div>
+
+                <div class="tool-card">
+                    <a href="https://www.phind.com/" target="_blank">Phind</a>
+                    <p>Motor de busca para programadores com respostas detalhadas e técnicas.</p>
+                </div>
+            </div>
+            <section id="video" class="section">
+                <h2>Veja este vídeo para entender mais!</h2>
+                <div class="video-container">
+                    <video controls autoplay muted loop>
+                        <source src="aliavideo.mp4" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+            </section>            
+    </main>
+
+    <footer>
+        <p>© 2024 - Alia, seu guia de inteligência artificial. Feito com ❤️ por Ana Carolina Dias.</p>
+    </footer>
+
+    <script>
+        // Configuração do particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: { value: '#a8d5e5' },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#a8d5e5',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Função de scroll suave
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Animação de entrada dos elementos
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Detectar posição do scroll para destacar botões do menu
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navButtons = document.querySelectorAll('.floating-nav button');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('onclick').includes(current)) {
+                    button.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
