@@ -3,196 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floresta da Calma</title>
+    <title>Floresta da Calma - Empoderamento e Bem-Estar</title>
+    <meta name="description" content="Um espaço acolhedor para crescimento pessoal e profissional">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --primary-color: #3d6e87;
+            --secondary-color: #b1c6d8;
+            --background-color: #f0f4f8;
+            --text-color: #2c3e50;
+            --card-background: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background: url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png') no-repeat center center fixed;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, rgba(177, 198, 216, 0.1) 0%, rgba(61, 110, 135, 0.1) 100%), 
+                        url('imagens/A_serene_magical_forest_with_vibrant_trees_glowing.png') no-repeat center center fixed;
             background-size: cover;
-            color: #4d4d4d; /* Cor mais suave para o texto */
-            backdrop-filter: brightness(0.8);
         }
-    
-        header {
-            background-color: rgba(222, 234, 240, 0.8); /* Cor pastel suave */
-            color: #4a4a4a;
-            padding: 20px 10px;
-            text-align: center;
-            border-bottom: 2px solid #d1e2e7; /* Adiciona um toque suave no final do header */
-        }
-    
-        header h1 {
-            font-size: 2.5em;
-            margin: 0;
-            color: #b1c6d8; /* Cor pastel suave para o título */
-        }
-    
-        header p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-            color: #7b8a91; /* Cor mais suave para o subtítulo */
-        }
-    
-        main {
+
+        .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 15px;
         }
-    
-        #about, #about-me {
-            background-color: rgba(255, 255, 255, 0.9); /* Mantém a transparência, mas com suavidade */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        header {
+            background-color: rgba(222, 234, 240, 0.9);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
             margin-bottom: 40px;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
         }
-    
-        #about h2, #about-me h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #5a6d7a; /* Cor suave e acolhedora */
+
+        #about, #about-me {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
-    
-        #about p, #about-me p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: #6c757d; /* Cor suave para o texto */
-        }
-    
-        .grid {
+
+        .characters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
         }
-    
-        .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        .character-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
-            padding: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
-    
-        .card img {
-            width: 100px;
-            margin-bottom: 10px;
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-    
-        .card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #4a7d8c; /* Cor suave para o título do card */
+
+        .character-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
         }
-    
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        .character-card h3 {
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
         }
-    
+
         footer {
-            background-color: rgba(222, 234, 240, 0.8); /* Cor pastel para footer */
-            color: #4a4a4a;
+            background-color: rgba(222, 234, 240, 0.9);
             text-align: center;
-            padding: 10px;
-            font-size: 0.9em;
-            border-top: 2px solid #d1e2e7; /* Linha suave para o footer */
+            padding: 20px 0;
+            color: var(--primary-color);
         }
-    
+
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
-    
-            header p {
-                font-size: 1em;
+
+            .characters-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
-    </style>    
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1>Floresta da Calma</h1>
+            <p>Empoderamento, Crescimento e Bem-Estar</p>
+        </div>
+    </header>
 
-<header>
-    <h1>Floresta da Calma</h1>
-    <p>Um espaço para encontrar tranquilidade e empoderamento</p>
-</header>
+    <main class="container">
+        <section id="about">
+            <h2 class="section-title">Sobre o Projeto</h2>
+            <p>
+                A Floresta da Calma é um espaço transformador dedicado ao crescimento pessoal e profissional. 
+                Cada personagem representa uma jornada única de superação, oferecendo ferramentas e suporte 
+                para mulheres que buscam empoderamento e autoconhecimento.
+            </p>
+            <p>
+                Nosso objetivo é criar um ambiente acolhedor onde vulnerabilidade se transforma em força, 
+                e desafios se tornam oportunidades de crescimento.
+            </p>
+        </section>
 
-<main>
-    <section id="about">
-        <h2>Sobre o Projeto</h2>
-        <p>Bem-vindo(a) à Floresta da Calma, um espaço criado para ajudar você a enfrentar desafios emocionais e se desenvolver profissionalmente. Aqui, cada personagem tem um propósito especial, seja ajudando com técnicas de respiração, controle da raiva ou empoderamento profissional.</p>
-        <p>Nosso objetivo é inspirar e acolher, promovendo o crescimento pessoal e profissional de maneira inclusiva.</p>
-    </section>
+        <section id="characters">
+            <h2 class="section-title">Conheça Nossos Personagens</h2>
+            <div class="characters-grid">
+                <div class="character-card" onclick="openCharacterPage('guia')">
+                    <img src="imagens/guia.png" alt="Guia">
+                    <h3>Guia</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('calmi')">
+                    <img src="imagens/calmi.png" alt="Calmi">
+                    <h3>Calmi</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('corina')">
+                    <img src="imagens/corina.png" alt="Corina">
+                    <h3>Corina</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('tempestade')">
+                    <img src="imagens/tempestade.png" alt="Tempestade">
+                    <h3>Tempestade</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('sos')">
+                    <img src="imagens/sos.png" alt="S.O.S">
+                    <h3>S.O.S</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('empodera')">
+                    <img src="imagens/empodera.png" alt="Empodera">
+                    <h3>Empodera</h3>
+                </div>
+                <div class="character-card" onclick="openCharacterPage('alia')">
+                    <img src="imagens/alia.png" alt="Alia">
+                    <h3>Alia</h3>
+                </div>
+            </div>
+        </section>
 
-    <section id="characters">
-        <h2>Conheça os Personagens</h2>
-        <div class="grid">
-            <div class="card" onclick="openCharacterPage('guia')" role="button">
-                <img src="imagens/guia.png" alt="Imagem do Guia">
-                <h3>Guia</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('calmi')" role="button">
-                <img src="imagens/calmi.png" alt="Imagem do Calmi">
-                <h3>Calmi</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('corina')" role="button">
-                <img src="imagens/corina.png" alt="Imagem da Corina">
-                <h3>Corina</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('tempestade')" role="button">
-                <img src="imagens/tempestade.png" alt="Imagem do Tempestade">
-                <h3>Tempestade</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('sos')" role="button">
-                <img src="imagens/sos.png" alt="Imagem do S.O.S">
-                <h3>S.O.S</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('empodera')" role="button">
-                <img src="imagens/empodera.png" alt="Imagem do Empodera">
-                <h3>Empodera</h3>
-            </div>
-            <div class="card" onclick="openCharacterPage('alia')" role="button">
-                <img src="imagens/alia.png" alt="Imagem do Empodera">
-                <h3>Alia</h3>
-     
-            </div>
-    </section>
+        <section id="about-me">
+            <h2 class="section-title">Sobre Mim</h2>
+            <p>
+                Minha jornada é mais do que código - é uma narrativa de transformação e resiliência. Como mãe, 
+                estudante de Engenharia da Computação e eterna aprendiz, descobri que a tecnologia pode ser 
+                uma poderosa ferramenta de empoderamento.
+            </p>
+            <p>
+                Após anos dedicados à maternidade, decidi me reinventar. Cada desafio se tornou um degrau, 
+                cada obstáculo uma oportunidade de crescimento. A Floresta da Calma nasceu dessa experiência - 
+                um espaço para acolher, inspirar e fortalecer mulheres em suas próprias jornadas de autodescoberta.
+            </p>
+        </section>
+    </main>
 
-    <section id="about-me">
-        <h2>Sobre Mim</h2>
-        <p>
-            Minha paixão por tecnologia vai além das linhas de código. Ela está na forma como acredito que ferramentas digitais podem transformar vidas, empoderar mulheres e trazer mais autonomia e possibilidades para quem, muitas vezes, não acredita no próprio potencial.
-            
-            Sou mãe, estudante de Engenharia da Computação e uma eterna aprendiz. Depois de anos dedicados à maternidade, decidi que era hora de me reinventar. Foi um caminho desafiador, cheio de dúvidas e recomeços, mas também repleto de aprendizados e conquistas.
-            
-            Criar este espaço foi como estender a mão que eu mesma precisei em vários momentos. Aqui, quero oferecer acolhimento, apoio e inspiração para mulheres que buscam se redescobrir, superar obstáculos e conquistar seus sonhos. Porque acredito que, juntas, podemos ir muito mais longe.
-        </p>
-    </section>
-</main>
+    <footer>
+        <p>&copy; 2024 Floresta da Calma. Todos os direitos reservados.</p>
+    </footer>
 
-<footer>
-    <p>&copy; 2024 Floresta da Calma. Todos os direitos reservados.Feito com ❤️ por Ana Carolina</p>
-</footer>
-
-<!-- Script para redirecionar -->
-<script>
-    function openCharacterPage(character) {
-        if (character === 'empodera') {
-            window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link';
-        } else {
-            window.location.href = `${character}/${character}.html`;
+    <script>
+        function openCharacterPage(character) {
+            if (character === 'empodera') {
+                window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link';
+            } else {
+                window.location.href = `${character}/${character}.html`;
+            }
         }
-    }
-</script>
+    </script>
 
-<!-- Chat Tídio -->
-<script src="//code.tidio.co/u5awo0oriqiumtyslty9caj4kvu8nbck.js" async></script>
-
+    <!-- Chat Tídio (mantido conforme original) -->
+    <script src="//code.tidio.co/u5awo0oriqiumtyslty9caj4kvu8nbck.js" async></script>
 </body>
 </html>
