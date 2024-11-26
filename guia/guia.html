@@ -1,205 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Guia para apoio emocional e suporte psicológico com recursos acessíveis para todos">
-    <title>Guia - Floresta da Calma | Seu espaço de acolhimento</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
+    <meta name="description" content="Plataforma de apoio emocional, tecnologia e empoderamento feminino">
+    <title>Floresta da Calma | Bem-estar & Tecnologia</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, rgba(233, 229, 220, 0.8), rgba(210, 233, 218, 0.8)),
+            background: linear-gradient(135deg, 
+                rgba(233, 229, 220, 0.8), 
+                rgba(210, 233, 218, 0.8)),
                 url('guia_background.png') no-repeat center center fixed;
             background-size: cover;
-            color: #4B4033; /* Tom pastel marrom */
+            color: #4B4033;
         }
-    
+
         .character-card {
-            background: #F0EDE4; /* Tom marrom claro */
-            border-left: 4px solid #91B89C; /* Verde pastel */
+            background: #F0EDE4;
+            border-left: 4px solid #91B89C;
             border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-    
+
         .character-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
-    
+
         .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 50;
-            background: #FFFFFF;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 400px;
-            animation: fadeIn 0.3s ease-in-out;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-    
-        .modal h3 {
-            font-size: 1.25rem;
-            color: #91B89C; /* Verde pastel */
-        }
-    
-        .modal p {
-            color: #665C51; /* Marrom suave */
-            margin-top: 0.5rem;
-        }
-    
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: #91B89C;
-            cursor: pointer;
-        }
-    
-        .modal-close:hover {
-            color: #6F9175; /* Verde um pouco mais escuro */
-        }
-    
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 40;
-        }
-    
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-    
-            to {
-                opacity: 1;
-            }
-        }
-    </style>    
+    </style>
 </head>
+<body class="antialiased">
+    <header class="bg-green-700 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Floresta da Calma</h1>
+            <nav>
+                <a href="#personagens" class="mx-2 hover:text-green-200">Personagens</a>
+                <a href="#feedback" class="mx-2 hover:text-green-200">Feedback</a>
+            </nav>
+        </div>
+    </header>
 
-<body>
-
-    <main class="container mx-auto px-6 pt-28 pb-16">
+    <main class="container mx-auto px-6 pt-16 pb-16">
         <section class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-semibold text-green-800 mb-6">
-                Bem-vindo ao seu espaço de acolhimento
+            <h2 class="text-4xl font-semibold text-green-800 mb-6 text-center">
+                Seu Espaço de Acolhimento e Empoderamento
             </h2>
-            <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-                Aqui você encontra apoio emocional e técnicas de autocuidado para todos os momentos.
-                Escolha seu guia e comece sua jornada de bem-estar.
+            <p class="text-xl text-gray-700 mb-12 text-center leading-relaxed">
+                Descubra guias para bem-estar emocional, inteligência artificial e desenvolvimento pessoal.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Calmi -->
-                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Calmi')">
+            <div id="personagens" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Personagens existentes -->
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Calmi')">
                     <h3 class="text-xl font-semibold text-green-700 mb-3">Calmi</h3>
-                    <p class="text-gray-600 mb-4">
-                        Técnicas de respiração e mindfulness para ajudar a controlar a ansiedade.
-                    </p>
+                    <p class="text-gray-600">Técnicas de respiração e mindfulness para controlar a ansiedade.</p>
                 </div>
 
-                <!-- Corina -->
-                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Corina')">
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Corina')">
                     <h3 class="text-xl font-semibold text-green-700 mb-3">Corina</h3>
-                    <p class="text-gray-600 mb-4">
-                        Apoio para autoestima e aceitação, lidando com pressões sociais.
-                    </p>
+                    <p class="text-gray-600">Apoio para autoestima e aceitação social.</p>
                 </div>
 
-                <!-- Tempestade -->
-                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Tempestade')">
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Tempestade')">
                     <h3 class="text-xl font-semibold text-green-700 mb-3">Tempestade</h3>
-                    <p class="text-gray-600 mb-4">
-                        Gerenciamento de raiva e impulsividade em situações desafiadoras.
-                    </p>
+                    <p class="text-gray-600">Gerenciamento de raiva e impulsividade.</p>
                 </div>
 
-                <!-- Guia -->
-                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Guia')">
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Guia')">
                     <h3 class="text-xl font-semibold text-green-700 mb-3">Guia</h3>
-                    <p class="text-gray-600 mb-4">
-                        Mentor pessoal com conselhos práticos para seu bem-estar.
-                    </p>
+                    <p class="text-gray-600">Mentor pessoal com conselhos práticos.</p>
                 </div>
 
-                <!-- Empodera -->
-                <div class="character-card bg-white p-6 rounded-lg" onclick="showTip('Empodera')">
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Empodera')">
                     <h3 class="text-xl font-semibold text-green-700 mb-3">Empodera</h3>
-                    <p class="text-gray-600 mb-4">
-                        Suporte para mulheres reconhecerem sua força e potencial.
-                    </p>
+                    <p class="text-gray-600">Suporte para mulheres reconhecerem seu potencial.</p>
                 </div>
 
-                <!-- S.O.S -->
-                <div class="character-card bg-white p-6 rounded-lg border-red-500" onclick="showTip('SOS')">
-                    <h3 class="text-xl font-semibold text-red-600 mb-3">S.O.S</h3>
-                    <p class="text-gray-600 mb-4">
-                        Suporte imediato para emergências emocionais.
-                    </p>
+                <!-- Nova Personagem: Alia -->
+                <div class="character-card p-6 rounded-lg" onclick="showTip('Alia')">
+                    <h3 class="text-xl font-semibold text-green-700 mb-3">Alia</h3>
+                    <p class="text-gray-600">Guia de Inteligência Artificial para mulheres profissionais.</p>
                 </div>
             </div>
 
             <!-- Formulário de Feedback -->
-            <div class="mt-16 bg-white p-8 rounded-lg shadow-sm">
-                <h2 class="text-2xl font-semibold text-green-700 mb-6">Compartilhe sua experiência</h2>
-                <form id="feedback-form" class="space-y-6">
+            <div id="feedback" class="mt-16 bg-white p-8 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-green-700 mb-6 text-center">
+                    Compartilhe sua Experiência
+                </h2>
+                <form class="space-y-6">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                        <input type="text" id="name" name="name" required
-                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nome</label>
+                        <input type="text" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
-
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
-                        <input type="email" id="email" name="email" required
-                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                        <input type="email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
-
                     <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
-                        <textarea id="message" name="message" rows="4" required
-                            class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mensagem</label>
+                        <textarea rows="4" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"></textarea>
                     </div>
-
-                    <button type="submit"
-                        class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
                         Enviar Feedback
                     </button>
                 </form>
-                <div class="success-message hidden text-green-600 text-center mt-4 py-2">
-                    Obrigado por compartilhar! Sua mensagem foi enviada com sucesso.
-                </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-green-800 text-white py-6 mt-16">
+    <footer class="bg-green-800 text-white py-8">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2024 Floresta da Calma. Todos os direitos reservados.</p>
-            <p class="mt-2 text-sm">Em caso de emergência, ligue 188 (CVV) - 24h por dia</p>
+            <p class="mt-2 text-sm"> Apoio: florestadacalma@gmail.com</p>
+            <div class="mt-4 flex justify-center space-x-4">
+               
+            </div>
         </div>
     </footer>
 
-    <div id="modal-overlay" class="hidden overlay"></div>
-    <div id="modal" class="hidden modal">
-        <button class="modal-close" onclick="closeTip()">&times;</button>
-        <h3 id="modal-title"></h3>
-        <p id="modal-content"></p>
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full relative">
+            <button onclick="closeTip()" class="absolute top-4 right-4 text-2xl">&times;</button>
+            <h3 id="modal-title" class="text-2xl font-bold text-green-700 mb-4"></h3>
+            <p id="modal-content" class="text-gray-700"></p>
+        </div>
     </div>
 
     <script>
@@ -209,21 +145,30 @@
             "Tempestade": "Aprenda com Tempestade a transformar raiva em energia para mudanças positivas.",
             "Guia": "O Guia orienta caminhos que promovem equilíbrio e paz.",
             "Empodera": "Empodera ajuda a criar ou ajustar currículos. Acesse o formulário na página dela.",
+            "Alia": "Alia é sua mentora em Inteligência Artificial. Aprenda a usar IAs para impulsionar sua carreira e networking.",
             "SOS": "SOS conecta você ao CVV e ferramentas rápidas para crises emocionais."
         };
 
         function showTip(character) {
-            document.getElementById('modal-overlay').classList.remove('hidden');
-            document.getElementById('modal').classList.remove('hidden');
-            document.getElementById('modal-title').textContent = character;
-            document.getElementById('modal-content').textContent = tips[character];
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+
+            title.textContent = character;
+            content.textContent = tips[character];
+
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
         }
 
         function closeTip() {
-            document.getElementById('modal-overlay').classList.add('hidden');
-            document.getElementById('modal').classList.add('hidden');
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById('modal');
+
+            overlay.classList.add('hidden');
+            modal.classList.add('hidden');
         }
     </script>
 </body>
-
-</html>                    
+</html>
