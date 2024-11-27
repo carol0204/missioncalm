@@ -7,6 +7,40 @@
     <title>Apoio Emocional - Você Não Está Sozinho</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
     <style>
+         /* Modern Menu Styles */
+         nav {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 10px 20px;
+        }
+
+        .menu li {
+            margin: 0 15px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            font-size: 1em;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
@@ -62,7 +96,19 @@
 <body class="custom-scroll min-h-screen bg-gradient-to-br from-green-50 to-blue-50 transition-colors duration-300"
       x-data="{ darkMode: false, fontSize: 'normal' }"
       :class="{ 'dark-mode': darkMode }">
-
+      <nav>
+        <ul class="menu">
+            <li><a href="/index.html">Início</a></li>
+            <li><a href="/guia/guia.html">Guia</a></li>
+            <li><a href="/calmi/calmi.html">Calmi</a></li>
+            <li><a href="/corina/corina.html">Corina</a></li>
+            <li><a href="/tempestade/tempestade.html">Tempestade</a></li>
+            <li><a href="/sos/sos.html">S.O.S</a></li>
+            <li><a href="/alia/alia.html">Alia</a></li>
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link">Empodera</a></li>
+        </ul>
+    </nav>
+    
     <!-- Barra de Acessibilidade -->
     <nav class="bg-white/90 backdrop-blur-sm fixed w-full z-50 shadow-sm" 
          :class="{ 'bg-gray-900/90': darkMode }">
