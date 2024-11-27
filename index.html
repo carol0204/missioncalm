@@ -8,6 +8,66 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+       /* Menu */
+       nav {
+            background-color: rgba(222, 234, 240, 0.9);
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            display: inline;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            color: var(--text-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+                display: none;
+                gap: 10px;
+            }
+
+            .menu.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
         :root {
             --primary-color: #3d6e87;
             --secondary-color: #b1c6d8;
@@ -122,6 +182,20 @@
     </style>
 </head>
 <body>
+    <nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+        <ul class="menu">
+            <li><a href="../index.html">Início</a></li>
+            <li><a href="../guia/guia.html">Guia</a></li>
+            <li><a href="../calmi/calmi.html">Calmi</a></li>
+            <li><a href="../corina/corina.html">Corina</a></li>
+            <li><a href="../tempestade/tempestade.html">Tempestade</a></li>
+            <li><a href="../sos/sos.html">S.O.S</a></li>
+            <li><a href="../alia/alia.html">Alia</a></li>
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfad9WGnXyAh22a0gI5X5icAeKAZS1sciVTDMuzlizR_Zx35g/viewform?usp=sf_link">Empodera</a></li>
+        </ul>
+    </nav>
+    
 
     <!-- Header -->
     <header>
@@ -205,6 +279,11 @@
             } else {
                 window.location.href = `${character}/${character}.html`;
             }
+        }
+      
+        function toggleMenu() {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('show');
         }
     </script>
 
