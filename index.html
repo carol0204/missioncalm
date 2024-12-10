@@ -9,6 +9,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+footer p {
+    font-size: 16px;
+    margin: 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    margin-top: 10px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #3b5998;  /* cor do Instagram */
+}
+
+footer i {
+    margin-right: 8px;
+    font-size: 24px;  /* Tamanho do ícone */
+}
+
         :root {
             --primary-color: #3d6e87;
             --secondary-color: #b1c6d8;
@@ -237,7 +266,10 @@
             <p>Empoderamento, Crescimento e Bem-Estar</p>
         </div>
     </header>
-
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    
     <main class="container">
         <section id="about">
             <h2 class="section-title">Sobre o Projeto</h2>
@@ -310,7 +342,11 @@
 
     <footer>
         <p>&copy; 2024 Floresta da Calma. Todos os direitos reservados.</p>
+        <a href="https://www.instagram.com/floresta_da_calma" target="_blank">
+            <i class="fab fa-instagram"></i> Siga-nos no Instagram
+        </a>
     </footer>
+    
 
     <script>
         function openCharacterPage(character) {
